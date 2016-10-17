@@ -1,9 +1,10 @@
-package com.example.mengmeng;
+package com.example.mengmeng.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import com.example.mengmeng.activity.R;
 /**
  * Created by 程和 on 2016/10/17.
  */

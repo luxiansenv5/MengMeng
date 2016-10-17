@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:id="@+id/drawer"
     android:background="#ffffff"
-    tools:context="com.example.mengmeng.DynamicMainActivity">
+    tools:context=".activity.DynamicMainActivity">
 
 
     <RelativeLayout

@@ -1,4 +1,4 @@
-package com.example.mengmeng;
+package com.example.mengmeng.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +9,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.mengmeng.fragment.PetringFragement;
+import com.example.mengmeng.activity.R;
 import com.example.mengmeng.pojo.Dynamic;
 import com.example.mengmeng.utils.NetUtil;
 

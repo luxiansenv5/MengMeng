@@ -1,4 +1,4 @@
-package com.example.mengmeng;
+package com.example.mengmeng.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.example.mengmeng.activity.R;
 import com.example.mengmeng.fragment.BaseFragment;
 import com.example.mengmeng.fragment.PetringFollowFragement;
 import com.example.mengmeng.fragment.PetringFragement;

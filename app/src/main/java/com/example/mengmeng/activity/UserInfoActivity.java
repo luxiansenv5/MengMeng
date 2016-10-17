@@ -1,4 +1,4 @@
-package com.example.mengmeng;
+package com.example.mengmeng.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.mengmeng.activity.R;
 import com.example.mengmeng.pojo.User;
 import com.example.mengmeng.utils.NetUtil;
 import com.google.gson.Gson;

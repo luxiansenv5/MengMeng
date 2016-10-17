@@ -1,4 +1,4 @@
-package com.example.mengmeng;
+package com.example.mengmeng.activity;
 
 import android.content.Intent;
 import android.support.v4.app.Fragment;
@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.RadioButton;
 
+import com.example.mengmeng.activity.R;
 import com.example.mengmeng.fragment.CommunicateFragment;
 import com.example.mengmeng.fragment.PetringFragement;
 import com.example.mengmeng.fragment.ServiceFragement;
