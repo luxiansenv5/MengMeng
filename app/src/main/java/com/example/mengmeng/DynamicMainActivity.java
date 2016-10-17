@@ -3,6 +3,7 @@ package com.example.mengmeng;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -23,6 +24,8 @@ public class DynamicMainActivity extends AppCompatActivity {
 
     int oldIndex;//用户看到的item
     int newIndex;//用户即将看到的item
+    private DrawerLayout drawer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +41,9 @@ public class DynamicMainActivity extends AppCompatActivity {
         tabs[0]=(RadioButton) findViewById(R.id.rb_main_pet_ring);//主页的button
         tabs[1]=(RadioButton) findViewById(R.id.rb_main_communicate);//主页的button
         tabs[2]=(RadioButton) findViewById(R.id.rb_main_service);//主页的button
+        drawer = ((DrawerLayout) findViewById(R.id.drawer));
+
+
         //界面初始显示第一个fragment;添加第一个fragment
         getSupportFragmentManager().beginTransaction().add(R.id.fl_content, fragments[0]).commit();
         //初始时，按钮1选中
