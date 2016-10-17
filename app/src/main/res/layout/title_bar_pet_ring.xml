@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!--<View-->
+            <!--android:id="@+id/struct1"-->
+            <!--android:background="#0f0"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="0dp"-->
+            <!--android:layout_marginTop="50dp"-->
+            <!--/>-->
+
+        <!--<FrameLayout-->
+            <!--android:id="@+id/fl_content1"-->
+            <!--android:background="#ffff"-->
+            <!--android:layout_toRightOf="@id/struct1"-->
+            <!--android:layout_alignTop="@id/struct1"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--&gt;-->
+        <!--</FrameLayout>-->
+        <RadioGroup
+            android:id="@+id/rg_tab1"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:background="#99ff0000">
+
+            <RadioButton
+                android:id="@+id/rb_hot"
+                android:text="热门"
+                android:layout_marginTop="0dp"
+                android:button="@null"
+                android:gravity="center"
+                android:layout_width="80dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="78dp"
+                />
+            <RadioButton
+                android:id="@+id/rb_friends"
+                android:text="好友"
+                android:layout_marginTop="0dp"
+                android:button="@null"
+                android:gravity="center"
+                android:layout_width="80dp"
+                android:layout_height="50dp" />
+            <RadioButton
+                android:id="@+id/rb_concern"
+                android:text="关注"
+                android:layout_marginTop="0dp"
+                android:button="@null"
+                android:gravity="center"
+                android:layout_width="80dp"
+                android:layout_height="50dp"/>
+
+
+        </RadioGroup>
+        <ImageButton
+            android:id="@+id/ib_mine"
+            android:layout_width="70dp"
+            android:layout_height="50dp"
+            android:src="@drawable/head"
+            android:background="@android:color/transparent"
+            android:layout_marginTop="0dp"
+            />
+        <ImageButton
+            android:id="@+id/ib_paizhao"
+            android:layout_width="70dp"
+            android:layout_height="50dp"
+            android:src="@drawable/camera"
+            android:background="@android:color/transparent"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="0dp"
+            />
+
+    </RelativeLayout>
+
+</LinearLayout>
