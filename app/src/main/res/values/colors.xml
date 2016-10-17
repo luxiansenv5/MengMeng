@@ -5,4 +5,7 @@
     <color name="colorAccent">#FF4081</color>
     <color name="common_bg">#fcfcfc</color>
     <color name="border_clo">#ccc</color>
+    <color name="white">#fff</color>
+    <color name="blue">#009DD9</color>
+    <color name="pary">#E4E4E4</color>
 </resources>

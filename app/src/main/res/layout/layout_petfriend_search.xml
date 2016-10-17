@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/petsearch_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <TextView
+            android:id="@+id/tv_petfriend_input"
+            android:text="请输入萌萌号或昵称"
+            android:textSize="23sp"
+            android:paddingTop="10dp"
+            android:paddingLeft="20dp"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/white"
+            android:background="@color/pary"
+            android:layout_marginTop="8dp"
+            android:layout_alignParentLeft="true"
+            android:layout_width="260dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:id="@+id/tv_cancel"
+            android:text="取消"
+            android:paddingTop="5dp"
+            android:textSize="30sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:paddingLeft="20dp"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/blue"
+            android:layout_width="100dp"
+            android:layout_height="50dp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_below="@+id/petsearch_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="70dp">
+
+        <TextView
+            android:id="@+id/tv_searchhistory"
+            android:text="搜索历史"
+            android:textSize="30sp"
+            android:textColor="@color/white"
+            android:background="@color/blue"
+            android:paddingTop="15dp"
+            android:paddingLeft="110dp"
+            android:layout_width="match_parent"
+            android:layout_height="100dp" />
+
+        <ListView
+            android:id="@+id/lv_history"
+            android:layout_below="@+id/tv_searchhistory"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </ListView>
+
+    </RelativeLayout>
+
+</RelativeLayout>
