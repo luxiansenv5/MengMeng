@@ -30,8 +30,69 @@
 
     </android.support.v7.widget.Toolbar>
 
+    <LinearLayout
+        android:id="@+id/provence_kind"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:layout_below="@+id/toobar"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:background="#ffffff">
+
+        <RelativeLayout android:layout_width="0dp"
+            android:id="@+id/prod_list_rl_pop"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/id_prod_list_sort_left"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="省     份"
+                android:textColor="@android:color/black"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:layout_gravity="center_vertical"
+                />
+
+        </RelativeLayout>
+
+        <!-- 中间的分割线 -->
+        <View
+            style="@style/md_line"
+            android:layout_gravity="center_vertical"
+            />
+
+
+        <RelativeLayout
+            android:id="@+id/prod_list_pop_two"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/id_prod_list_sort_right"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="全     部"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                android:gravity="center"
+                android:layout_gravity="center_vertical"
+                />
+            <ImageView
+                android:id="@+id/id_prod_list_sort_right_trangle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="15dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/convert_trangle"
+
+                />
+        </RelativeLayout>
+    </LinearLayout>
+
     <ListView
-        android:layout_below="@id/toobar"
+        android:layout_below="@id/provence_kind"
         android:id="@+id/lv_petInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

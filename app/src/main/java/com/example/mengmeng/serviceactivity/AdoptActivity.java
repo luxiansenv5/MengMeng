@@ -43,6 +43,13 @@ public class AdoptActivity extends AppCompatActivity {
 
         Log.i("adoptAvtibity","===========onCreate");
 
+        initData();
+
+        initEvent();
+    }
+
+
+    public void initData(){
         adapter=new BaseAdapter() {
             @Override
             public int getCount() {
@@ -82,6 +89,9 @@ public class AdoptActivity extends AppCompatActivity {
         lv_petInfo.setAdapter(adapter);
 
         getPetInfoList();
+    }
+
+    public void initEvent(){
 
         btn_publish.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,7 +100,6 @@ public class AdoptActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
 
     private void getPetInfoList() {
