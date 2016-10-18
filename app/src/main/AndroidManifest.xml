@@ -21,6 +21,8 @@
         <activity android:name=".DynamicInfoActivity"/>
         <activity android:name=".UserInfoActivity"/>
         <activity android:name=".ReleaseActivity"/>
+        <activity android:name="com.example.mengmeng.serviceactivity.AdoptActivity"/>
+        <activity android:name="com.example.mengmeng.serviceactivity.SelectPet"/>
     </application>
 
 </manifest>
