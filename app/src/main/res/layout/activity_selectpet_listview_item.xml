@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/iv_petPhoto"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/baodian"/>
+
+    <TextView
+        android:id="@+id/tv_petName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000"
+        android:layout_toRightOf="@id/iv_petPhoto"
+        android:layout_alignTop="@id/iv_petPhoto"
+        android:textSize="24sp"
+        android:layout_marginLeft="20dp"
+        android:text="二哈"/>
+
+    <TextView
+        android:id="@+id/tv_petType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000"
+        android:layout_toRightOf="@id/iv_petPhoto"
+        android:layout_alignBottom="@id/iv_petPhoto"
+        android:layout_marginLeft="20dp"
+        android:textSize="24sp"
+        android:text="哈士奇"/>
+
+    <TextView
+        android:id="@+id/tv_petAge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000"
+        android:layout_toRightOf="@id/tv_petType"
+        android:layout_alignBottom="@id/iv_petPhoto"
+        android:layout_marginLeft="20sp"
+        android:textSize="24sp"
+        android:text="1岁"/>
+
+</RelativeLayout>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    tools:context="com.example.mengmeng.serviceactivity.AdoptActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toobar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#0176da">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="领养"
+            android:textSize="26sp"
+            android:layout_marginLeft="170dp"/>
+
+        <Button
+            android:id="@+id/btn_publish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="发布"
+            android:textSize="20sp"
+            android:layout_marginLeft="100dp"
+            android:background="#0176da"/>
+
+    </android.support.v7.widget.Toolbar>
+
+    <ListView
+        android:layout_below="@id/toobar"
+        android:id="@+id/lv_petInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+    </ListView>
+
+</RelativeLayout>
