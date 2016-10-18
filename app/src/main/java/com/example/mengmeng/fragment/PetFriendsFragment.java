@@ -1,5 +1,6 @@
 package com.example.mengmeng.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mengmeng.activity.CommunicatePetFriendAdd;
+import com.example.mengmeng.activity.CommunicatePetFriendSearch;
 import com.example.mengmeng.activity.R;
 import com.example.mengmeng.pojo.FriInfoBean;
 import com.example.mengmeng.utils.HttpUtils;
@@ -159,8 +162,12 @@ public class PetFriendsFragment extends BaseFragment {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_search:
+                Intent intent = new Intent(getActivity(), CommunicatePetFriendSearch.class);
+                startActivity(intent);
                 break;
             case R.id.iv_petfriend_add:
+                Intent intent1 = new Intent(getActivity(), CommunicatePetFriendAdd.class);
+                startActivity(intent1);
                 break;
         }
     }

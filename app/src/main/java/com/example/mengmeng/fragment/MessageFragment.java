@@ -21,6 +21,8 @@ public class MessageFragment extends BaseFragment {
         return v;
     }
 
+
+
     @Override
     public void initView() {
 
