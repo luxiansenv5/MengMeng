@@ -29,6 +29,7 @@
             android:layout_height="60dp" />
 
         <TextView
+            android:id="@+id/add_group"
             android:text="添加群组"
             android:layout_toRightOf="@+id/tv_input"
             android:paddingTop="13dp"

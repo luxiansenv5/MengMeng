@@ -6,6 +6,7 @@
 <RelativeLayout
     android:id="@+id/petfriend_bottom"
     android:layout_width="match_parent"
+    android:background="@color/pray2"
     android:layout_height="60dp">
 
 
