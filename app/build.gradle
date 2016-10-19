@@ -26,4 +26,5 @@ dependencies {
     compile 'org.xutils:xutils:3.3.36'
     compile 'io.github.openfeign:feign-gson:9.3.1'
     compile 'com.jakewharton:butterknife:5.1.1'
+    compile files('libs/nineoldandroids-2.4.0.jar')
 }
