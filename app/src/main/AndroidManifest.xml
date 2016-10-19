@@ -31,6 +31,9 @@
         <activity android:name=".CommunicateGroupActivity" />
         <activity android:name=".CommunicatePetFriendAdd" />
         <activity android:name=".CommunicatePetFriendSearch"></activity>
+        <activity android:name=".MainActivity">
+
+        </activity>
     </application>
 
 </manifest>
