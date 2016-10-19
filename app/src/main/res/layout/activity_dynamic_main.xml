@@ -3,14 +3,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/drawer"
-    android:background="#ffffff"
-    tools:context=".activity.DynamicMainActivity">
+    android:id="@+id/id_drawerLayout"
+    android:background="@drawable/img_frame_background"
+
+    tools:context=".DynamicMainActivity">
 
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/img_main_background"
+        >
+        <Button
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/youce"
+            android:onClick="OpenRightMenu" />
+        <Button
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/youce"
+            android:onClick="OpenLeftMenu" />
         <View
             android:id="@+id/struct"
             android:background="#f00"
@@ -62,16 +79,30 @@
 
     </RelativeLayout>
 
-    <ListView
-        android:id="@+id/left_drawer"
-        android:layout_width="280dp"
+    <!--<ListView-->
+        <!--android:id="@+id/left_drawer"-->
+        <!--android:layout_width="280dp"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_gravity="start"-->
+        <!--android:background="#fff"-->
+        <!--android:choiceMode="singleChoice"-->
+        <!--android:divider="@android:color/transparent"-->
+        <!--android:dividerHeight="0dp" />-->
+    <fragment
+        android:id="@+id/id_left_menu"
+        android:name="com.example.mengmeng.fragment.MenuLeftFragment"
+        android:layout_width="200dp"
         android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:background="#fff"
-        android:choiceMode="singleChoice"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="0dp" />
+        android:layout_gravity="left"
+        android:tag="LEFT" />
 
+    <fragment
+        android:id="@+id/id_right_menu"
+        android:name="com.example.mengmeng.fragment.MenuRightFragment"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="right"
+        android:tag="RIGHT" />
 
 
 </android.support.v4.widget.DrawerLayout>
