@@ -14,6 +14,11 @@ public class PetInfo {
 	public PetInfo(){
 		
 	}
+	public PetInfo(String petName,String petKind){
+
+		this.petName = petName;
+		this.petKind = petKind;
+	}
 	
 	public PetInfo(Integer petId, Integer userId, String petName,
 			String petType, Integer petAge, String petPhoto, Boolean petSex,
