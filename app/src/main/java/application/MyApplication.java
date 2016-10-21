@@ -2,6 +2,8 @@ package application;
 
 import android.app.Application;
 
+import com.example.mengmeng.pojo.User;
+
 import org.xutils.BuildConfig;
 import org.xutils.x;
 
@@ -10,6 +12,16 @@ import org.xutils.x;
  * Created by 程和 on 2016/10/14.
  */
 public class MyApplication extends Application{
+
+    private User user=new User(1,null,null,null,false,null);
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     @Override
     public void onCreate() {

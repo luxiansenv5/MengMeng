@@ -3,7 +3,8 @@
     package="com.example.mengmeng.activity">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITEEXTERNALSTORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:name="application.MyApplication"
@@ -30,9 +31,10 @@
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity android:name=".CommunicateGroupActivity" />
         <activity android:name=".CommunicatePetFriendAdd" />
-        <activity android:name=".CommunicatePetFriendSearch"></activity>
-        <activity android:name=".MainActivity">
-
+        <activity android:name=".CommunicatePetFriendSearch" />
+        <activity android:name=".MainActivity"></activity>
+        <activity android:name="com.example.mengmeng.serviceactivity.TakePhotoActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
         </activity>
     </application>
 

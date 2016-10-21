@@ -35,8 +35,8 @@ public class AdoptActivity extends AppCompatActivity {
 
     List<String> kindContents = new ArrayList<String>();
     private Integer queryFlag=1;
-    private Integer pageNo;
-    private Integer pageSize;
+//    private Integer pageNo;
+//    private Integer pageSize;
 
     private ListView lv_petInfo;
     private BaseAdapter adapter;
@@ -70,43 +70,6 @@ public class AdoptActivity extends AppCompatActivity {
         kindContents.add("猫");
         kindContents.add("其他");
 
-        adapter = new BaseAdapter() {
-            @Override
-            public int getCount() {
-                return adoptLists.size();
-            }
-
-            @Override
-            public Object getItem(int i) {
-                return null;
-            }
-
-            @Override
-            public long getItemId(int i) {
-                return 0;
-            }
-
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-
-                View view = View.inflate(AdoptActivity.this, R.layout.activity_adopt_listview_item, null);
-                TextView tv_petName = ((TextView) view.findViewById(R.id.tv_petName));
-                TextView tv_petType = ((TextView) view.findViewById(R.id.tv_petType));
-                TextView tv_petAge = ((TextView) view.findViewById(R.id.tv_petAge));
-                ImageView iv_petPhoto = ((ImageView) view.findViewById(R.id.iv_petPhoto));
-
-                PetInfo petInfo = adoptLists.get(position);
-                tv_petName.setText(petInfo.petName);
-                tv_petType.setText(petInfo.petType);
-                tv_petAge.setText(petInfo.petAge.toString().trim() + "岁");
-                xUtilsImageUtils.display(iv_petPhoto, HttpUtils.HOST + petInfo.petPhoto, true);
-
-                return view;
-            }
-        };
-
-        lv_petInfo.setAdapter(adapter);
-
         getAdoaptInfo();
     }
 
@@ -132,8 +95,8 @@ public class AdoptActivity extends AppCompatActivity {
 
         RequestParams params = new RequestParams(HttpUtils.HOST + "queryadoapt");
         params.addQueryStringParameter("queryFlag",queryFlag+"");//排序标记
-        params.addQueryStringParameter("pageNo",pageNo+"");
-        params.addQueryStringParameter("pageSize",pageSize+"");
+//        params.addQueryStringParameter("pageNo",pageNo+"");
+//        params.addQueryStringParameter("pageSize",pageSize+"");
 
         x.http().get(params, new Callback.CommonCallback<String>() {
             @Override
@@ -142,7 +105,48 @@ public class AdoptActivity extends AppCompatActivity {
                 Type type=new TypeToken<List<PetInfo>>(){}.getType();
                 adoptLists=gson.fromJson(result,type);
 
-                adapter.notifyDataSetChanged();
+                if (adapter==null){
+                    adapter = new BaseAdapter() {
+                        @Override
+                        public int getCount() {
+                            return adoptLists.size();
+                        }
+
+                        @Override
+                        public Object getItem(int i) {
+                            return null;
+                        }
+
+                        @Override
+                        public long getItemId(int i) {
+                            return 0;
+                        }
+
+                        @Override
+                        public View getView(int position, View convertView, ViewGroup parent) {
+
+                            View view = View.inflate(AdoptActivity.this, R.layout.activity_adopt_listview_item, null);
+                            TextView tv_petName = ((TextView) view.findViewById(R.id.tv_petName));
+                            TextView tv_petType = ((TextView) view.findViewById(R.id.tv_petType));
+                            TextView tv_petAge = ((TextView) view.findViewById(R.id.tv_petAge));
+                            ImageView iv_petPhoto = ((ImageView) view.findViewById(R.id.iv_petPhoto));
+
+                            PetInfo petInfo = adoptLists.get(position);
+                            tv_petName.setText(petInfo.petName);
+                            tv_petType.setText(petInfo.petType);
+                            tv_petAge.setText(petInfo.petAge.toString().trim() + "岁");
+                            xUtilsImageUtils.display(iv_petPhoto, HttpUtils.HOST + petInfo.petPhoto, true);
+
+                            return view;
+                        }
+                    };
+
+                    lv_petInfo.setAdapter(adapter);
+                }else {
+
+                    adapter.notifyDataSetChanged();
+                }
+
             }
 
             @Override
