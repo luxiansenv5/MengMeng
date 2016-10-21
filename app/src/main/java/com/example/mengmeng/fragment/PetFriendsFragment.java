@@ -97,6 +97,7 @@ public class PetFriendsFragment extends BaseFragment {
                 List<ContactsInfoBean> newConList =new ArrayList<ContactsInfoBean>();
 
                 newConList= gson.fromJson(result,type);//解析成list<ContactsInfoBean>
+                System.out.println(result);
                 contactsInfoBeanList.clear();
                 contactsInfoBeanList.addAll(newConList);
 
@@ -126,11 +127,12 @@ public class PetFriendsFragment extends BaseFragment {
                         TextView tv_petName = ((TextView) view.findViewById(R.id.tv_petName));
                         TextView tv_petkind = ((TextView) view.findViewById(R.id.tv_petkind));
 
-                        System.out.println(HttpUtils.HOST_COMMUNICATIE+contactsInfoBeanList.get(position).getUserInfo().getUserPhoto());
-                        xUtilsImageUtils.display(iv_photo,HttpUtils.HOST_COMMUNICATIE+contactsInfoBeanList.get(position).getUserInfo().getUserPhoto(),true);
+                        //System.out.println(HttpUtils.HOST_COMMUNICATIE+contactsInfoBeanList.get(position).getUser().getUserPhoto());
+                        xUtilsImageUtils.display(iv_photo,HttpUtils.HOST_COMMUNICATIE+contactsInfoBeanList.get(position).getUser().getUserPhoto(),true);
                         tv_petName.setText(contactsInfoBeanList.get(position).getPetInfo().petName);
-                        tv_friName.setText(contactsInfoBeanList.get(position).getUserInfo().getUserName());
-                        tv_address.setText(contactsInfoBeanList.get(position).getUserInfo().getAddress());
+                        System.out.println(contactsInfoBeanList.get(position).getUser().getUserName());
+                        tv_friName.setText(contactsInfoBeanList.get(position).getUser().getUserName());
+                        tv_address.setText(contactsInfoBeanList.get(position).getUser().getAddress());
                         tv_petkind.setText(contactsInfoBeanList.get(position).getPetInfo().petKind);
 
                         return view;
