@@ -11,19 +11,23 @@
         android:background="@drawable/qq" >
 
         <Button
+
             android:layout_width="40dp"
             android:layout_height="30dp"
+            android:onClick="OpenRightMenu"
             android:layout_marginTop="10dp"
             android:layout_alignParentRight="true"
             android:background="@drawable/youce"
-            android:onClick="OpenRightMenu" />
+            />
         <Button
+            android:id="@+id/OpenLeftMenu"
             android:layout_width="40dp"
             android:layout_height="30dp"
             android:layout_marginTop="10dp"
             android:layout_alignParentLeft="true"
             android:background="@drawable/youce"
-            android:onClick="OpenLeftMenu" />
+            android:onClick="OpenLeftMenu"
+             />
     </RelativeLayout>
 
     <fragment

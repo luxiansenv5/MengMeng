@@ -15,19 +15,21 @@
         android:background="@drawable/img_main_background"
         >
         <Button
+            android:id="@+id/OpenRightMenu"
             android:layout_width="40dp"
             android:layout_height="30dp"
             android:layout_marginTop="10dp"
             android:layout_alignParentRight="true"
             android:background="@drawable/youce"
-            android:onClick="OpenRightMenu" />
+            />
         <Button
+            android:id="@+id/OpenLeftMenu"
             android:layout_width="40dp"
             android:layout_height="30dp"
             android:layout_marginTop="10dp"
             android:layout_alignParentLeft="true"
             android:background="@drawable/youce"
-            android:onClick="OpenLeftMenu" />
+            />
         <View
             android:id="@+id/struct"
             android:background="#f00"
