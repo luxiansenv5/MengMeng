@@ -3,21 +3,26 @@ package com.example.mengmeng.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.example.mengmeng.DynamicInfoActivity;
-import com.example.mengmeng.R;
-import com.example.mengmeng.ReleaseActivity;
-import com.example.mengmeng.UserInfoActivity;
+import com.example.mengmeng.activity.AllDynamicActivity;
+import com.example.mengmeng.activity.DynamicInfoActivity;
+import com.example.mengmeng.activity.R;
+import com.example.mengmeng.activity.ReleaseActivity;
+import com.example.mengmeng.activity.UserInfoActivity;
 import com.example.mengmeng.pojo.Dynamic;
 import com.example.mengmeng.utils.CommonAdapter;
 import com.example.mengmeng.utils.NetUtil;
@@ -40,117 +45,108 @@ import butterknife.ButterKnife;
  */
 public class PetringFragement extends BaseFragment  {
 
-    CommonAdapter<Dynamic> dynamicsAdapter;
-    List<Dynamic> dynamics = new ArrayList<>();//存放动态信息
-
-    private ListView lvDynamics;
+    List<BaseFragment> lists = new ArrayList<BaseFragment>();
+    private RadioButton rbFriends;
+    private RadioButton rbHot;
+    private RadioButton rbConcern;
+    private ImageButton ibPaizhao;
+    private ImageButton ibMine;
+    private ViewPager dynamic_vp;
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable final Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_dynamic_all, null);
-        lvDynamics= (ListView) v.findViewById(R.id.lv_dynamics);
+        dynamic_vp = ((ViewPager) v.findViewById(R.id.dynamic_fragment_viewpager));
+        rbConcern = ((RadioButton) v.findViewById(R.id.rb_concern));
+        rbHot = ((RadioButton) v.findViewById(R.id.rb_hot));
+        rbFriends = ((RadioButton) v.findViewById(R.id.rb_friends));
+        ibPaizhao=(ImageButton)v.findViewById(R.id.ib_paizhao);
+        ibMine=(ImageButton)v.findViewById(R.id.ib_mine);
+
+        ibPaizhao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getActivity(), ReleaseActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        rbFriends.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    dynamic_vp.setCurrentItem(1);
+                }
+            }
+        });
+        rbHot.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    dynamic_vp.setCurrentItem(0);
+                }
+            }
+        });
+        rbConcern.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    dynamic_vp.setCurrentItem(2);
+                }
+            }
+        });
+
+
+        lists.add(new PetringAllFragment());
+        lists.add(new PetringFriendFragement());
+        lists.add(new PetringFollowFragement());
+
+
+
+        dynamic_vp.setAdapter(new FragmentPagerAdapter(getChildFragmentManager()) {
+            @Override
+            public Fragment getItem(int position) {
+                return lists.get(position);
+
+            }
+            @Override
+            public int getCount() {
+                return lists.size();
+            }
+        });
+
+        dynamic_vp.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
         return v;
     }
 
     @Override
     public void initView() {
-
     }
 
     @Override
     public void initEvent() {
-        lvDynamics.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getActivity(), DynamicInfoActivity.class);
-                intent.putExtra("dynamicInfo", dynamics.get(position));
-                startActivityForResult(intent, 1);
-            }
-        });
-
     }
 
     @Override
     public void initData() {
-        getData();
     }
-
-    //获取网络数据
-    public void getData() {
-        RequestParams requestParams = new RequestParams(NetUtil.url + "DynamicQueryServlet");
-
-        x.http().get(requestParams, new Callback.CommonCallback<String>() {
-
-            @Override
-            public void onSuccess(String result) {
-                Gson gson = new Gson();
-                Type type = new TypeToken<List<Dynamic>>() {
-                }.getType();
-                List<Dynamic> newDynamic = new ArrayList<Dynamic>();
-                newDynamic = gson.fromJson(result, type);//解析成List<Dynamic>
-                dynamics.clear();// 清空原来数据
-                dynamics.addAll(newDynamic);
-
-                //设置listview的adpter
-                if (dynamicsAdapter == null) {
-                    dynamicsAdapter = new CommonAdapter<Dynamic>(getActivity(), dynamics, R.layout.layout_dynamic) {
-                        @Override
-                        public void convert(ViewHolder viewHolder, final Dynamic dynamic, int position) {
-                            //取件赋值
-                            ImageView ivHead = viewHolder.getViewById(R.id.im_dynamic_head);
-                            x.image().bind(ivHead, NetUtil.photo_url + dynamic.getUser().getUserPhoto());
-
-                            final TextView tvName = viewHolder.getViewById(R.id.tv_dynamic_name);
-                            tvName.setText(dynamic.getUser().getUserName());
-
-                            TextView tvTime = viewHolder.getViewById(R.id.tv_dynamic_time);
-                            tvTime.setText(dynamic.getReleaseTime() + "");
-
-                            TextView tvContent = viewHolder.getViewById(R.id.tv_dynamic_content);
-                            tvContent.setText(dynamic.getReleaseText());
-
-                            ImageView ivImag = viewHolder.getViewById(R.id.iv_dynamic_imag);
-                            x.image().bind(ivImag, NetUtil.picture_url + dynamic.getPicture());
-
-                            TextView tvPlace = viewHolder.getViewById(R.id.tv_dynamic_place);
-                            tvPlace.setText(dynamic.getPlace());
-
-                            //设置点击事件
-                            ivHead.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    Intent intent=new Intent(getActivity(),UserInfoActivity.class);
-                                    intent.putExtra("userId",dynamic.getUser().getUserId()+"");
-                                    startActivity(intent);
-                                }
-                            });
-                        }
-                    };
-                    lvDynamics.setAdapter(dynamicsAdapter);
-                } else {
-                    dynamicsAdapter.notifyDataSetChanged();
-                }
-            }
-
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-
-            }
-
-            @Override
-            public void onCancelled(CancelledException cex) {
-
-            }
-
-            @Override
-            public void onFinished() {
-
-            }
-        });
-    }
-
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();

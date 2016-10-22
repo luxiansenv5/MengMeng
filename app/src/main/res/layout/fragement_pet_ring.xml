@@ -4,18 +4,17 @@
     android:layout_height="match_parent"
     android:background="@color/common_bg">
 
-    <!-- 首页上面的选择框 -->
-    <include android:id="@+id/title_choice"
-        layout="@layout/title_bar_pet_ring"/>
+
     <View
         style="@style/bg_line"
         android:id="@+id/id_prod_list_sort_line1"
-        android:layout_below="@id/title_choice"/>
+        android:layout_marginTop="50dp"/>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/Dynamic_fragment_viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#ccc"
         android:layout_below="@id/id_prod_list_sort_line1"
         >
     </android.support.v4.view.ViewPager>

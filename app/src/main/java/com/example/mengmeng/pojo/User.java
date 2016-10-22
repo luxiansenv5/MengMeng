@@ -12,6 +12,9 @@ public class User implements Parcelable {
 	public User(){
 		
 	}
+	public User(Integer userId){
+		this.userId = userId;
+	}
 	
 	public User(Integer userId, String userName, String userPhoto) {
 		super();

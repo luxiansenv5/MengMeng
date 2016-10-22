@@ -1,4 +1,4 @@
-package com.example.mengmeng;
+package com.example.mengmeng.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +9,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.mengmeng.fragment.PetringFragement;
+import com.example.mengmeng.activity.R;
 import com.example.mengmeng.pojo.Dynamic;
 import com.example.mengmeng.utils.NetUtil;
 
@@ -90,6 +90,8 @@ public class DynamicInfoActivity extends AppCompatActivity {
                 startActivity(intent);
                 break;
             case R.id.ib_dynamic_info_photo:
+                Intent intent1=new Intent(this,UserInfoActivity.class);
+                startActivity(intent1);
                 break;
             case R.id.ib_dynamic_info_concern:
                 break;

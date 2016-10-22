@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.mengmeng.R;
+import com.example.mengmeng.activity.R;
 
 /**
  * Created by 程和 on 2016/10/14.
