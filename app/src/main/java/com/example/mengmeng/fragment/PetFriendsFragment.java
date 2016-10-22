@@ -15,14 +15,17 @@ import android.widget.Toast;
 import com.example.mengmeng.activity.CommunicatePetFriendAdd;
 import com.example.mengmeng.activity.CommunicatePetFriendSearch;
 import com.example.mengmeng.activity.R;
-import com.example.mengmeng.pojo.FriInfoBean;
+import com.example.mengmeng.pojo.ContactsInfoBean;
 import com.example.mengmeng.utils.HttpUtils;
+import com.example.mengmeng.utils.xUtilsImageUtils;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,12 +49,13 @@ public class PetFriendsFragment extends BaseFragment {
     ListView lvPetfriend;
     private BaseAdapter adapter;
 
-    final List<FriInfoBean.FriInfo> friinfoList = new ArrayList<FriInfoBean.FriInfo>();
+    public static final Integer USERID = 1;
+
+
+    final List<ContactsInfoBean> contactsInfoBeanList = new ArrayList<ContactsInfoBean>();
 
     private ListView lv_petfriend;
 
-    //compile 'com.jakewharton:butterknife:5.1.1'
-    // compile 'com.jakewharton:butterknife-compiler:8.4.0'
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragent_layout_pet_friend, null);
@@ -64,45 +68,10 @@ public class PetFriendsFragment extends BaseFragment {
     public void initView() {
 
 
-        adapter = new BaseAdapter() {
-            @Override
-            public int getCount() {
-                return friinfoList.size();
-            }
-
-            @Override
-            public Object getItem(int position) {
-                return null;
-            }
-
-            @Override
-            public long getItemId(int position) {
-                return 0;
-            }
-
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-
-                View view = View.inflate(getActivity(), R.layout.list_view_item_activity, null);
-                ImageView iv_photo = ((ImageView) view.findViewById(R.id.iv_photo));
-                TextView tv_friName = ((TextView) view.findViewById(R.id.tv_friName));
-                TextView tv_address = ((TextView) view.findViewById(R.id.tv_address));
-                TextView tv_petName = ((TextView) view.findViewById(R.id.tv_petName));
-                TextView tv_petkind = ((TextView) view.findViewById(R.id.tv_petkind));
-
-                FriInfoBean.FriInfo friInfo = friinfoList.get(position);
-                iv_photo.setImageResource(R.drawable.add);
-                tv_friName.setText(friInfo.friName);
-                tv_address.setText(friInfo.address);
-                tv_petName.setText(friInfo.petName);
-                tv_petkind.setText(friInfo.petKind);
-
-                return view;
-            }
-        };
-        lv_petfriend.setAdapter(adapter);
-
     }
+
+
+
 
     @Override
     public void initData() {
@@ -117,20 +86,60 @@ public class PetFriendsFragment extends BaseFragment {
 
     private void getFriInfoList() {
 
-        RequestParams params = new RequestParams(HttpUtils.HOST_COMMUNICATIE + "getfriinfobypage");
-
+        RequestParams params = new RequestParams(HttpUtils.HOST_COMMUNICATIE + "getcontactinfobypage");
+        params.addBodyParameter("userId",USERID+"");
         x.http().get(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
                 Gson gson = new Gson();
-                FriInfoBean bean = gson.fromJson(result, FriInfoBean.class);
 
-                System.out.println(bean.status);
-                System.out.println(bean.friInfoList);
+                Type type = new TypeToken<List<ContactsInfoBean>>(){}.getType();
+                List<ContactsInfoBean> newConList =new ArrayList<ContactsInfoBean>();
 
-                friinfoList.addAll(bean.friInfoList);
-                adapter.notifyDataSetChanged();
-                System.out.println(bean.friInfoList.size() + "------");
+                newConList= gson.fromJson(result,type);//解析成list<ContactsInfoBean>
+                System.out.println(result);
+                contactsInfoBeanList.clear();
+                contactsInfoBeanList.addAll(newConList);
+
+                adapter=new BaseAdapter() {
+                    @Override
+                    public int getCount() {
+                        return contactsInfoBeanList.size();
+                    }
+
+                    @Override
+                    public Object getItem(int position) {
+                        return null;
+                    }
+
+                    @Override
+                    public long getItemId(int position) {
+                        return 0;
+                    }
+
+                    @Override
+                    public View getView(int position, View convertView, ViewGroup parent) {
+
+                        View view = View.inflate(getActivity(), R.layout.list_view_item_activity, null);
+                        ImageView iv_photo = ((ImageView) view.findViewById(R.id.iv_photo));
+                        TextView tv_friName = ((TextView) view.findViewById(R.id.tv_friName));
+                        TextView tv_address = ((TextView) view.findViewById(R.id.tv_address));
+                        TextView tv_petName = ((TextView) view.findViewById(R.id.tv_petName));
+                        TextView tv_petkind = ((TextView) view.findViewById(R.id.tv_petkind));
+
+                        //System.out.println(HttpUtils.HOST_COMMUNICATIE+contactsInfoBeanList.get(position).getUser().getUserPhoto());
+                        xUtilsImageUtils.display(iv_photo,HttpUtils.HOST_COMMUNICATIE+contactsInfoBeanList.get(position).getUser().getUserPhoto(),true);
+                        tv_petName.setText(contactsInfoBeanList.get(position).getPetInfo().petName);
+                        System.out.println(contactsInfoBeanList.get(position).getUser().getUserName());
+                        tv_friName.setText(contactsInfoBeanList.get(position).getUser().getUserName());
+                        tv_address.setText(contactsInfoBeanList.get(position).getUser().getAddress());
+                        tv_petkind.setText(contactsInfoBeanList.get(position).getPetInfo().petKind);
+
+                        return view;
+
+                    }
+                };
+                    lvPetfriend.setAdapter(adapter);
             }
 
             @Override

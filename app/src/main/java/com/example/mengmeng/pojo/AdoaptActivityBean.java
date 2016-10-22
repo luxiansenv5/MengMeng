@@ -7,7 +7,6 @@ import java.util.List;
  */
 public class AdoaptActivityBean {
 
-    public Integer status;
 
     public List<PetInfo> petList;
 }
