@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    tools:context="com.example.mengmeng.serviceactivity.SelectPet">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toobar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#0176da">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="155dp"
+            android:textSize="26sp"
+            android:text="选择宠物"/>
+
+    </android.support.v7.widget.Toolbar>
+
+    <ListView
+        android:id="@+id/lv_publish"
+        android:layout_below="@id/toobar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </ListView>
+
+    <View
+        android:id="@+id/struct"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_below="@id/lv_publish"
+        android:background="#DDDDDD"/>
+
+    <TextView
+        android:id="@+id/tv_addPet"
+        android:layout_below="@id/struct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="170dp"
+        android:textColor="#000"
+        android:textSize="24sp"
+        android:text="添加宠物"/>
+
+    <View
+        android:id="@+id/struct2"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_below="@id/tv_addPet"
+        android:background="#DDDDDD"/>
+
+</RelativeLayout>

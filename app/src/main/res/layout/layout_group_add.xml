@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/group_add_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <ImageView
+            android:id="@+id/tv_back"
+            android:src="@drawable/back"
+            android:layout_width="40dp"
+            android:layout_marginTop="10dp"
+            android:paddingTop="3dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:id="@+id/tv_input"
+            android:textSize="25sp"
+            android:textColor="@color/white"
+            android:paddingTop="15dp"
+            android:background="@color/pary"
+            android:text="请输入群组号"
+            android:paddingLeft="40dp"
+            android:layout_toRightOf="@+id/tv_back"
+            android:layout_width="230dp"
+            android:layout_height="60dp" />
+
+        <TextView
+            android:id="@+id/add_group"
+            android:text="添加群组"
+            android:layout_toRightOf="@+id/tv_input"
+            android:paddingTop="13dp"
+            android:background="@color/blue"
+            android:textSize="25sp"
+            android:paddingLeft="8dp"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/recommend_group"
+        android:layout_below="@+id/group_add_bottom"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_recommend_group"
+            android:text="推荐群组"
+            android:textSize="30sp"
+            android:background="@color/pary"
+            android:textColor="@color/white"
+            android:paddingLeft="110dp"
+            android:paddingTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            />
+
+        <ListView
+            android:id="@+id/lv_addgroup"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/tv_recommend_group"
+            >
+        </ListView>
+
+
+    </RelativeLayout>
+
+</RelativeLayout>
+

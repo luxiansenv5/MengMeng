@@ -1,10 +1,89 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="hello"/>
+    android:layout_height="match_parent"
+    tools:context="com.example.mengmeng.fragment.ServiceFragement">
 
-</LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View
+            android:id="@+id/struct_hor"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:background="#AAAAAA"
+            android:layout_centerVertical="true"/>
+
+        <View
+            android:id="@+id/struct_ver"
+            android:layout_width="5dp"
+            android:layout_height="match_parent"
+            android:background="#DDDDDD"
+            android:layout_centerHorizontal="true"/>
+
+        <ImageView
+            android:id="@+id/iv_baodian"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baodian"
+            android:layout_toLeftOf="@id/struct_ver"
+            android:layout_above="@id/struct_hor"/>
+
+        <ImageView
+            android:id="@+id/iv_lingyang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/lingyang"
+            android:layout_toRightOf="@id/struct_ver"
+            android:layout_alignBottom="@id/iv_baodian"/>
+
+        <ImageView
+            android:id="@+id/iv_peidui"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/peidui"
+            android:layout_below="@id/struct_hor"
+            android:layout_toLeftOf="@id/struct_ver"/>
+
+        <ImageView
+            android:id="@+id/iv_xunchong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/xunchong"
+            android:layout_below="@id/struct_hor"
+            android:layout_toRightOf="@id/struct_ver"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="养宠宝典"
+            android:layout_marginTop="220dp"
+            android:layout_marginLeft="60dp"/>
+
+        <TextView
+            android:id="@+id/tv_lingyang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="宠物领养"
+            android:layout_marginTop="220dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="60dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="萌宠配对"
+            android:layout_alignBottom="@id/iv_peidui"
+            android:layout_marginLeft="60dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="寻宠接力"
+            android:layout_alignBottom="@id/iv_xunchong"
+            android:layout_marginLeft="280dp"/>
+
+    </RelativeLayout>
+
+</FrameLayout>

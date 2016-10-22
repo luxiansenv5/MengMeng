@@ -58,7 +58,6 @@ import butterknife.OnClick;
  */
 public class ReleaseActivity extends AppCompatActivity {
 
-
     private File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)+"/"+
             getPhotoFileName());
 

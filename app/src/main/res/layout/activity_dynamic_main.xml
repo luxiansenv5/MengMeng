@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:id="@+id/drawer"
     android:background="#ffffff"
-    tools:context=".activity.DynamicMainActivity">
+    tools:context=".DynamicMainActivity">
 
 
     <RelativeLayout
@@ -61,6 +61,22 @@
         </RadioGroup>
 
     </RelativeLayout>
+    <fragment
+        android:id="@+id/id_left_menu"
+        android:name="com.example.mengmeng.fragment.MenuLeftFragment"
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="left"
+        android:tag="LEFT" />
+
+    <fragment
+        android:id="@+id/id_right_menu"
+        android:name="com.example.mengmeng.fragment.MenuRightFragment"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="right"
+        android:tag="RIGHT" />
+
 
 
 
