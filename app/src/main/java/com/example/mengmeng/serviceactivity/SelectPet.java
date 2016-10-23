@@ -54,7 +54,9 @@ public class SelectPet extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent=new Intent(SelectPet.this,TakePhotoActivity.class);
-
+                Bundle bundle=new Bundle();
+                bundle.putParcelable("petInfo",petList.get(position));
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });

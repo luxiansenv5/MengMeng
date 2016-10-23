@@ -13,7 +13,7 @@ import org.xutils.x;
  */
 public class MyApplication extends Application{
 
-    private User user=new User(1,null,null,null,false,null);
+    private User user=new User(1,null,null,null,false,null,null);
 
     public User getUser() {
         return user;

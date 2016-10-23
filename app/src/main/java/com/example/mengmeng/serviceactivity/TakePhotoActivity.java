@@ -10,9 +10,19 @@ import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.example.mengmeng.activity.R;
+import com.example.mengmeng.pojo.AdoaptInfo;
+import com.example.mengmeng.pojo.PetInfo;
+import com.example.mengmeng.utils.HttpUtils;
+import com.google.gson.Gson;
+
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -21,6 +31,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
+
+import application.MyApplication;
 
 public class TakePhotoActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -34,6 +46,10 @@ public class TakePhotoActivity extends AppCompatActivity implements View.OnClick
     private ImageView iv_camera;
     private ImageView iv_openPhoto;
     private ImageView sImage;
+    private PetInfo petInfo;
+    private Button btn_confirm;
+    private EditText et_desc;
+    private AdoaptInfo adoaptInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +59,8 @@ public class TakePhotoActivity extends AppCompatActivity implements View.OnClick
         initView();
 
         initEvent();
+
+        initData();
     }
 
     @Override
@@ -57,6 +75,48 @@ public class TakePhotoActivity extends AppCompatActivity implements View.OnClick
             case R.id.iv_openPhoto:
 
                 getPicFromPhoto();
+                break;
+            case R.id.btn_confirm:
+
+                Integer userId=((MyApplication)getApplication()).getUser().getUserId();
+                Integer petId=petInfo.petId;
+                String describle=et_desc.getText().toString();
+                Boolean state=false;
+                Date releaseTime=new Date(System.currentTimeMillis());
+
+                adoaptInfo=new AdoaptInfo(userId,petId,describle,state,releaseTime);
+                Gson gson=new Gson();
+                String adoaptStr=gson.toJson(adoaptInfo);
+
+                Log.i("TakePhotoActivity","adoaptStr================"+adoaptStr);
+
+                RequestParams requestParams=new RequestParams(HttpUtils.HOST+"addadoapt");
+                requestParams.addBodyParameter("adoaptInfo",adoaptStr);
+                requestParams.addBodyParameter("file",file);
+
+                x.http().post(requestParams, new Callback.CommonCallback<String>() {
+                    @Override
+                    public void onSuccess(String result) {
+                        System.out.println("111111111111111111");
+                    }
+
+                    @Override
+                    public void onError(Throwable ex, boolean isOnCallback) {
+
+                        System.out.println("TakePhotoError================"+ex);
+                    }
+
+                    @Override
+                    public void onCancelled(CancelledException cex) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+                });
+
                 break;
         }
 
@@ -105,19 +165,29 @@ public class TakePhotoActivity extends AppCompatActivity implements View.OnClick
         iv_camera = ((ImageView) findViewById(R.id.iv_camera));
         iv_openPhoto = ((ImageView) findViewById(R.id.iv_openPhoto));
         sImage = ((ImageView) findViewById(R.id.simage));
+        btn_confirm = ((Button) findViewById(R.id.btn_confirm));
+        et_desc = ((EditText) findViewById(R.id.et_desr));
     }
 
     public void initEvent(){
 
         iv_camera.setOnClickListener(this);
         iv_openPhoto.setOnClickListener(this);
+        btn_confirm.setOnClickListener(this);
+    }
+
+    public void initData(){
+
+        Intent intent=getIntent();
+        petInfo=intent.getExtras().getParcelable("petInfo");
+
     }
 
     private String getPhotoFileName() {
         Date date = new Date(System.currentTimeMillis());
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
 
-        System.out.println("============"+ UUID.randomUUID());
+//        System.out.println("============"+ UUID.randomUUID());
         return sdf.format(date)+"_"+UUID.randomUUID() + ".png";
     }
 
@@ -138,13 +208,7 @@ public class TakePhotoActivity extends AppCompatActivity implements View.OnClick
     }
 
     public void saveImageToGallery(Context context, Bitmap bmp) {
-        // 首先保存图片
-//        File appDir = new File(Environment.getExternalStorageDirectory(), "Boohee");
-//        if (!appDir.exists()) {
-//            appDir.mkdir();
-//        }
-//        String fileName = System.currentTimeMillis() + ".jpg";
-//        File file = new File(appDir, fileName);
+
         try {
             FileOutputStream fos = new FileOutputStream(file);
             bmp.compress(Bitmap.CompressFormat.PNG, 100, fos);

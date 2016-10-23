@@ -99,6 +99,7 @@ public class AdoptActivity extends AppCompatActivity {
 //        params.addQueryStringParameter("pageSize",pageSize+"");
 
         x.http().get(params, new Callback.CommonCallback<String>() {
+
             @Override
             public void onSuccess(String result) {
                 Gson gson = new Gson();
