@@ -35,8 +35,6 @@ public class DynamicMainActivity extends AppCompatActivity implements View.OnCli
     private DrawerLayout mDrawerLayout;
 
 
-    private Button OpenRightMenu;
-    private Button OpenLeftMenu;
     private TextView sign;
     //private TextView register;
 
@@ -201,7 +199,7 @@ public class DynamicMainActivity extends AppCompatActivity implements View.OnCli
 
     private void initView()
     {
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.id_drawerLayout);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer);
         mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED,
                 Gravity.RIGHT);
     }
