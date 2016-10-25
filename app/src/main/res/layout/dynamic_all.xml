@@ -3,12 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ListView
+    <com.example.mengmeng.utils.RefreshListView
     android:id="@+id/lv_dynamics"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:divider="@null"
     android:clickable="true">
-    </ListView >
+    </com.example.mengmeng.utils.RefreshListView >
 
 </LinearLayout>
