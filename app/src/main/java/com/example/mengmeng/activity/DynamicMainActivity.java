@@ -1,15 +1,19 @@
 package com.example.mengmeng.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
+
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.TextView;
+
 
 import com.example.mengmeng.fragment.CommunicateFragment;
 import com.example.mengmeng.fragment.PetringFragement;
@@ -30,6 +34,10 @@ public class DynamicMainActivity extends AppCompatActivity implements View.OnCli
     //private DrawerLayout drawer;
 
     private DrawerLayout mDrawerLayout;
+    private TextView sign;
+
+    //private TextView register;
+
 
     public DrawerLayout getmDrawerLayout() {
         return mDrawerLayout;
@@ -38,10 +46,6 @@ public class DynamicMainActivity extends AppCompatActivity implements View.OnCli
     public void setmDrawerLayout(DrawerLayout mDrawerLayout) {
         this.mDrawerLayout = mDrawerLayout;
     }
-
-    private TextView sign;
-    //private TextView register;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,10 +77,17 @@ public class DynamicMainActivity extends AppCompatActivity implements View.OnCli
 //        register = ((TextView) findViewById(R.id.register));
 //        register.setOnClickListener(this);
 
+
+
+        //ib_mine.setOnClickListener(this);
+
+
+
         initView();
         initEvents();
 
     }
+
 
 
     //按钮的点击事件:选中不同的按钮，不同的fragment显示
@@ -148,8 +159,8 @@ public class DynamicMainActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void onDrawerStateChanged(int newState)
             {
-            }
 
+            }
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset)
             {
@@ -226,8 +237,6 @@ public class DynamicMainActivity extends AppCompatActivity implements View.OnCli
                 Intent intent = new Intent(DynamicMainActivity.this,LoginActivity.class);
                 startActivity(intent);
                 break;
-
-
         }
     }
 }
