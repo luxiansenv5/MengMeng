@@ -1,18 +1,15 @@
 package com.example.mengmeng.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
-
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.TextView;
-
 
 import com.example.mengmeng.fragment.CommunicateFragment;
 import com.example.mengmeng.fragment.PetringFragement;
@@ -34,6 +31,13 @@ public class DynamicMainActivity extends AppCompatActivity implements View.OnCli
 
     private DrawerLayout mDrawerLayout;
 
+    public DrawerLayout getmDrawerLayout() {
+        return mDrawerLayout;
+    }
+
+    public void setmDrawerLayout(DrawerLayout mDrawerLayout) {
+        this.mDrawerLayout = mDrawerLayout;
+    }
 
     private TextView sign;
     //private TextView register;
