@@ -36,7 +36,7 @@
         <activity android:name=".DynamicInfoActivity" />
         <activity android:name=".UserInfoActivity" />
         <activity android:name=".ReleaseActivity" />
-        <activity android:name=".PersonDataActivity"/>
+        <activity android:name=".PersonDataActivity" />
         <activity
             android:name="com.example.mengmeng.serviceactivity.AdoptActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
@@ -46,10 +46,12 @@
         <activity
             android:name="com.example.mengmeng.serviceactivity.SelectPet"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity android:name=".LoginActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
-        <activity android:name=".RegisterActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity
+            android:name=".LoginActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".RegisterActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -72,9 +74,38 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.mengmeng.serviceactivity.ReleaseDetailsActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+        <activity
+            android:name="com.example.mengmeng.serviceactivity.ReleaseDetailsActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <!-- //会话列表界面 -->
+        <activity android:name=".SubConversationListActivtiy">
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
 
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="com.example.mengmeng"
+                    android:pathPrefix="/subconversationlist"
+                    android:scheme="rong" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ConversationActivity">
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="com.example.mengmeng"
+                    android:pathPrefix="/conversation/"
+                    android:scheme="rong" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

@@ -18,6 +18,7 @@ import com.example.mengmeng.activity.CommunicatePetFriendSearch;
 import com.example.mengmeng.activity.PersonDataActivity;
 import com.example.mengmeng.activity.R;
 import com.example.mengmeng.pojo.ContactsInfoBean;
+import com.example.mengmeng.pojo.User;
 import com.example.mengmeng.utils.HttpUtils;
 import com.example.mengmeng.utils.xUtilsImageUtils;
 import com.google.gson.Gson;
@@ -31,6 +32,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import application.MyApplication;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -50,10 +52,11 @@ public class PetFriendsFragment extends BaseFragment {
     @InjectView(R.id.lv_petfriend)
     ListView lvPetfriend;
     private BaseAdapter adapter;
+
     String MyToken;
+    User user;
 
     public static final Integer USERID = 1;
-
 
     final List<ContactsInfoBean> contactsInfoBeanList = new ArrayList<ContactsInfoBean>();
 
@@ -95,7 +98,7 @@ public class PetFriendsFragment extends BaseFragment {
 //                System.out.println(contactsInfoBean.getUser().getAddress());
                 intent.putExtra("contactsInfoBean",contactsInfoBeanList.get(position));
                 Bundle bundle = new Bundle();
-                bundle.putString("MyToken",MyToken);
+                bundle.putParcelable("user",user);
                 intent.putExtras(bundle);
                 startActivity(intent);//传送数据到个人数据界面的activity
             }
@@ -103,14 +106,21 @@ public class PetFriendsFragment extends BaseFragment {
 
     }
 
+
+
     private void getTokenByUserId(){
         RequestParams params = new RequestParams(HttpUtils.HOST_COMMUNICATIE + "gettokenbyuserid");
-        params.addBodyParameter("userId",USERID+"");
+        params.addBodyParameter("userId",((MyApplication)getActivity().getApplication()).getUser().getUserId().toString());
+
         x.http().get(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                MyToken = result;
-                System.out.println(MyToken);
+                Gson gson = new Gson();
+
+                Type type = new TypeToken<User>(){}.getType();
+                user = gson.fromJson(result,type);
+                MyToken = user.getToken();
+
             }
 
             @Override
