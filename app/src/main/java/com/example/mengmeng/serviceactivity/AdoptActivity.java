@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -18,7 +17,9 @@ import android.widget.TextView;
 
 import com.example.mengmeng.activity.R;
 import com.example.mengmeng.pojo.PetInfo;
+import com.example.mengmeng.utils.CommonAdapter;
 import com.example.mengmeng.utils.HttpUtils;
+import com.example.mengmeng.utils.ViewHolder;
 import com.example.mengmeng.utils.xUtilsImageUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -39,8 +40,8 @@ public class AdoptActivity extends AppCompatActivity {
 //    private Integer pageSize;
 
     private ListView lv_petInfo;
-    private BaseAdapter adapter;
-    List<PetInfo> adoptLists = new ArrayList<PetInfo>();
+    private CommonAdapter<PetInfo> adapter;
+    List<PetInfo> petLists = new ArrayList<PetInfo>();
     private Button btn_publish;
     private TextView tv_allkind;
 
@@ -89,6 +90,18 @@ public class AdoptActivity extends AppCompatActivity {
                 initPopupWindow(v);
             }
         });
+
+        lv_petInfo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Intent intent=new Intent(AdoptActivity.this, ReleaseDetailsActivity.class);
+                Bundle bundle=new Bundle();
+                bundle.putParcelable("petInfo",petLists.get(position));
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
     }
 
     private void getAdoaptInfo() {
@@ -103,48 +116,34 @@ public class AdoptActivity extends AppCompatActivity {
             @Override
             public void onSuccess(String result) {
                 Gson gson = new Gson();
+
+                List<PetInfo> newAdoaptLists=new ArrayList<PetInfo>();
+
                 Type type=new TypeToken<List<PetInfo>>(){}.getType();
-                adoptLists=gson.fromJson(result,type);
+                newAdoaptLists=gson.fromJson(result,type);
+
+                petLists.clear();
+                petLists.addAll(newAdoaptLists);
 
                 if (adapter==null){
-                    adapter = new BaseAdapter() {
+
+                    adapter=new CommonAdapter<PetInfo>(AdoptActivity.this,petLists,R.layout.activity_adopt_listview_item) {
                         @Override
-                        public int getCount() {
-                            return adoptLists.size();
-                        }
+                        public void convert(ViewHolder viewHolder, PetInfo petInfo, int position) {
 
-                        @Override
-                        public Object getItem(int i) {
-                            return null;
-                        }
+                            TextView tv_petName =viewHolder.getViewById(R.id.tv_petName);
+                            TextView tv_petType = viewHolder.getViewById(R.id.tv_petType);
+                            TextView tv_petAge = viewHolder.getViewById(R.id.tv_petAge);
+                            ImageView iv_petPhoto = viewHolder.getViewById(R.id.iv_petPhoto);
 
-                        @Override
-                        public long getItemId(int i) {
-                            return 0;
-                        }
-
-                        @Override
-                        public View getView(int position, View convertView, ViewGroup parent) {
-
-                            View view = View.inflate(AdoptActivity.this, R.layout.activity_adopt_listview_item, null);
-                            TextView tv_petName = ((TextView) view.findViewById(R.id.tv_petName));
-                            TextView tv_petType = ((TextView) view.findViewById(R.id.tv_petType));
-                            TextView tv_petAge = ((TextView) view.findViewById(R.id.tv_petAge));
-                            ImageView iv_petPhoto = ((ImageView) view.findViewById(R.id.iv_petPhoto));
-
-                            PetInfo petInfo = adoptLists.get(position);
                             tv_petName.setText(petInfo.petName);
                             tv_petType.setText(petInfo.petType);
                             tv_petAge.setText(petInfo.petAge.toString().trim() + "岁");
                             xUtilsImageUtils.display(iv_petPhoto, HttpUtils.HOST + petInfo.petPhoto, true);
-
-                            return view;
                         }
                     };
-
                     lv_petInfo.setAdapter(adapter);
                 }else {
-
                     adapter.notifyDataSetChanged();
                 }
 

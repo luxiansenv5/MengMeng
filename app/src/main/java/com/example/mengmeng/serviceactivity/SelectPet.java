@@ -4,9 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -14,7 +12,9 @@ import android.widget.TextView;
 import com.example.mengmeng.activity.R;
 import com.example.mengmeng.pojo.PetInfo;
 import com.example.mengmeng.pojo.User;
+import com.example.mengmeng.utils.CommonAdapter;
 import com.example.mengmeng.utils.HttpUtils;
+import com.example.mengmeng.utils.ViewHolder;
 import com.example.mengmeng.utils.xUtilsImageUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -32,7 +32,7 @@ import application.MyApplication;
 public class SelectPet extends AppCompatActivity {
 
     private ListView lv_publish;
-    private BaseAdapter adapter;
+    private CommonAdapter<PetInfo> adapter;
     private User user;
     private List<PetInfo> petList=new ArrayList<PetInfo>();
 
@@ -87,44 +87,25 @@ public class SelectPet extends AppCompatActivity {
                 petList=gson.fromJson(result,type);
 
                 if (adapter==null){
-                    adapter = new BaseAdapter() {
+
+                    adapter=new CommonAdapter<PetInfo>(SelectPet.this,petList,R.layout.activity_selectpet_listview_item) {
                         @Override
-                        public int getCount() {
-                            return petList.size();
-                        }
+                        public void convert(ViewHolder viewHolder, PetInfo petInfo, int position) {
 
-                        @Override
-                        public Object getItem(int i) {
-                            return null;
-                        }
+                            TextView tv_petName = viewHolder.getViewById(R.id.tv_petName);
+                            TextView tv_petType = viewHolder.getViewById(R.id.tv_petType);
+                            TextView tv_petAge = viewHolder.getViewById(R.id.tv_petAge);
+                            ImageView iv_petPhoto = viewHolder.getViewById(R.id.iv_petPhoto);
 
-                        @Override
-                        public long getItemId(int i) {
-                            return 0;
-                        }
-
-                        @Override
-                        public View getView(int position, View convertView, ViewGroup parent) {
-
-                            View view = View.inflate(SelectPet.this, R.layout.activity_selectpet_listview_item, null);
-                            TextView tv_petName = ((TextView) view.findViewById(R.id.tv_petName));
-                            TextView tv_petType = ((TextView) view.findViewById(R.id.tv_petType));
-                            TextView tv_petAge = ((TextView) view.findViewById(R.id.tv_petAge));
-                            ImageView iv_petPhoto = ((ImageView) view.findViewById(R.id.iv_petPhoto));
-
-                            PetInfo petInfo = petList.get(position);
                             tv_petName.setText(petInfo.petName);
                             tv_petType.setText(petInfo.petType);
                             tv_petAge.setText(petInfo.petAge.toString().trim() + "岁");
                             xUtilsImageUtils.display(iv_petPhoto, HttpUtils.HOST + petInfo.petPhoto, true);
 
-                            return view;
                         }
                     };
-
                     lv_publish.setAdapter(adapter);
                 }else {
-
                     adapter.notifyDataSetChanged();
                 }
 

@@ -88,6 +88,8 @@ public class DynamicInfoActivity extends AppCompatActivity {
                 startActivity(intent);
                 break;
             case R.id.ib_dynamic_info_photo:
+                Intent intent1=new Intent(this,UserInfoActivity.class);
+                startActivity(intent1);
                 break;
             case R.id.ib_dynamic_info_concern:
                 break;

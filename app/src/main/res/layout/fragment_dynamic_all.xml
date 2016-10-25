@@ -1,15 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- 首页上面的选择框 -->
+    <include android:id="@+id/title_choice"
+        layout="@layout/title_bar_pet_ring"/>
 
+    <View
+        style="@style/bg_line"
+        android:id="@+id/id_prod_list_sort_line1"
+        android:layout_below="@id/title_choice"/>
 
-    <ListView
-        android:id="@+id/lv_dynamics"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/dynamic_fragment_viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="@null"
-        android:clickable="true">
-    </ListView >
-</LinearLayout>
+        android:background="#ccc"
+        android:layout_below="@id/id_prod_list_sort_line1"
+        >
+
+        <!--<ListView-->
+        <!--android:id="@+id/lv_dynamics"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:divider="@null"-->
+        <!--android:clickable="true"-->
+        <!--android:layout_below="@id/id_prod_list_sort_line1">-->
+        <!--</ListView >-->
+    </android.support.v4.view.ViewPager>
+
+    <!--<ListView-->
+        <!--android:id="@+id/lv_dynamics"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:divider="@null"-->
+        <!--android:clickable="true"-->
+        <!--android:layout_below="@id/id_prod_list_sort_line1">-->
+    <!--</ListView >-->
+</RelativeLayout>

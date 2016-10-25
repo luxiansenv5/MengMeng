@@ -2,6 +2,7 @@ package application;
 
 import android.app.Application;
 
+import com.example.mengmeng.pojo.Dynamic;
 import com.example.mengmeng.pojo.User;
 
 import org.xutils.BuildConfig;
@@ -13,7 +14,7 @@ import org.xutils.x;
  */
 public class MyApplication extends Application{
 
-    private User user=new User(1,null,null,null,false,null,null);
+    private  User user=new User(1);//设置默认用户，用户ID为1；
 
     public User getUser() {
         return user;
@@ -21,6 +22,14 @@ public class MyApplication extends Application{
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    private Dynamic dynamic=new Dynamic("北京");//设置默认地址，用户地址为北京
+    public  Dynamic getDynamic(){
+        return dynamic;
+    }
+    public void setDynamic(Dynamic dynamic) {
+        this.dynamic = dynamic;
     }
 
     @Override

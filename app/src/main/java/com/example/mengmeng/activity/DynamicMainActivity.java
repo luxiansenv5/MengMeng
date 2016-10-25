@@ -9,7 +9,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RadioButton;
+import android.widget.TextView;
 
 
 import com.example.mengmeng.fragment.CommunicateFragment;
@@ -17,7 +19,7 @@ import com.example.mengmeng.fragment.PetringFragement;
 import com.example.mengmeng.fragment.ServiceFragement;
 import com.nineoldandroids.view.ViewHelper;
 
-public class DynamicMainActivity extends AppCompatActivity {
+public class DynamicMainActivity extends AppCompatActivity implements View.OnClickListener  {
 
     Fragment[] fragments;
     PetringFragement petringFragement;//主页
@@ -31,6 +33,11 @@ public class DynamicMainActivity extends AppCompatActivity {
     //private DrawerLayout drawer;
 
     private DrawerLayout mDrawerLayout;
+
+
+    private TextView sign;
+    //private TextView register;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +60,18 @@ public class DynamicMainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().add(R.id.fl_content, fragments[0]).commit();
         //初始时，按钮1选中
         tabs[0].setSelected(true);
+
+//        ((Button) findViewById(R.id.OpenLeftMenu)).setOnClickListener(this);
+//        OpenRightMenu = ((Button) findViewById(R.id.OpenRightMenu));
+//        OpenRightMenu.setOnClickListener(this);
+        sign = ((TextView) findViewById(R.id.sign));
+        sign.setOnClickListener(this);
+//        register = ((TextView) findViewById(R.id.register));
+//        register.setOnClickListener(this);
+
         initView();
         initEvents();
+
     }
 
 
@@ -108,18 +125,18 @@ public class DynamicMainActivity extends AppCompatActivity {
 
 
 
-    public void OpenRightMenu(View view)
-    {
-        mDrawerLayout.openDrawer(Gravity.RIGHT);
-        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED,
-                Gravity.RIGHT);
-    }
-    public void OpenLeftMenu(View view)
-    {
-        mDrawerLayout.openDrawer(Gravity.LEFT);
-        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED,
-                Gravity.LEFT);
-    }
+    //    public void OpenRightMenu(View view)
+//    {
+//        mDrawerLayout.openDrawer(Gravity.RIGHT);
+//        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED,
+//                Gravity.RIGHT);
+//    }
+//    public void OpenLeftMenu(View view)
+//    {
+//        mDrawerLayout.openDrawer(Gravity.LEFT);
+//        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED,
+//                Gravity.LEFT);
+//    }
     private void initEvents()
     {
         mDrawerLayout.setDrawerListener(new DrawerLayout.DrawerListener()
@@ -175,20 +192,38 @@ public class DynamicMainActivity extends AppCompatActivity {
             @Override
             public void onDrawerClosed(View drawerView)
             {
-                mDrawerLayout.setDrawerLockMode(
-                        DrawerLayout.LOCK_MODE_LOCKED_CLOSED, Gravity.RIGHT);
+                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, Gravity.RIGHT);
             }
         });
     }
 
     private void initView()
     {
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.id_drawerLayout);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer);
         mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED,
                 Gravity.RIGHT);
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+//            case R.id.OpenRightMenu:
+//                mDrawerLayout.openDrawer(Gravity.RIGHT);
+//                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED,
+//                        Gravity.RIGHT);
+//                break;
+
+//            case R.id.OpenLeftMenu:
+//                mDrawerLayout.openDrawer(Gravity.LEFT);
+//                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED,
+//                        Gravity.LEFT);
+//                break;
+            case R.id.sign:
+                Intent intent = new Intent(DynamicMainActivity.this,LoginActivity.class);
+                startActivity(intent);
+                break;
 
 
-
+        }
+    }
 }
