@@ -22,7 +22,17 @@ public class PetInfo implements Parcelable {
 		this.petName = petName;
 		this.petKind = petKind;
 	}
-	
+	public PetInfo( String petName,String petType, Integer petAge, String petPhoto, Boolean petSex,
+					String petKind) {
+		this.petName = petName;
+		this.petType = petType;
+		this.petAge = petAge;
+		this.petPhoto = petPhoto;
+		this.petSex = petSex;
+		this.petKind = petKind;
+	}
+
+
 	public PetInfo(Integer petId, Integer userId, String petName,
 			String petType, Integer petAge, String petPhoto, Boolean petSex,
 			String petKind) {

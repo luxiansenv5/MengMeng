@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.mengmeng.activity.PersonDataActivity">
+
+    <RelativeLayout
+        android:id="@+id/show_person_data"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/person_photo"
+            android:layout_toLeftOf="@+id/vLine"
+            android:src="@drawable/chongwu1"
+            android:layout_marginRight="50dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp" />
+        <TextView
+            android:text="TA"
+            android:layout_toLeftOf="@+id/person_name"
+            android:layout_below="@+id/person_photo"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="30dp"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/person_name"
+            android:text="TA的名字"
+            android:layout_below="@+id/person_photo"
+            android:textSize="20sp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/vLine" />
+
+
+        <TextView
+            android:text="地址"
+            android:layout_toLeftOf="@+id/person_name"
+            android:layout_below="@+id/person_name"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="30dp"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/person_address"
+            android:text="TA的地址"
+            android:layout_below="@+id/person_name"
+            android:textSize="20sp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/vLine" />
+
+        <TextView
+            android:text="性别"
+            android:layout_toLeftOf="@+id/person_name"
+            android:layout_below="@+id/person_address"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="30dp"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/person_sex"
+            android:text="TA的性别"
+            android:layout_below="@+id/person_address"
+            android:textSize="20sp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/vLine" />
+
+        <TextView
+            android:id="@+id/qianming"
+            android:text="个性签名"
+            android:layout_below="@+id/person_sex"
+            android:textSize="20sp"
+            android:layout_marginRight="60dp"
+            android:layout_marginTop="30dp"
+            android:layout_toLeftOf="@+id/vLine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/person_underwrite"
+            android:text="TA的个性签名"
+            android:layout_below="@+id/qianming"
+            android:textSize="20sp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_toLeftOf="@+id/vLine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:id="@+id/vLine"
+            android:background="@color/pary"
+            android:layout_width="5dp"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"/>
+
+
+        <ImageView
+            android:id="@+id/pet_photo"
+            android:layout_toRightOf="@+id/vLine"
+            android:src="@drawable/chongwu1"
+            android:layout_marginLeft="50dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp" />
+        <TextView
+            android:text="pet"
+            android:layout_below="@+id/pet_photo"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="30dp"
+            android:textSize="20sp"
+            android:layout_toRightOf="@+id/vLine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/pet_name"
+            android:text="Pet的名字"
+            android:layout_below="@+id/pet_photo"
+            android:textSize="20sp"
+            android:layout_marginLeft="65dp"
+            android:layout_marginTop="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/vLine" />
+
+
+        <TextView
+            android:text="类型"
+            android:layout_below="@+id/pet_name"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="30dp"
+            android:textSize="20sp"
+            android:layout_toRightOf="@+id/vLine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/pet_type"
+            android:text="pet类型"
+            android:layout_below="@+id/pet_name"
+            android:textSize="20sp"
+            android:layout_marginLeft="70dp"
+            android:layout_marginTop="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/vLine" />
+
+        <TextView
+            android:text="性别"
+            android:layout_below="@+id/pet_type"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="30dp"
+            android:textSize="20sp"
+            android:layout_toRightOf="@+id/vLine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/pet_sex"
+            android:text="pet性别"
+            android:layout_below="@+id/pet_type"
+            android:textSize="20sp"
+            android:layout_marginLeft="70dp"
+            android:layout_marginTop="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/vLine" />
+
+        <TextView
+            android:text="年龄"
+            android:layout_below="@+id/pet_sex"
+            android:textSize="20sp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_toRightOf="@+id/vLine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/pet_age"
+            android:text="pet年龄"
+            android:textSize="20sp"
+            android:layout_marginLeft="70dp"
+            android:layout_marginTop="30dp"
+            android:layout_toRightOf="@+id/vLine"
+            android:layout_below="@+id/pet_sex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="种类"
+            android:layout_below="@+id/pet_age"
+            android:textSize="20sp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_toRightOf="@+id/vLine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/pet_kind"
+            android:text="pet年龄"
+            android:textSize="20sp"
+            android:layout_marginLeft="70dp"
+            android:layout_marginTop="30dp"
+            android:layout_toRightOf="@+id/vLine"
+            android:layout_below="@+id/pet_age"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+
+    </RelativeLayout>
+    <Button
+        android:id="@+id/sendMessage"
+        android:text="发消息"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:background="@color/blue"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

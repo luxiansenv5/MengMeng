@@ -70,13 +70,9 @@ public class PetFriendsFragment extends BaseFragment {
 
     }
 
-
-
-
     @Override
     public void initData() {
         getFriInfoList();
-
     }
 
     @Override
