@@ -9,7 +9,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.mengmeng.activity.R;
 import com.example.mengmeng.pojo.Dynamic;
 import com.example.mengmeng.utils.NetUtil;
 
@@ -81,7 +80,6 @@ public class DynamicInfoActivity extends AppCompatActivity {
 
     }
 
-
     @OnClick({R.id.iv_back, R.id.ib_dynamic_info_photo, R.id.ib_dynamic_info_concern, R.id.ib_dynamic_info_zan, R.id.ib_dynamic_info_pinlun, R.id.ib_dynamic_info_fenxiang})
     public void onClick(View view) {
         switch (view.getId()) {
@@ -90,6 +88,8 @@ public class DynamicInfoActivity extends AppCompatActivity {
                 startActivity(intent);
                 break;
             case R.id.ib_dynamic_info_photo:
+                Intent intent1=new Intent(this,UserInfoActivity.class);
+                startActivity(intent1);
                 break;
             case R.id.ib_dynamic_info_concern:
                 break;

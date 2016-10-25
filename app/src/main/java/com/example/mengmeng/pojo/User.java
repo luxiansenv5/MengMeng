@@ -14,29 +14,16 @@ public class User implements Parcelable {
 	private String token;
 
 	public User(){}
+
+	public User(Integer userId){
+		this.userId = userId;
+	}
+
 	public User( String userName, String userPhoto,
-				 String address){
-		this.userName = userName;
-		this.userPhoto = userPhoto;
-		this.address = address;
-	}
-
-	public User( Integer userId,String userName, String userPhoto,
 					 String address){
-		this.userId = userId;
 		this.userName = userName;
 		this.userPhoto = userPhoto;
 		this.address = address;
-	}
-
-	public User(Integer userId, String userName, String userPhoto,
-				String address, boolean userSex, String userWrite) {
-		this.userId = userId;
-		this.userName = userName;
-		this.userPhoto = userPhoto;
-		this.address = address;
-		this.userSex = userSex;
-		this.userWrite = userWrite;
 	}
 
 	public User(Integer userId, String userName, String userPhoto,

@@ -27,25 +27,31 @@
                 android:id="@+id/title"
                 android:layout_width="120dp"
                 android:layout_height="80dp"
+                android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
-                android:src="@drawable/title"/>
+                android:src="@drawable/robotdog"/>
             <TextView
-                android:id="@+id/denglu"
+                android:id="@+id/sign"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/title"
                 android:layout_alignBottom="@+id/title"
-                android:text="登录/"
+                android:visibility="visible"
+                android:text="登录"
                 />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/denglu"
-                android:layout_alignBottom="@+id/title"
-                android:text="注册"
-                />
+            <!--<TextView-->
+                <!--android:id="@+id/register"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_toRightOf="@+id/sign"-->
+                <!--android:layout_alignBottom="@+id/title"-->
+                <!--android:text="注册"-->
+                <!--/>-->
 
         </RelativeLayout>
+
+
+
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -53,11 +59,11 @@
 
             <ImageView
                 android:id="@+id/one"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="50dp"
                 android:src="@drawable/img_1" />
 
             <TextView
@@ -66,7 +72,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="20dp"
                 android:layout_toRightOf="@id/one"
-                android:text="第1个Item"
+                android:text="个人中心"
                 android:textColor="#f0f0f0"
                 android:textSize="20sp" />
         </RelativeLayout>
@@ -78,8 +84,8 @@
 
             <ImageView
                 android:id="@+id/two"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
@@ -91,7 +97,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="20dp"
                 android:layout_toRightOf="@id/two"
-                android:text="第2个Item"
+                android:text="个性装扮"
                 android:textColor="#f0f0f0"
                 android:textSize="20sp" />
         </RelativeLayout>
@@ -115,7 +121,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="20dp"
                 android:layout_toRightOf="@id/three"
-                android:text="第3个Item"
+                android:text="宠物百科"
                 android:textColor="#f0f0f0"
                 android:textSize="20sp" />
         </RelativeLayout>
@@ -139,7 +145,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="20dp"
                 android:layout_toRightOf="@id/four"
-                android:text="第4个Item"
+                android:text="宠物领养"
                 android:textColor="#f0f0f0"
                 android:textSize="20sp" />
         </RelativeLayout>

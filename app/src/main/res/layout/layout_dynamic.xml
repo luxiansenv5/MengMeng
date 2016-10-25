@@ -58,10 +58,10 @@
         android:textSize="15dp"/>
     <ImageView
         android:id="@+id/iv_dynamic_imag"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
         android:layout_below="@id/tv_dynamic_content"
-        android:layout_marginLeft="20dp"
+       android:scaleType="fitCenter"
         android:src="@drawable/qin"/>
     <ImageView
         android:id="@+id/iv_dynamic_place"

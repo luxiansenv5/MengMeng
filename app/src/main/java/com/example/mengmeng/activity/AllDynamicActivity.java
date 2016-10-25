@@ -1,5 +1,6 @@
 package com.example.mengmeng.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -53,6 +54,8 @@ public class AllDynamicActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragement_pet_ring);
         ButterKnife.inject(this);
+        Intent intent=getIntent();
+        intent.getStringExtra("flag");
         initData();
     }
 
@@ -60,9 +63,11 @@ public class AllDynamicActivity extends AppCompatActivity {
         lists.add(new PetringFragement());
         lists.add(new PetringFriendFragement());
         lists.add(new PetringFollowFragement());
+
         DynamicFragmentViewpager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
+                System.out.println(position+"==============");
                 return lists.get(position);
             }
 

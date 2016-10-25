@@ -17,6 +17,9 @@ public class Dynamic implements Parcelable {
 	public Dynamic(){
 		
 	}
+	public Dynamic(String place){
+		this.place = place;
+	}
 	
 	public Dynamic(Integer dynamicId, Timestamp releaseTime,
 			String releaseText, String picture, String place, User user) {
