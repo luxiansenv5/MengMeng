@@ -36,6 +36,7 @@
         <activity android:name=".DynamicInfoActivity" />
         <activity android:name=".UserInfoActivity" />
         <activity android:name=".ReleaseActivity" />
+        <activity android:name=".PersonDataActivity"/>
         <activity
             android:name="com.example.mengmeng.serviceactivity.AdoptActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
@@ -73,6 +74,7 @@
         </activity>
         <activity android:name="com.example.mengmeng.serviceactivity.ReleaseDetailsActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+
     </application>
 
 </manifest>

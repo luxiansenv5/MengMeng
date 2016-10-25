@@ -1,6 +1,6 @@
 package com.example.mengmeng.pojo;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 public class AdoaptInfo {
 
@@ -9,14 +9,14 @@ public class AdoaptInfo {
 	private String describe;
 	private String petImage;
 	private boolean state;
-	private Date releaseTime;
+	private Timestamp releaseTime;
 	
 	public AdoaptInfo(){
 		
 	}
 	
 	public AdoaptInfo(Integer userId, Integer petId,
-			String describe, String petImage, boolean state, Date releaseTime) {
+			String describe, String petImage, boolean state, Timestamp releaseTime) {
 		super();
 		this.userId = userId;
 		this.petId = petId;
@@ -26,12 +26,10 @@ public class AdoaptInfo {
 		this.releaseTime = releaseTime;
 	}
 
-	public AdoaptInfo(Integer userId, Integer petId, String describle, Boolean state, Date releaseTime) {
+	public AdoaptInfo(Integer userId, Integer petId, String describle) {
 		this.userId = userId;
 		this.petId = petId;
 		this.describe = describle;
-		this.state = state;
-		this.releaseTime = releaseTime;
 	}
 
 	public Integer getUserId() {
@@ -64,10 +62,10 @@ public class AdoaptInfo {
 	public void setState(boolean state) {
 		this.state = state;
 	}
-	public Date getReleaseTime() {
+	public Timestamp getReleaseTime() {
 		return releaseTime;
 	}
-	public void setReleaseTime(Date releaseTime) {
+	public void setReleaseTime(Timestamp releaseTime) {
 		this.releaseTime = releaseTime;
 	}
 	
