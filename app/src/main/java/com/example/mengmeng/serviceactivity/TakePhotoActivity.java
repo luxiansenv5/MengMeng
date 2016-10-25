@@ -1,7 +1,9 @@
 package com.example.mengmeng.serviceactivity;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -50,6 +52,8 @@ public class TakePhotoActivity extends AppCompatActivity implements View.OnClick
     private Button btn_confirm;
     private EditText et_desc;
     private AdoaptInfo adoaptInfo;
+    boolean flag=true;
+    String path="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,20 +75,21 @@ public class TakePhotoActivity extends AppCompatActivity implements View.OnClick
             case R.id.iv_camera:
 
                 getPicFromCamera();
+                flag=true;
                 break;
             case R.id.iv_openPhoto:
 
                 getPicFromPhoto();
+                flag=false;
                 break;
             case R.id.btn_confirm:
 
                 Integer userId=((MyApplication)getApplication()).getUser().getUserId();
                 Integer petId=petInfo.petId;
                 String describle=et_desc.getText().toString();
-                Boolean state=false;
-                Date releaseTime=new Date(System.currentTimeMillis());
+//                Date releaseTime=new Date(System.currentTimeMillis());
 
-                adoaptInfo=new AdoaptInfo(userId,petId,describle,state,releaseTime);
+                adoaptInfo=new AdoaptInfo(userId,petId,describle);
                 Gson gson=new Gson();
                 String adoaptStr=gson.toJson(adoaptInfo);
 
@@ -92,12 +97,16 @@ public class TakePhotoActivity extends AppCompatActivity implements View.OnClick
 
                 RequestParams requestParams=new RequestParams(HttpUtils.HOST+"addadoapt");
                 requestParams.addBodyParameter("adoaptInfo",adoaptStr);
-                requestParams.addBodyParameter("file",file);
+                if (flag){
+                    requestParams.addBodyParameter("file",file);
+                }else {
+                    requestParams.addBodyParameter("file",new File(path));
+                }
 
                 x.http().post(requestParams, new Callback.CommonCallback<String>() {
                     @Override
                     public void onSuccess(String result) {
-                        System.out.println("111111111111111111");
+                        System.out.println("Onsuccess=====");
                     }
 
                     @Override
@@ -139,8 +148,35 @@ public class TakePhotoActivity extends AppCompatActivity implements View.OnClick
                 }
                 break;
             case PHOTO_REQUEST:
-                if (data != null) {
-                    photoClip(data.getData());
+                if (resultCode != RESULT_OK) {        //此处的 RESULT_OK 是系统自定义得一个常量
+                    Log.e("TAG->onresult","ActivityResult resultCode error");
+                    return;
+                }
+                Bitmap bm = null;
+                //外界的程序访问ContentProvider所提供数据 可以通过ContentResolver接口
+                ContentResolver resolver = getContentResolver();
+                //此处的用于判断接收的Activity是不是你想要的那个
+                if (requestCode == PHOTO_REQUEST) {
+                    try {
+                        Uri originalUri = data.getData();        //获得图片的uri
+                        bm = MediaStore.Images.Media.getBitmap(resolver, originalUri);
+                        //显得到bitmap图片
+                        sImage.setImageBitmap(bm);
+                        //这里开始的第二部分，获取图片的路径：
+                        String[] proj = {MediaStore.Images.Media.DATA};
+                        //好像是android多媒体数据库的封装接口，具体的看Android文档
+                        Cursor cursor = managedQuery(originalUri, proj, null, null, null);
+                        //按我个人理解 这个是获得用户选择的图片的索引值
+                        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+                        //将光标移至开头 ，这个很重要，不小心很容易引起越界
+                        cursor.moveToFirst();
+                        //最后根据索引值获取图片路径
+                        path = cursor.getString(column_index);
+                        System.out.println("path===="+path);
+
+                    }catch (IOException e) {
+                        Log.e("TAG-->Error",e.toString());
+                    }
                 }
                 break;
             case PHOTO_CLIP:
