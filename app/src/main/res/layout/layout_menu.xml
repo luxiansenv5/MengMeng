@@ -24,7 +24,8 @@
             >
 
             <ImageView
-                android:id="@+id/title"
+
+                android:id="@+id/background_head"
                 android:layout_width="120dp"
                 android:layout_height="80dp"
                 android:layout_alignParentTop="true"
@@ -34,8 +35,8 @@
                 android:id="@+id/sign"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/title"
-                android:layout_alignBottom="@+id/title"
+                android:layout_toRightOf="@+id/background_head"
+                android:layout_alignBottom="@+id/background_head"
                 android:visibility="visible"
                 android:text="登录"
                 />
@@ -108,8 +109,8 @@
 
             <ImageView
                 android:id="@+id/three"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
@@ -132,8 +133,8 @@
 
             <ImageView
                 android:id="@+id/four"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
@@ -156,8 +157,8 @@
 
             <ImageView
                 android:id="@+id/five"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
@@ -174,6 +175,50 @@
                 android:textSize="20sp" />
         </RelativeLayout>
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/mine_set"
+                android:layout_marginLeft="22dp"
+                android:layout_marginTop="30dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+
+                android:src="@drawable/mine_set"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="设置"
+                android:layout_toRightOf="@+id/mine_set"
+                android:layout_alignBottom="@+id/mine_set"
+                android:layout_marginLeft="5dp"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/mine_night"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="30dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+
+                android:src="@drawable/mine_night"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="夜间"
+                android:layout_toRightOf="@+id/mine_night"
+                android:layout_alignBottom="@+id/mine_night"
+                android:layout_marginLeft="5dp"/>
+        </RelativeLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
 
