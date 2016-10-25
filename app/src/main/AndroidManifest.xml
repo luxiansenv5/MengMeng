@@ -30,10 +30,9 @@
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity android:name=".CommunicateGroupActivity" />
         <activity android:name=".CommunicatePetFriendAdd" />
-        <activity android:name=".CommunicatePetFriendSearch"></activity>
-        <activity android:name=".MainActivity">
-
-        </activity>
+        <activity android:name=".CommunicatePetFriendSearch" />
+        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".PersonDataActivity"></activity>
     </application>
 
 </manifest>
