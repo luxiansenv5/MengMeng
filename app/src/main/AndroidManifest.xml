@@ -46,6 +46,10 @@
         <activity
             android:name="com.example.mengmeng.serviceactivity.SelectPet"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity android:name=".LoginActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity android:name=".RegisterActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"
