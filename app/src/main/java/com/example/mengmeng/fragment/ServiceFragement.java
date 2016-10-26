@@ -17,6 +17,9 @@ import com.example.mengmeng.serviceactivity.AdoptActivity;
 public class ServiceFragement extends BaseFragment{
 
     private ImageView iv_lingyang;
+    private ImageView iv_baodian;
+    private ImageView iv_peidui;
+    private ImageView iv_xunchong;
 
     @Nullable
     @Override
@@ -24,6 +27,14 @@ public class ServiceFragement extends BaseFragment{
         View view = inflater.inflate(R.layout.fragement_service, null);
 
         iv_lingyang = ((ImageView) view.findViewById(R.id.iv_lingyang));
+        iv_baodian = ((ImageView) view.findViewById(R.id.iv_baodian));
+        iv_peidui = ((ImageView) view.findViewById(R.id.iv_peidui));
+        iv_xunchong = ((ImageView) view.findViewById(R.id.iv_xunchong));
+
+        iv_lingyang.setAdjustViewBounds(true);
+        iv_baodian.setAdjustViewBounds(true);
+        iv_peidui.setAdjustViewBounds(true);
+        iv_xunchong.setAdjustViewBounds(true);
         return view;
     }
 
