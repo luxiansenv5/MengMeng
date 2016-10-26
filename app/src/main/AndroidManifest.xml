@@ -26,7 +26,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".DynamicMainActivity">
+        <activity android:name=".DynamicMainActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -36,7 +37,8 @@
         <activity android:name=".DynamicInfoActivity" />
         <activity android:name=".UserInfoActivity" />
         <activity android:name=".ReleaseActivity" />
-        <activity android:name=".PersonDataActivity" />
+        <activity android:name=".PersonDataActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
             android:name="com.example.mengmeng.serviceactivity.AdoptActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
