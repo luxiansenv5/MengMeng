@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.mengmeng.activity.R;
 import com.example.mengmeng.pojo.AdoaptInfo;
@@ -84,47 +85,51 @@ public class TakePhotoActivity extends AppCompatActivity implements View.OnClick
                 break;
             case R.id.btn_confirm:
 
-                Integer userId=((MyApplication)getApplication()).getUser().getUserId();
-                Integer petId=petInfo.petId;
-                String describle=et_desc.getText().toString();
-//                Date releaseTime=new Date(System.currentTimeMillis());
-
-                adoaptInfo=new AdoaptInfo(userId,petId,describle);
-                Gson gson=new Gson();
-                String adoaptStr=gson.toJson(adoaptInfo);
-
-                Log.i("TakePhotoActivity","adoaptStr================"+adoaptStr);
-
-                RequestParams requestParams=new RequestParams(HttpUtils.HOST+"addadoapt");
-                requestParams.addBodyParameter("adoaptInfo",adoaptStr);
-                if (flag){
-                    requestParams.addBodyParameter("file",file);
+                if (sImage.getDrawable()==null){
+                    Toast.makeText(this,"请为萌宠添加一张萌照",Toast.LENGTH_SHORT).show();
                 }else {
-                    requestParams.addBodyParameter("file",new File(path));
+                    Integer userId=((MyApplication)getApplication()).getUser().getUserId();
+                    Integer petId=petInfo.petId;
+                    String describle=et_desc.getText().toString();
+
+                    adoaptInfo=new AdoaptInfo(userId,petId,describle);
+                    Gson gson=new Gson();
+                    String adoaptStr=gson.toJson(adoaptInfo);
+
+                    Log.i("TakePhotoActivity","adoaptStr================"+adoaptStr);
+
+                    RequestParams requestParams=new RequestParams(HttpUtils.HOST+"addadoapt");
+                    requestParams.addBodyParameter("adoaptInfo",adoaptStr);
+                    if (flag){
+                        requestParams.addBodyParameter("file",file);
+                    }else {
+                        requestParams.addBodyParameter("file",new File(path));
+                    }
+
+                    x.http().post(requestParams, new Callback.CommonCallback<String>() {
+                        @Override
+                        public void onSuccess(String result) {
+
+                            finish();
+                        }
+
+                        @Override
+                        public void onError(Throwable ex, boolean isOnCallback) {
+
+                            System.out.println("TakePhotoError================"+ex);
+                        }
+
+                        @Override
+                        public void onCancelled(CancelledException cex) {
+
+                        }
+
+                        @Override
+                        public void onFinished() {
+
+                        }
+                    });
                 }
-
-                x.http().post(requestParams, new Callback.CommonCallback<String>() {
-                    @Override
-                    public void onSuccess(String result) {
-                        System.out.println("Onsuccess=====");
-                    }
-
-                    @Override
-                    public void onError(Throwable ex, boolean isOnCallback) {
-
-                        System.out.println("TakePhotoError================"+ex);
-                    }
-
-                    @Override
-                    public void onCancelled(CancelledException cex) {
-
-                    }
-
-                    @Override
-                    public void onFinished() {
-
-                    }
-                });
 
                 break;
         }
