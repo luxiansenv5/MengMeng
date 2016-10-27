@@ -16,8 +16,9 @@
         android:textColor="#000"
         android:layout_toRightOf="@id/iv_petPhoto"
         android:layout_alignTop="@id/iv_petPhoto"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
         android:text="二哈"/>
 
     <TextView
@@ -28,7 +29,8 @@
         android:layout_toRightOf="@id/iv_petPhoto"
         android:layout_alignBottom="@id/iv_petPhoto"
         android:layout_marginLeft="20dp"
-        android:textSize="24sp"
+        android:textSize="20sp"
+        android:layout_marginBottom="10dp"
         android:text="哈士奇"/>
 
     <TextView
@@ -37,9 +39,9 @@
         android:layout_height="wrap_content"
         android:textColor="#000"
         android:layout_toRightOf="@id/tv_petType"
-        android:layout_alignBottom="@id/iv_petPhoto"
+        android:layout_alignBottom="@id/tv_petType"
         android:layout_marginLeft="20sp"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:text="1岁"/>
 
 </RelativeLayout>

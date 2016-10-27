@@ -143,7 +143,7 @@ public class PetFriendsFragment extends BaseFragment {
     private void getFriInfoList() {
 
         RequestParams params = new RequestParams(HttpUtils.HOST_COMMUNICATIE + "getcontactinfobypage");
-        params.addBodyParameter("userId",USERID+"");
+        params.addBodyParameter("userId",((MyApplication)getActivity().getApplication()).getUser().getUserId().toString());
         x.http().get(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {

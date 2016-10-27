@@ -44,6 +44,7 @@ public class AdoptActivity extends AppCompatActivity {
     List<PetInfo> petLists = new ArrayList<PetInfo>();
     private Button btn_publish;
     private TextView tv_allkind;
+    Integer flag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +72,16 @@ public class AdoptActivity extends AppCompatActivity {
         kindContents.add("猫");
         kindContents.add("其他");
 
+        Intent intent=getIntent();
+        flag=intent.getIntExtra("flag",0);
+
+//        if (flag==1){
+//            getAdoaptInfo();
+//        }else if(flag==3){
+//            getSearchInfo();
+//        }
         getAdoaptInfo();
+
     }
 
     public void initEvent() {
@@ -115,6 +125,7 @@ public class AdoptActivity extends AppCompatActivity {
 
             @Override
             public void onSuccess(String result) {
+
                 Gson gson = new Gson();
 
                 List<PetInfo> newAdoaptLists=new ArrayList<PetInfo>();
@@ -152,7 +163,7 @@ public class AdoptActivity extends AppCompatActivity {
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
 
-                System.out.println(ex.toString());
+                System.out.println("Error==="+ex.toString());
             }
 
             @Override
@@ -166,6 +177,8 @@ public class AdoptActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void getSearchInfo(){}
 
     public void initPopupWindow(View v) {
 

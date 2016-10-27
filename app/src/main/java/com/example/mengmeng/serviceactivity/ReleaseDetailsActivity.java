@@ -82,6 +82,7 @@ public class ReleaseDetailsActivity extends AppCompatActivity {
         });
     }
 
+    //获取详情界面信息
     public void getDetails(){
 
         RequestParams requestParams=new RequestParams(HttpUtils.HOST+"querydetails");
@@ -91,10 +92,11 @@ public class ReleaseDetailsActivity extends AppCompatActivity {
         x.http().get(requestParams, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                System.out.println("resutl====="+result);
                 Gson gson=new Gson();
                 detailsBean=gson.fromJson(result, DetailsBean.class);
 
+                System.out.println("petImage===="+detailsBean.getPetImage());
+                System.out.println("userPhoto===="+detailsBean.getUserPhoto());
                 xUtilsImageUtils.display(iv_petImage,HttpUtils.HOST+detailsBean.getPetImage());
                 xUtilsImageUtils.display(iv_ApetPhoto,HttpUtils.HOST+detailsBean.getPetPhoto(),true);
                 xUtilsImageUtils.display(iv_publisherPhoto,HttpUtils.HOST+detailsBean.getUserPhoto(),true);

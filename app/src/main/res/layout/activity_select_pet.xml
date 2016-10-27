@@ -10,12 +10,17 @@
         android:id="@+id/toobar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#0176da">
+        android:background="#99ff0000">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/back"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="155dp"
+            android:layout_marginLeft="125dp"
             android:textSize="26sp"
             android:text="选择宠物"/>
 

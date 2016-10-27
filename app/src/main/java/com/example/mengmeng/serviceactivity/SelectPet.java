@@ -40,12 +40,18 @@ public class SelectPet extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_pet);
-
         initView();
 
         initData();
 
         initEvent();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        finish();
     }
 
     private void initEvent() {
