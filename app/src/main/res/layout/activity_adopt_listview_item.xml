@@ -39,9 +39,18 @@
         android:textSize="20sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/tv_petType"
-        android:layout_alignBottom="@id/tv_petType"
+        android:layout_alignParentRight="true"
+        android:layout_alignBottom="@id/tv_petName"
+        android:layout_marginRight="20dp"
         android:text="1"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/tv_petType"
+        android:layout_alignParentRight="true"
+        android:textSize="18sp"
+        android:text="2016-10-27"/>
 
     <TextView
         android:layout_width="match_parent"
