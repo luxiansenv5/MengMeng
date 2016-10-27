@@ -1,15 +1,18 @@
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context="com.example.mengmeng.fragment.ServiceFragement">
 
-        <ScrollView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:fillViewport="true"
-            android:scrollbars="none" >
+        <TextView
+            android:id="@+id/service"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="服务"
+            android:gravity="center"
+            android:textSize="24sp"
+            android:background="#99ff0000" />
 
             <com.example.mengmeng.utils.MyGridView
                 android:id="@+id/gridview"
@@ -20,7 +23,8 @@
                 android:numColumns="2"
                 android:scrollbars="none"
                 android:stretchMode="columnWidth"
-                android:verticalSpacing="0.0dip" />
-        </ScrollView>
-    </LinearLayout>
+                android:verticalSpacing="0.0dip"
+                android:layout_marginTop="50dp"/>
+
+    </RelativeLayout>
 
