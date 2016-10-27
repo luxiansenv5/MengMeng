@@ -11,4 +11,10 @@
     <color name="black">#000000</color>
 
     <color name="pray2">#F2F2F2</color>
+
+    <!-- 描边颜色_我的设置部分用到 -->
+    <color name="border_clo_mine">#ccc</color>
+    <color name="text_clo">#333</color>
+    <color name="white_mine">#fff</color>
+    <color name="blue_mine">#419DE4</color>
 </resources>

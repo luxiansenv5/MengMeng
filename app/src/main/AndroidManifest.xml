@@ -106,6 +106,8 @@
                     android:scheme="rong" />
             </intent-filter>
         </activity>
+        <activity android:name=".Mine_SetActivity" />
+        <activity android:name=".count_setActivity"></activity>
     </application>
 
 </manifest>
