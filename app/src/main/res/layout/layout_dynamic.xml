@@ -5,8 +5,8 @@
     android:descendantFocusability="blocksDescendants">
     <ImageView
         android:id="@+id/im_dynamic_head"
-        android:layout_width="70dp"
-        android:layout_height="50dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:src="@drawable/emoji_450"
         android:background="@android:color/transparent"
         android:focusable="false"
@@ -58,10 +58,11 @@
         android:textSize="15dp"/>
     <ImageView
         android:id="@+id/iv_dynamic_imag"
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_width="250dp"
+        android:layout_height="300dp"
         android:layout_below="@id/tv_dynamic_content"
-       android:scaleType="fitCenter"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="12dp"
         android:src="@drawable/qin"/>
     <ImageView
         android:id="@+id/iv_dynamic_place"
@@ -69,7 +70,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/iv_dynamic_imag"
         android:src="@drawable/place"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"/>
     <TextView
         android:id="@+id/tv_dynamic_place"
@@ -88,7 +89,7 @@
         android:src="@drawable/zan"
         android:background="@android:color/transparent"
         android:layout_below="@id/iv_dynamic_imag"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_alignParentRight="true"
         android:layout_marginRight="130dp"
         />
@@ -99,7 +100,7 @@
         android:src="@drawable/pinglun"
         android:background="@android:color/transparent"
         android:layout_below="@id/iv_dynamic_imag"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_alignParentRight="true"
         android:layout_marginRight="80dp"
         />
@@ -110,7 +111,7 @@
         android:src="@drawable/fenxiang"
         android:background="@android:color/transparent"
         android:layout_below="@id/iv_dynamic_imag"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_alignParentRight="true"
         android:layout_marginRight="30dp"
         />
@@ -132,7 +133,7 @@
         android:textSize="15dp"
         android:layout_below="@id/v_zhixian1"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="20dp"
         />
     <EditText
         android:id="@+id/et_pinglun"

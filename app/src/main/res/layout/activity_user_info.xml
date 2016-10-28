@@ -23,6 +23,7 @@
     <ImageView
         android:id="@+id/iv_userInfo_background"
         android:layout_width="match_parent"
+        android:scaleType="fitCenter"
         android:layout_height="180dp"
         android:src="@drawable/bg_user"
         android:layout_marginTop="50dp"
@@ -51,6 +52,7 @@
         android:layout_height="wrap_content"
         android:text="关注数:12"
         android:textSize="16dp"
+        android:layout_marginTop="5dp"
         android:layout_below="@id/iv_userInfo_photo"
         android:layout_marginLeft="18dp"/>
 

@@ -38,6 +38,7 @@
         <activity android:name="DynamicInfoActivity"/>
         <activity android:name="UserInfoActivity"/>
         <activity android:name="ReleaseActivity"/>
+        <activity android:name=".PictureActivity"/>
 
 
         <activity
