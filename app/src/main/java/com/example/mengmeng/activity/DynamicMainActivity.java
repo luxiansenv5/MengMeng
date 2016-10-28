@@ -82,7 +82,6 @@ public class DynamicMainActivity extends AppCompatActivity implements View.OnCli
         //ib_mine.setOnClickListener(this);
 
 
-
         initView();
         initEvents();
 

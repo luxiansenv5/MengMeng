@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.example.mengmeng.activity.Mine_SetActivity;
 import com.example.mengmeng.activity.R;
 
 import java.io.File;
@@ -33,12 +34,13 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener {
 
 
     //头像的存储完整路径
-    final File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)+"/"+
-            getPhotoFileName());
+    final File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)+"/"+ getPhotoFileName());
     private static final int PHOTO_REQUEST = 1;
     private static final int CAMERA_REQUEST = 2;
     private static final int PHOTO_CLIP = 3;
     private ImageView background_head;
+    private ImageView mine_set;
+
 
     public MenuLeftFragment() {
         // Required empty public constructor
@@ -51,8 +53,10 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener {
           View view = inflater.inflate(R.layout.layout_menu, container, false);
 
 
-            background_head = ((ImageView) view.findViewById(R.id.background_head));
+            background_head = ((ImageView) view.findViewById(R.id.background_head));//头像的背景图片
             background_head.setOnClickListener(this);
+            mine_set = ((ImageView) view.findViewById(R.id.mine_set));
+            mine_set.setOnClickListener(this);
 
             return view;
         }
@@ -62,8 +66,12 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.background_head:
-                System.out.println("background============");
+                System.out.println("background_head============");
                 popupdown2();
+                break;
+            case R.id.mine_set:
+                Intent intent = new Intent(getActivity(), Mine_SetActivity.class);
+                startActivity(intent);
                 break;
 
         }
@@ -76,7 +84,7 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener {
             case CAMERA_REQUEST:
                 switch (resultCode) {
                     case -1://-1表示拍照成功  固定
-                        System.out.println("CAMERA_REQUEST"+file.getAbsolutePath());
+                        //System.out.println("CAMERA_REQUEST"+file.getAbsolutePath());
                         if (file.exists()) {
                             photoClip(Uri.fromFile(file));
                         }
@@ -97,6 +105,7 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener {
                         Bitmap photo = extras.getParcelable("data");
                         saveImageToGallery(getActivity(),photo);//保存bitmap到本地
                         System.out.println("3============");
+                        //if(flag==0)
                             background_head.setImageBitmap(photo);
 
 //                        if(flag==1){
@@ -158,7 +167,6 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener {
 
     }
 
-
     private void popupdown2() {
         AlertDialog.Builder dialog  = new AlertDialog.Builder(getActivity());
         dialog.setNegativeButton("拍 照", new DialogInterface.OnClickListener() {
@@ -176,6 +184,7 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener {
         });
         dialog.show();
     }
+
     private void getPicFromCamera() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         //下面这句指定调用相机拍照后的照片存储的路径
@@ -191,11 +200,11 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener {
         startActivityForResult(intent, PHOTO_REQUEST);
 
     }
+
     private String getPhotoFileName() {
         Date date = new Date(System.currentTimeMillis());
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
         return sdf.format(date) + ".png";
     }
-
 }
 
