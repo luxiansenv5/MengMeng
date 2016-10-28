@@ -15,8 +15,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.example.mengmeng.activity.Mine_SetActivity;
+import com.example.mengmeng.activity.My_PetActivity;
 import com.example.mengmeng.activity.R;
 
 import java.io.File;
@@ -40,12 +43,13 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener {
     private static final int PHOTO_CLIP = 3;
     private ImageView background_head;
     private ImageView mine_set;
+    private TextView count_name;
+    private RelativeLayout my_pet_set;
 
 
     public MenuLeftFragment() {
         // Required empty public constructor
     }
-
 
         @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -57,6 +61,13 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener {
             background_head.setOnClickListener(this);
             mine_set = ((ImageView) view.findViewById(R.id.mine_set));
             mine_set.setOnClickListener(this);
+            //拿到显示的用户名
+            count_name = ((TextView) view.findViewById(R.id.count_name));
+            count_name.setText("dkgsngk");
+
+            //拿到我的宠物部分点击控件
+            my_pet_set = ((RelativeLayout) view.findViewById(R.id.my_pet_set));
+            my_pet_set.setOnClickListener(this);
 
             return view;
         }
@@ -66,12 +77,15 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.background_head:
-                System.out.println("background_head============");
                 popupdown2();
                 break;
             case R.id.mine_set:
                 Intent intent = new Intent(getActivity(), Mine_SetActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.my_pet_set:
+                Intent intent1  = new Intent(getActivity(), My_PetActivity.class);
+                startActivity(intent1);
                 break;
 
         }
@@ -206,5 +220,9 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
         return sdf.format(date) + ".png";
     }
+
+    
+
+
 }
 

@@ -35,9 +35,8 @@ public class Mine_SetActivity extends AppCompatActivity implements View.OnClickL
                 startActivity(intent);
                 break;
             case R.id.psd_set:
-
-//                Intent intent = new Intent(getApplication(), count_setActivity.class);
-//                startActivity(intent);
+                Intent intent1 = new Intent(getApplication(), pad_setActivity.class);
+                startActivity(intent1);
                 break;
         }
     }

@@ -55,6 +55,9 @@
             <ImageView style="@style/img_arrow"/>
         </LinearLayout>
 
+        <!-- 分割线 -->
+        <View style="@style/bg_line"/>
+
         <!-- 无圆角-->
         <LinearLayout style="@style/mid_layout">
             <TextView style="@style/usertext"
@@ -63,6 +66,7 @@
             <ImageView style="@style/img_arrow"/>
         </LinearLayout>
 
+        <!-- 分割线 -->
         <View style="@style/bg_line"/>
 
         <!-- 下圆角-->
