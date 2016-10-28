@@ -45,11 +45,13 @@
         android:text="1"/>
 
     <TextView
+        android:id="@+id/tv_releasetime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/tv_petType"
         android:layout_alignParentRight="true"
         android:textSize="18sp"
+        android:textColor="#000"
         android:text="2016-10-27"/>
 
     <TextView
