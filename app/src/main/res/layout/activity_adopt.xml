@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
+    android:background="@drawable/bg"
     tools:context="com.example.mengmeng.serviceactivity.AdoptActivity">
 
     <android.support.v7.widget.Toolbar
@@ -18,6 +18,7 @@
             android:src="@drawable/back"/>
 
         <TextView
+            android:id="@+id/adopt"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="领养"
@@ -32,7 +33,7 @@
             android:text="发布"
             android:textSize="20sp"
             android:layout_marginLeft="100dp"
-            android:background="#99ff0000"/>
+            android:background="#00000000"/>
 
     </android.support.v7.widget.Toolbar>
 
@@ -97,13 +98,12 @@
         </RelativeLayout>
     </LinearLayout>
 
-    <ListView
+    <com.example.mengmeng.utils.RefreshListView
         android:layout_below="@id/provence_kind"
         android:id="@+id/lv_petInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-
-    </ListView>
+    </com.example.mengmeng.utils.RefreshListView>
 
 </RelativeLayout>

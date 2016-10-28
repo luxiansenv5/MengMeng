@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.example.mengmeng.activity.R;
 import com.example.mengmeng.pojo.DetailsBean;
-import com.example.mengmeng.pojo.PetInfo;
+import com.example.mengmeng.pojo.GetAdoptBean;
 import com.example.mengmeng.utils.HttpUtils;
 import com.example.mengmeng.utils.xUtilsImageUtils;
 import com.google.gson.Gson;
@@ -29,12 +29,13 @@ public class ReleaseDetailsActivity extends AppCompatActivity {
     private TextView tv_realDesc;
     private TextView tv_publisherName;
     private ImageView iv_publisherPhoto;
-    private PetInfo petInfo;
+    private GetAdoptBean petInfo;
     private Integer userId;
     private DetailsBean detailsBean;
     private ImageView iv_ApetPhoto;
     private Integer petId;
     private ImageView share;
+    private Integer flag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,11 +66,16 @@ public class ReleaseDetailsActivity extends AppCompatActivity {
 
         Intent intent=getIntent();
         petInfo=intent.getExtras().getParcelable("petInfo");
-        userId=petInfo.userId;
-        petId=petInfo.petId;
+        flag=intent.getExtras().getInt("flag");
+        System.out.println("flag==="+flag);
+        userId=petInfo.getUserId();
+        petId=petInfo.getPetId();
 
-        getDetails();
-
+        if (flag==1){
+            getAdoptDetails();
+        }else if(flag==3){
+            getSearchDetails();
+        }
     }
 
     public void initEvent(){
@@ -83,7 +89,7 @@ public class ReleaseDetailsActivity extends AppCompatActivity {
     }
 
     //获取详情界面信息
-    public void getDetails(){
+    public void getAdoptDetails(){
 
         RequestParams requestParams=new RequestParams(HttpUtils.HOST+"querydetails");
         requestParams.addQueryStringParameter("userId",userId+"");
@@ -92,6 +98,50 @@ public class ReleaseDetailsActivity extends AppCompatActivity {
         x.http().get(requestParams, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
+                Gson gson=new Gson();
+                detailsBean=gson.fromJson(result, DetailsBean.class);
+
+                System.out.println("petImage===="+detailsBean.getPetImage());
+                System.out.println("userPhoto===="+detailsBean.getUserPhoto());
+                xUtilsImageUtils.display(iv_petImage,HttpUtils.HOST+detailsBean.getPetImage());
+                xUtilsImageUtils.display(iv_ApetPhoto,HttpUtils.HOST+detailsBean.getPetPhoto(),true);
+                xUtilsImageUtils.display(iv_publisherPhoto,HttpUtils.HOST+detailsBean.getUserPhoto(),true);
+
+                tv_ApetName.setText(detailsBean.getPetName());
+                tv_ApetType.setText(detailsBean.getPetType());
+                tv_realDesc.setText(detailsBean.getDescribe());
+                tv_publisherName.setText(detailsBean.getUserName());
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+                System.out.println("Error"+ex);
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+    }
+
+    public void getSearchDetails(){
+
+        RequestParams requestParams=new RequestParams(HttpUtils.HOST+"searchdetails");
+        requestParams.addQueryStringParameter("userId",userId+"");
+        requestParams.addQueryStringParameter("petId",petId+"");
+
+        x.http().get(requestParams, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+
+                System.out.println("getSearchDetails"+result);
                 Gson gson=new Gson();
                 detailsBean=gson.fromJson(result, DetailsBean.class);
 
