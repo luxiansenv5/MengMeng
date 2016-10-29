@@ -3,21 +3,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
+    android:background="@drawable/bg"
     tools:context="com.example.mengmeng.serviceactivity.AdoptActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toobar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#0176da">
+        android:background="#99ff0000">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/back"/>
 
         <TextView
+            android:id="@+id/adopt"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="领养"
             android:textSize="26sp"
-            android:layout_marginLeft="170dp"/>
+            android:layout_marginLeft="140dp"
+            />
 
         <Button
             android:id="@+id/btn_publish"
@@ -26,7 +33,7 @@
             android:text="发布"
             android:textSize="20sp"
             android:layout_marginLeft="100dp"
-            android:background="#0176da"/>
+            android:background="#00000000"/>
 
     </android.support.v7.widget.Toolbar>
 
@@ -52,7 +59,7 @@
                 android:gravity="center"
                 android:textSize="16sp"
                 android:layout_gravity="center_vertical"
-                />
+                android:background="#DDDDDD"/>
 
         </RelativeLayout>
 
@@ -77,7 +84,7 @@
                 android:textColor="@android:color/black"
                 android:gravity="center"
                 android:layout_gravity="center_vertical"
-                />
+                android:background="#DDDDDD"/>
             <ImageView
                 android:id="@+id/id_prod_list_sort_right_trangle"
                 android:layout_width="wrap_content"
@@ -91,13 +98,12 @@
         </RelativeLayout>
     </LinearLayout>
 
-    <ListView
+    <com.example.mengmeng.utils.RefreshListView
         android:layout_below="@id/provence_kind"
         android:id="@+id/lv_petInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-
-    </ListView>
+    </com.example.mengmeng.utils.RefreshListView>
 
 </RelativeLayout>

@@ -137,6 +137,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     //返回值为零 表示不匹配 传会的result值就是psd
                     Toast.makeText(LoginActivity.this, "用户名或密码错误", Toast.LENGTH_LONG).show();
                 } else {
+                    SharedPreferences shared_prefs = getSharedPreferences("userinfo_shared_prefs", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = shared_prefs.edit();
+                    if (cb_remeber.isChecked()) {
+                        //保存用户名信息
+                        editor.putString("loginName", et_userName.getText().toString().trim());
+                        editor.putBoolean("remeberName",true);
+
+                    }else {
+                        editor.putString("loginName","");
+                        editor.putBoolean("remeberName",false);
+                        //editor.remove("loginName");
+                        //editor.clear();
+                    }
+                    editor.commit();
+
+                    //这是原来的登录代码
 //                    Sport_name.NAME=finalName;
 //                    Sport_name.ID=result;
                     et_userName.setText(finalName);

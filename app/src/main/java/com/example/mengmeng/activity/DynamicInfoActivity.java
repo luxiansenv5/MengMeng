@@ -9,7 +9,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.mengmeng.activity.R;
 import com.example.mengmeng.pojo.Dynamic;
 import com.example.mengmeng.utils.NetUtil;
 
@@ -80,7 +79,6 @@ public class DynamicInfoActivity extends AppCompatActivity {
         }
 
     }
-
 
     @OnClick({R.id.iv_back, R.id.ib_dynamic_info_photo, R.id.ib_dynamic_info_concern, R.id.ib_dynamic_info_zan, R.id.ib_dynamic_info_pinlun, R.id.ib_dynamic_info_fenxiang})
     public void onClick(View view) {

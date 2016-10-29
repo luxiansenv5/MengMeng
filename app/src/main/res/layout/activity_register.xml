@@ -45,12 +45,17 @@
         <!--android:text="女"-->
         <!--/>-->
 
+
     <RadioGroup
         android:id="@+id/check_sex"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/reg_psd_again">
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
         <RadioButton
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -60,19 +65,21 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/female"
-            android:layout_marginLeft="120px"
-            android:layout_marginTop="-80px"
-
             android:text="女"/>
+        </LinearLayout>
 
     </RadioGroup>
-
+<LinearLayout
+    android:id="@+id/buttons"
+    android:layout_below="@+id/check_sex"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
     <Button
         android:id="@+id/btn_cancel"
         android:layout_width="150dp"
-        android:layout_marginLeft="50dp"
+        android:layout_marginLeft="35dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/check_sex"
         android:text=" 取消 "/>
     <Button
         android:id="@+id/btn_register"
@@ -81,5 +88,7 @@
         android:layout_below="@+id/check_sex"
         android:layout_toRightOf="@+id/btn_cancel"
         android:text=" 注册 "/>
+
+</LinearLayout>
 
 </RelativeLayout>

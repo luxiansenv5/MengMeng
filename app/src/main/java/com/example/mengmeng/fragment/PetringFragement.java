@@ -6,35 +6,19 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
+import android.support.v4.widget.DrawerLayout;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.RadioButton;
-import android.widget.TextView;
 
-import com.example.mengmeng.activity.AllDynamicActivity;
-import com.example.mengmeng.activity.DynamicInfoActivity;
+import com.example.mengmeng.activity.DynamicMainActivity;
 import com.example.mengmeng.activity.R;
 import com.example.mengmeng.activity.ReleaseActivity;
-import com.example.mengmeng.activity.UserInfoActivity;
-import com.example.mengmeng.pojo.Dynamic;
-import com.example.mengmeng.utils.CommonAdapter;
-import com.example.mengmeng.utils.NetUtil;
-import com.example.mengmeng.utils.ViewHolder;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import org.xutils.common.Callback;
-import org.xutils.http.RequestParams;
-import org.xutils.x;
-
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,8 +34,11 @@ public class PetringFragement extends BaseFragment  {
     private RadioButton rbHot;
     private RadioButton rbConcern;
     private ImageButton ibPaizhao;
+
     private ImageButton ibMine;
     private ViewPager dynamic_vp;
+
+//    private DrawerLayout mDrawerLayout;
 
     @Nullable
     @Override
@@ -63,6 +50,15 @@ public class PetringFragement extends BaseFragment  {
         rbFriends = ((RadioButton) v.findViewById(R.id.rb_friends));
         ibPaizhao=(ImageButton)v.findViewById(R.id.ib_paizhao);
         ibMine=(ImageButton)v.findViewById(R.id.ib_mine);
+
+        ibMine.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((DynamicMainActivity)getActivity()).getmDrawerLayout().openDrawer(Gravity.LEFT);
+                ((DynamicMainActivity)getActivity()).getmDrawerLayout().setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED,
+                        Gravity.LEFT);
+            }
+        });
 
         ibPaizhao.setOnClickListener(new View.OnClickListener() {
             @Override

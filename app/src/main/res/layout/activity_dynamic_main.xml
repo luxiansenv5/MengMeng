@@ -4,9 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/drawer"
-    android:background="#ffffff"
+
+    android:background="@drawable/background_mine"
     tools:context=".DynamicMainActivity">
 
+    <!--android:background="#ffffff"-->
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -64,7 +66,7 @@
     <fragment
         android:id="@+id/id_left_menu"
         android:name="com.example.mengmeng.fragment.MenuLeftFragment"
-        android:layout_width="200dp"
+        android:layout_width="210dp"
         android:layout_height="match_parent"
         android:layout_gravity="left"
         android:tag="LEFT" />
@@ -76,8 +78,6 @@
         android:layout_height="match_parent"
         android:layout_gravity="right"
         android:tag="RIGHT" />
-
-
 
 
 </android.support.v4.widget.DrawerLayout>

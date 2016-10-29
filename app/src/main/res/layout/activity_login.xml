@@ -30,6 +30,7 @@
         android:id="@+id/cb_remeber"
         android:layout_width="wrap_content"
         android:layout_marginTop="30dp"
+
         android:layout_height="wrap_content"
         android:text="记住用户名"/>
 
@@ -41,7 +42,8 @@
         android:layout_alignBottom="@+id/title"
         android:text="注册"
         android:textSize="18dp"
-        android:layout_marginLeft="300dp"
+
+        android:layout_marginLeft="280dp"
            android:layout_marginTop="-30dp"
             />
     <Button
