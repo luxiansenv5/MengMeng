@@ -13,6 +13,7 @@
         android:background="#99ff0000">
 
         <ImageView
+            android:id="@+id/mlback"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/back"/>
