@@ -23,7 +23,11 @@ import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.view.animation.TranslateAnimation;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -118,7 +122,6 @@ public class PetringAllFragment extends BaseFragment implements RefreshListView.
 
     @Override
     public void initEvent() {
-
 //        lvDynamics.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //            @Override
 //            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -192,7 +195,7 @@ public class PetringAllFragment extends BaseFragment implements RefreshListView.
 
                             ImageView ivImag = viewHolder.getViewById(R.id.iv_dynamic_imag);
                             x.image().bind(ivImag, NetUtil.picture_url + dynamic.getPicture());
-                            str=NetUtil.picture_url + dynamic.getPicture();
+                            final String str=NetUtil.picture_url + dynamic.getPicture();
                             ivImag.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
@@ -220,8 +223,8 @@ public class PetringAllFragment extends BaseFragment implements RefreshListView.
                                 zan2=zan2.substring(0,zan2.length()-1);
                                 zan2="我 "+zan2;
                                 SpannableString ss = new SpannableString(zan2);
-                                Drawable d=getResources().getDrawable(R.drawable.zan1);
-                                d.setBounds(0,0,50,50);
+                                Drawable d=getResources().getDrawable(R.drawable.zan);
+                                d.setBounds(0,0,30,30);
                                 ss.setSpan(new ImageSpan(d),0,1, Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
                                 ss.setSpan(new ForegroundColorSpan(Color.BLUE),2,zan2.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
@@ -253,38 +256,7 @@ public class PetringAllFragment extends BaseFragment implements RefreshListView.
 
                             //设置点赞点击事件
                             final ImageButton imZan = viewHolder.getViewById(R.id.im_zan);
-//                            imZan.setTag(position);
-//                            imZan.setOnClickListener(new View.OnClickListener() {
-//                                @Override
-//                                public void onClick(View v) {
-//                                    if (choice.contains((Integer) (((ImageView) v).getTag()))) {
-//                                        ((ImageView) v).setImageResource(R.drawable.zan);
-//                                        choice.remove((Integer) (((ImageView) v).getTag()));
 //
-//                                        int user_Id = ((MyApplication) getActivity().getApplication()).getUser().getUserId();    //点赞人Id
-//                                        int dynamic_Id = dynamic.getDynamicId();
-//                                        removeZan(dynamic_Id, user_Id);
-//
-//                                    } else {
-//                                        Bitmap bitmap = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.zan1);
-//                                        ((ImageView) v).setImageBitmap(bitmap);
-//                                        choice.add((Integer) (((ImageView) v).getTag()));
-//
-//                                        int user_Id = ((MyApplication) getActivity().getApplication()).getUser().getUserId();    //点赞人Id
-//                                        int dynamic_Id = dynamic.getDynamicId();                                                  //动态Id
-//                                        String zanTime = String.valueOf(System.currentTimeMillis());                             //点赞时间
-//                                        addZan(dynamic_Id, user_Id, zanTime);
-//                                    }
-//
-//                                }
-//                            });
-//
-//                            if (choice.contains(position)) {
-//                                imZan.setImageResource(R.drawable.zan1);
-//                            } else {
-//                                imZan.setImageResource(R.drawable.zan);
-//                            }
-
                             final String finalZan = zan3;
                             imZan.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -296,8 +268,8 @@ public class PetringAllFragment extends BaseFragment implements RefreshListView.
                                         zan5=zan5.substring(4,zan5.length());
                                         if (zan5.length()>0){
                                             SpannableString ss = new SpannableString(zan5);
-                                            Drawable d=getResources().getDrawable(R.drawable.zan1);
-                                            d.setBounds(0,0,50,50);
+                                            Drawable d=getResources().getDrawable(R.drawable.zan);
+                                            d.setBounds(0,0,30,30);
                                             ss.setSpan(new ImageSpan(d),0,1, Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
                                             ss.setSpan(new ForegroundColorSpan(Color.BLUE),2,zan5.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                                             tvZan.setText(ss);
@@ -326,12 +298,14 @@ public class PetringAllFragment extends BaseFragment implements RefreshListView.
                                     }else{
                                         tvZan.setVisibility(View.VISIBLE);
                                         imZan.setImageResource(R.drawable.zan1);
+                                        //增加动画效果
+                                        imZan.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.shake));
 
                                         String zan4="我"+"萌萌"+finalZan;
                                         System.out.println("zan4:"+zan4);
                                         SpannableString ss = new SpannableString(zan4);
-                                        Drawable d=getResources().getDrawable(R.drawable.zan1);
-                                        d.setBounds(0,0,50,50);
+                                        Drawable d=getResources().getDrawable(R.drawable.zan);
+                                        d.setBounds(0,0,30,30);
                                         ss.setSpan(new ImageSpan(d),0,1, Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
                                         ss.setSpan(new ForegroundColorSpan(Color.BLUE),2,zan4.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                                         tvZan.setText(ss);
@@ -439,7 +413,21 @@ public class PetringAllFragment extends BaseFragment implements RefreshListView.
                                     editor.commit();
                                 }
                             });
-//
+
+                            //点击评论按钮事件
+                            ImageButton imPinlun = viewHolder.getViewById(R.id.im_pinglun);
+                            final EditText editText=viewHolder.getViewById(R.id.et_pinglun);
+                            imPinlun.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    editText.requestFocus();
+                                    InputMethodManager imm= (InputMethodManager) editText.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                                    imm.toggleSoftInput(0,InputMethodManager.SHOW_FORCED);
+                                }
+                            });
+
+                            //评论列表
+
                         }
                     };
                     lvDynamics.setAdapter(dynamicsAdapter);
