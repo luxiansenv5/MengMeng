@@ -89,6 +89,7 @@ public class AdoptActivity extends AppCompatActivity implements RefreshListView.
             adopt.setText("配对");
 
         }else if(flag==3){
+
             adopt.setText("寻宠");
         }
 

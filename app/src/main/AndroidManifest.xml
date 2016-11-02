@@ -113,7 +113,7 @@
         <activity android:name=".Mine_SetActivity" />
         <activity android:name=".count_setActivity" />
         <activity android:name=".pad_setActivity" />
-        <activity android:name=".My_PetActivity"></activity>
+        <activity android:name=".My_PetActivity" />
     </application>
 
 </manifest>

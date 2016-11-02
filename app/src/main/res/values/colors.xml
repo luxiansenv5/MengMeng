@@ -21,4 +21,9 @@
     <color name="text_clo">#333</color>
     <color name="white_mine">#fff</color>
     <color name="blue_mine">#419DE4</color>
+
+    <color name="mainColor">#4dc445</color>
+    <color name="grey">#ececec</color>
+    <color name="txtgrey">#7c7b7b</color>
+    <color name="greywhite">#aeacac</color>
 </resources>

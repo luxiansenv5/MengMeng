@@ -6,12 +6,19 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.mengmeng.activity.R;
 import com.example.mengmeng.pojo.DetailsBean;
 import com.example.mengmeng.pojo.GetAdoptBean;
+import com.example.mengmeng.pojo.SingleComment;
+import com.example.mengmeng.utils.CommentAdapter;
 import com.example.mengmeng.utils.HttpUtils;
 import com.example.mengmeng.utils.viewpageAdapter;
 import com.example.mengmeng.utils.xUtilsImageUtils;
@@ -29,7 +36,7 @@ import java.util.List;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 
-public class ReleaseDetailsActivity extends AppCompatActivity {
+public class ReleaseDetailsActivity extends AppCompatActivity implements View.OnClickListener{
 
     private ImageView iv_petImage;
     private TextView tv_ApetName;
@@ -51,6 +58,16 @@ public class ReleaseDetailsActivity extends AppCompatActivity {
     private viewpageAdapter adpter;
     private ImageView mxback;
 
+    private ImageView comment;
+    private TextView hide_down;
+    private EditText comment_content;
+    private Button comment_send;
+
+    private LinearLayout rl_enroll;
+    private RelativeLayout rl_comment;
+
+    private CommentAdapter commentAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +88,14 @@ public class ReleaseDetailsActivity extends AppCompatActivity {
 
         share = ((ImageView) findViewById(R.id.share));
         mxback = ((ImageView) findViewById(R.id.mxback));
+
+        comment = (ImageView) findViewById(R.id.comment);
+        hide_down = (TextView) findViewById(R.id.hide_down);
+        comment_content = (EditText) findViewById(R.id.comment_content);
+        comment_send = (Button) findViewById(R.id.comment_send);
+
+        rl_enroll = (LinearLayout) findViewById(R.id.rl_enroll);
+        rl_comment = (RelativeLayout) findViewById(R.id.rl_comment);
     }
 
     public void initData(){
@@ -84,15 +109,9 @@ public class ReleaseDetailsActivity extends AppCompatActivity {
 
         currentItem=intent.getExtras().getInt("position");
 
-//        if (flag==1){
-//            getAdoptDetails();
-//        }else if (flag==2){
-//            getPairDetails();
-//        }else if(flag==3){
-//            getSearchDetails();
-//        }
-
         getAdoptDetails();
+
+//        getComment();
     }
 
     public void initEvent(){
@@ -113,14 +132,24 @@ public class ReleaseDetailsActivity extends AppCompatActivity {
         });
     }
 
-    //获取寻宠详情界面信息
-    public void getSearchDetails(){
+    public void getAdoptDetails(){
 
-        RequestParams requestParams=new RequestParams(HttpUtils.HOST+"searchdetails");
+        RequestParams requestParams=null;
+
+        if (flag==1){
+
+            requestParams=new RequestParams(HttpUtils.HOST+"queryalldetails");
+        }else if (flag==2){
+
+            requestParams=new RequestParams(HttpUtils.HOST+"pairpet");
+        }else if (flag==3){
+            requestParams=new RequestParams(HttpUtils.HOST+"searchdetails");
+        }
 
         x.http().get(requestParams, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
+
                 Gson gson=new Gson();
                 Type type=new TypeToken<List<DetailsBean>>(){}.getType();
                 detailList=gson.fromJson(result, type);
@@ -138,15 +167,18 @@ public class ReleaseDetailsActivity extends AppCompatActivity {
                     tv_realDesc = ((TextView) view.findViewById(R.id.tv_realDesc));
                     tv_publisherName = ((TextView) view.findViewById(R.id.tv_publisherName));
                     iv_publisherPhoto = ((ImageView) view.findViewById(R.id.iv_publisherPhoto));
+                    // 初始化评论列表
+                    ListView comment_list = (ListView) view.findViewById(R.id.comment_list);
+                    getComment(comment_list,detailsBean);
 
                     xUtilsImageUtils.display(iv_petImage,HttpUtils.HOST+detailsBean.getPetImage());
                     xUtilsImageUtils.display(iv_ApetPhoto,HttpUtils.HOST+detailsBean.getPetPhoto(),true);
-                    xUtilsImageUtils.display(iv_publisherPhoto,HttpUtils.HOST+detailsBean.getUserPhoto(),true);
+                    xUtilsImageUtils.display(iv_publisherPhoto,HttpUtils.HOST+detailsBean.getPublisherPhoto(),true);
 
                     tv_ApetName.setText(detailsBean.getPetName());
                     tv_ApetType.setText(detailsBean.getPetType());
                     tv_realDesc.setText(detailsBean.getDescribe());
-                    tv_publisherName.setText(detailsBean.getUserName());
+                    tv_publisherName.setText(detailsBean.getPublisherName());
 
                     list_view.add(view);
                 }
@@ -175,65 +207,59 @@ public class ReleaseDetailsActivity extends AppCompatActivity {
         });
     }
 
-    public void getAdoptDetails(){
+    public void getComment(final ListView comment_list,DetailsBean detailsBean){
 
-        RequestParams requestParams=null;
+        final List<SingleComment> data=new ArrayList<SingleComment>();
 
-        if (flag==1){
+        RequestParams requestParams=new RequestParams(HttpUtils.HOST+"querycomment");
 
-            requestParams=new RequestParams(HttpUtils.HOST+"queryalldetails");
-        }else if (flag==2){
-
-            requestParams=new RequestParams(HttpUtils.HOST+"pairpet");
-        }else if (flag==3){
-            requestParams=new RequestParams(HttpUtils.HOST+"searchdetails");
-        }
+        requestParams.addBodyParameter("publisherId",detailsBean.getPublisherId()+"");
+        requestParams.addBodyParameter("releaseId",detailsBean.getReleaseId()+"");
+        requestParams.addBodyParameter("commentType",flag+"");
 
         x.http().get(requestParams, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                System.out.println("ReleaseDetails-result===="+result);
+                System.out.println("getComment-result===="+result);
 
+                List<SingleComment> newData=new ArrayList<SingleComment>();
                 Gson gson=new Gson();
-                Type type=new TypeToken<List<DetailsBean>>(){}.getType();
-                detailList=gson.fromJson(result, type);
+                Type type=new TypeToken<List<SingleComment>>(){}.getType();
+                newData=gson.fromJson(result,type);
 
+                data.clear();
 
-                for (DetailsBean detailsBean : detailList) {
+                data.addAll(newData);
 
-                    View view= LayoutInflater.from(ReleaseDetailsActivity.this).inflate(R.layout.fragment_viewpage,null);
-
-
-                    iv_petImage = ((ImageView) view.findViewById(R.id.iv_petImage));
-                    iv_ApetPhoto = ((ImageView) view.findViewById(R.id.iv_ApetPhoto));
-                    tv_ApetName = ((TextView) view.findViewById(R.id.tv_ApetName));
-                    tv_ApetType = ((TextView) view.findViewById(R.id.tv_ApetType));
-                    tv_realDesc = ((TextView) view.findViewById(R.id.tv_realDesc));
-                    tv_publisherName = ((TextView) view.findViewById(R.id.tv_publisherName));
-                    iv_publisherPhoto = ((ImageView) view.findViewById(R.id.iv_publisherPhoto));
-
-                    xUtilsImageUtils.display(iv_petImage,HttpUtils.HOST+detailsBean.getPetImage());
-                    xUtilsImageUtils.display(iv_ApetPhoto,HttpUtils.HOST+detailsBean.getPetPhoto(),true);
-                    xUtilsImageUtils.display(iv_publisherPhoto,HttpUtils.HOST+detailsBean.getUserPhoto(),true);
-
-                    tv_ApetName.setText(detailsBean.getPetName());
-                    tv_ApetType.setText(detailsBean.getPetType());
-                    tv_realDesc.setText(detailsBean.getDescribe());
-                    tv_publisherName.setText(detailsBean.getUserName());
-
-                    list_view.add(view);
-                }
-
-                adpter = new viewpageAdapter(list_view);
-                list_pager.setAdapter(adpter);
-
-                list_pager.setCurrentItem(currentItem);
+//                if (commentAdapter==null){
+//                    commentAdapter= new CommonAdapter<SingleComment>(ReleaseDetailsActivity.this,data,R.layout.item_comment) {
+//                        @Override
+//                        public void convert(ViewHolder viewHolder, SingleComment singleComment, int position) {
+//                            TextView commentatorName=viewHolder.getViewById(R.id.commentatorName);
+//                            TextView content=viewHolder.getViewById(R.id.content);
+//                            ImageView commentatorPhoto=viewHolder.getViewById(R.id.commentatorPhoto);
+//
+//                            System.out.println("commentatorName==="+commentatorName.getText());
+//                            commentatorName.setText(singleComment.getCommentatorName());
+//                            content.setText(singleComment.getContent());
+//                            xUtilsImageUtils.display(commentatorPhoto,HttpUtils.HOST+singleComment.getCommentatorPhoto(),true);
+//
+//                        }
+//                    };
+//                    comment_list.setAdapter(commentAdapter);
+//                }else {
+//                    commentAdapter.notifyDataSetChanged();
+//                }
+                // 初始化适配器
+                commentAdapter = new CommentAdapter(ReleaseDetailsActivity.this, data);
+                // 为评论列表设置适配器
+                comment_list.setAdapter(commentAdapter);
             }
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
 
-                System.out.println("Error"+ex);
+                System.out.println("Error======="+ex);
             }
 
             @Override
@@ -277,5 +303,10 @@ public class ReleaseDetailsActivity extends AppCompatActivity {
 
         // 启动分享GUI
         oks.show(ReleaseDetailsActivity.this);
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 }
