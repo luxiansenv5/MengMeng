@@ -111,8 +111,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".Mine_SetActivity" />
-        <activity android:name=".count_setActivity" />
-        <activity android:name=".pad_setActivity" />
+        <activity android:name=".Count_setActivity" />
+        <activity android:name=".Psd_setActivity"/>
         <activity android:name=".My_PetActivity"></activity>
     </application>
 

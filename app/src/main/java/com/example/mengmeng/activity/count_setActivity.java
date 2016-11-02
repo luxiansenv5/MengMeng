@@ -15,7 +15,7 @@ import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
-public class count_setActivity extends AppCompatActivity {
+public class Count_setActivity extends AppCompatActivity {
 
     private TextView new_count_set;
     private Button count_confirm;
