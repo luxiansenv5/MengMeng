@@ -2,7 +2,9 @@ package com.example.mengmeng.serviceactivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -11,12 +13,18 @@ import com.example.mengmeng.activity.R;
 import com.example.mengmeng.pojo.DetailsBean;
 import com.example.mengmeng.pojo.GetAdoptBean;
 import com.example.mengmeng.utils.HttpUtils;
+import com.example.mengmeng.utils.viewpageAdapter;
 import com.example.mengmeng.utils.xUtilsImageUtils;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
@@ -31,11 +39,17 @@ public class ReleaseDetailsActivity extends AppCompatActivity {
     private ImageView iv_publisherPhoto;
     private GetAdoptBean petInfo;
     private Integer userId;
-    private DetailsBean detailsBean;
+    private List<DetailsBean> detailList;
     private ImageView iv_ApetPhoto;
     private Integer petId;
     private ImageView share;
     private Integer flag;
+
+    private ViewPager list_pager;
+    private List<View> list_view;
+    private int currentItem;
+    private viewpageAdapter adpter;
+    private ImageView mxback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,14 +66,11 @@ public class ReleaseDetailsActivity extends AppCompatActivity {
 
     public void initView(){
 
-        iv_petImage = ((ImageView) findViewById(R.id.iv_petImage));
-        iv_ApetPhoto = ((ImageView) findViewById(R.id.iv_ApetPhoto));
-        tv_ApetName = ((TextView) findViewById(R.id.tv_ApetName));
-        tv_ApetType = ((TextView) findViewById(R.id.tv_ApetType));
-        tv_realDesc = ((TextView) findViewById(R.id.tv_realDesc));
-        tv_publisherName = ((TextView) findViewById(R.id.tv_publisherName));
-        iv_publisherPhoto = ((ImageView) findViewById(R.id.iv_publisherPhoto));
+        list_pager = (ViewPager)findViewById(R.id.list_pager);
+        list_view = new ArrayList<>();
+
         share = ((ImageView) findViewById(R.id.share));
+        mxback = ((ImageView) findViewById(R.id.mxback));
     }
 
     public void initData(){
@@ -67,15 +78,21 @@ public class ReleaseDetailsActivity extends AppCompatActivity {
         Intent intent=getIntent();
         petInfo=intent.getExtras().getParcelable("petInfo");
         flag=intent.getExtras().getInt("flag");
-        System.out.println("flag==="+flag);
+
         userId=petInfo.getUserId();
         petId=petInfo.getPetId();
 
-        if (flag==1){
-            getAdoptDetails();
-        }else if(flag==3){
-            getSearchDetails();
-        }
+        currentItem=intent.getExtras().getInt("position");
+
+//        if (flag==1){
+//            getAdoptDetails();
+//        }else if (flag==2){
+//            getPairDetails();
+//        }else if(flag==3){
+//            getSearchDetails();
+//        }
+
+        getAdoptDetails();
     }
 
     public void initEvent(){
@@ -86,31 +103,58 @@ public class ReleaseDetailsActivity extends AppCompatActivity {
                 showShare();
             }
         });
+
+        mxback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                finish();
+            }
+        });
     }
 
-    //获取详情界面信息
-    public void getAdoptDetails(){
+    //获取寻宠详情界面信息
+    public void getSearchDetails(){
 
-        RequestParams requestParams=new RequestParams(HttpUtils.HOST+"querydetails");
-        requestParams.addQueryStringParameter("userId",userId+"");
-        requestParams.addQueryStringParameter("petId",petId+"");
+        RequestParams requestParams=new RequestParams(HttpUtils.HOST+"searchdetails");
 
         x.http().get(requestParams, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
                 Gson gson=new Gson();
-                detailsBean=gson.fromJson(result, DetailsBean.class);
+                Type type=new TypeToken<List<DetailsBean>>(){}.getType();
+                detailList=gson.fromJson(result, type);
 
-                System.out.println("petImage===="+detailsBean.getPetImage());
-                System.out.println("userPhoto===="+detailsBean.getUserPhoto());
-                xUtilsImageUtils.display(iv_petImage,HttpUtils.HOST+detailsBean.getPetImage());
-                xUtilsImageUtils.display(iv_ApetPhoto,HttpUtils.HOST+detailsBean.getPetPhoto(),true);
-                xUtilsImageUtils.display(iv_publisherPhoto,HttpUtils.HOST+detailsBean.getUserPhoto(),true);
 
-                tv_ApetName.setText(detailsBean.getPetName());
-                tv_ApetType.setText(detailsBean.getPetType());
-                tv_realDesc.setText(detailsBean.getDescribe());
-                tv_publisherName.setText(detailsBean.getUserName());
+                for (DetailsBean detailsBean : detailList) {
+
+                    View view= LayoutInflater.from(ReleaseDetailsActivity.this).inflate(R.layout.fragment_viewpage,null);
+
+
+                    iv_petImage = ((ImageView) view.findViewById(R.id.iv_petImage));
+                    iv_ApetPhoto = ((ImageView) view.findViewById(R.id.iv_ApetPhoto));
+                    tv_ApetName = ((TextView) view.findViewById(R.id.tv_ApetName));
+                    tv_ApetType = ((TextView) view.findViewById(R.id.tv_ApetType));
+                    tv_realDesc = ((TextView) view.findViewById(R.id.tv_realDesc));
+                    tv_publisherName = ((TextView) view.findViewById(R.id.tv_publisherName));
+                    iv_publisherPhoto = ((ImageView) view.findViewById(R.id.iv_publisherPhoto));
+
+                    xUtilsImageUtils.display(iv_petImage,HttpUtils.HOST+detailsBean.getPetImage());
+                    xUtilsImageUtils.display(iv_ApetPhoto,HttpUtils.HOST+detailsBean.getPetPhoto(),true);
+                    xUtilsImageUtils.display(iv_publisherPhoto,HttpUtils.HOST+detailsBean.getUserPhoto(),true);
+
+                    tv_ApetName.setText(detailsBean.getPetName());
+                    tv_ApetType.setText(detailsBean.getPetType());
+                    tv_realDesc.setText(detailsBean.getDescribe());
+                    tv_publisherName.setText(detailsBean.getUserName());
+
+                    list_view.add(view);
+                }
+
+                adpter = new viewpageAdapter(list_view);
+                list_pager.setAdapter(adpter);
+
+                list_pager.setCurrentItem(currentItem);
             }
 
             @Override
@@ -131,30 +175,59 @@ public class ReleaseDetailsActivity extends AppCompatActivity {
         });
     }
 
-    public void getSearchDetails(){
+    public void getAdoptDetails(){
 
-        RequestParams requestParams=new RequestParams(HttpUtils.HOST+"searchdetails");
-        requestParams.addQueryStringParameter("userId",userId+"");
-        requestParams.addQueryStringParameter("petId",petId+"");
+        RequestParams requestParams=null;
+
+        if (flag==1){
+
+            requestParams=new RequestParams(HttpUtils.HOST+"queryalldetails");
+        }else if (flag==2){
+
+            requestParams=new RequestParams(HttpUtils.HOST+"pairpet");
+        }else if (flag==3){
+            requestParams=new RequestParams(HttpUtils.HOST+"searchdetails");
+        }
 
         x.http().get(requestParams, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
+                System.out.println("ReleaseDetails-result===="+result);
 
-                System.out.println("getSearchDetails"+result);
                 Gson gson=new Gson();
-                detailsBean=gson.fromJson(result, DetailsBean.class);
+                Type type=new TypeToken<List<DetailsBean>>(){}.getType();
+                detailList=gson.fromJson(result, type);
 
-                System.out.println("petImage===="+detailsBean.getPetImage());
-                System.out.println("userPhoto===="+detailsBean.getUserPhoto());
-                xUtilsImageUtils.display(iv_petImage,HttpUtils.HOST+detailsBean.getPetImage());
-                xUtilsImageUtils.display(iv_ApetPhoto,HttpUtils.HOST+detailsBean.getPetPhoto(),true);
-                xUtilsImageUtils.display(iv_publisherPhoto,HttpUtils.HOST+detailsBean.getUserPhoto(),true);
 
-                tv_ApetName.setText(detailsBean.getPetName());
-                tv_ApetType.setText(detailsBean.getPetType());
-                tv_realDesc.setText(detailsBean.getDescribe());
-                tv_publisherName.setText(detailsBean.getUserName());
+                for (DetailsBean detailsBean : detailList) {
+
+                    View view= LayoutInflater.from(ReleaseDetailsActivity.this).inflate(R.layout.fragment_viewpage,null);
+
+
+                    iv_petImage = ((ImageView) view.findViewById(R.id.iv_petImage));
+                    iv_ApetPhoto = ((ImageView) view.findViewById(R.id.iv_ApetPhoto));
+                    tv_ApetName = ((TextView) view.findViewById(R.id.tv_ApetName));
+                    tv_ApetType = ((TextView) view.findViewById(R.id.tv_ApetType));
+                    tv_realDesc = ((TextView) view.findViewById(R.id.tv_realDesc));
+                    tv_publisherName = ((TextView) view.findViewById(R.id.tv_publisherName));
+                    iv_publisherPhoto = ((ImageView) view.findViewById(R.id.iv_publisherPhoto));
+
+                    xUtilsImageUtils.display(iv_petImage,HttpUtils.HOST+detailsBean.getPetImage());
+                    xUtilsImageUtils.display(iv_ApetPhoto,HttpUtils.HOST+detailsBean.getPetPhoto(),true);
+                    xUtilsImageUtils.display(iv_publisherPhoto,HttpUtils.HOST+detailsBean.getUserPhoto(),true);
+
+                    tv_ApetName.setText(detailsBean.getPetName());
+                    tv_ApetType.setText(detailsBean.getPetType());
+                    tv_realDesc.setText(detailsBean.getDescribe());
+                    tv_publisherName.setText(detailsBean.getUserName());
+
+                    list_view.add(view);
+                }
+
+                adpter = new viewpageAdapter(list_view);
+                list_pager.setAdapter(adpter);
+
+                list_pager.setCurrentItem(currentItem);
             }
 
             @Override
