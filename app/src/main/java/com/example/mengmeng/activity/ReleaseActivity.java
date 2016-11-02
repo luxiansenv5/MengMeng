@@ -1,6 +1,5 @@
 package com.example.mengmeng.activity;
 
-import android.app.ActionBar;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -15,21 +14,22 @@ import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationListener;
+import com.amap.api.maps2d.AMap;
+import com.amap.api.maps2d.CameraUpdateFactory;
+import com.amap.api.maps2d.LocationSource;
+import com.amap.api.maps2d.model.LatLng;
 import com.example.mengmeng.utils.NetUtil;
 
 import org.xutils.common.Callback;
@@ -40,10 +40,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
@@ -56,14 +54,7 @@ import butterknife.OnClick;
 /**
  * Created by 程和 on 2016/10/17.
  */
-public class ReleaseActivity extends AppCompatActivity {
-
-    private File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)+"/"+
-            getPhotoFileName());
-
-    private static final int PHOTO_REQUEST = 1;
-    private static final int CAMERA_REQUEST = 2;
-    private static final int PHOTO_CLIP = 3;
+public class ReleaseActivity extends AppCompatActivity implements LocationSource, AMapLocationListener {
 
     @InjectView(R.id.textView)
     TextView textView;
@@ -81,20 +72,82 @@ public class ReleaseActivity extends AppCompatActivity {
     ImageView ivReleasePlace;
     @InjectView(R.id.tv_release_place)
     TextView tvReleasePlace;
-    @InjectView(R.id.iv_show_pet)
-    ImageView ivShowPet;
     @InjectView(R.id.rl_release_dynamic)
     RelativeLayout rlReleaseDynamic;
     @InjectView(R.id.v_zhixian3)
     View vZhixian3;
+    private File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM) + "/" +
+            getPhotoFileName());
 
-    boolean flag=true;
-    String path="";
+    private static final int PHOTO_REQUEST = 1;
+    private static final int CAMERA_REQUEST = 2;
+    private static final int PHOTO_CLIP = 3;
+
+
+    boolean flag = true;
+    String path = "";
+    private AMapLocationClient mLocationClient = null;
+    //声明mLocationOption对象，定位参数
+    public AMapLocationClientOption mLocationOption = null;
+    //声明mListener对象，定位监听器
+    private OnLocationChangedListener mListener = null;
+    //标识，用于判断是否只显示一次定位信息和用户重新定位
+    private boolean isFirstLoc = true;
+    private AMap aMap;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.release_dynamic);
-                ButterKnife.inject(this);
+        ButterKnife.inject(this);
+        location();
+    }
+
+    private void location() {
+        //初始化定位
+        mLocationClient = new AMapLocationClient(this);
+        //设置定位回调监听
+        mLocationClient.setLocationListener(this);
+        //初始化定位参数
+        mLocationOption = new AMapLocationClientOption();
+        //设置定位模式为Hight_Accuracy高精度模式，Battery_Saving为低功耗模式，Device_Sensors是仅设备模式
+        mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
+        //设置是否返回地址信息（默认返回地址信息）
+        mLocationOption.setNeedAddress(true);
+        //设置是否只定位一次,默认为false
+        mLocationOption.setOnceLocation(false);
+        //设置是否强制刷新WIFI，默认为强制刷新
+        mLocationOption.setWifiActiveScan(true);
+        //设置是否允许模拟位置,默认为false，不允许模拟位置
+        mLocationOption.setMockEnable(false);
+        //设置定位间隔,单位毫秒,默认为2000ms
+        mLocationOption.setInterval(2000);
+        //给定位客户端对象设置定位参数
+        mLocationClient.setLocationOption(mLocationOption);
+        //启动定位
+        mLocationClient.startLocation();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mLocationClient.stopLocation();//停止定位
+        mLocationClient.onDestroy();//销毁定位客户端。
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
     }
 
 
@@ -106,8 +159,6 @@ public class ReleaseActivity extends AppCompatActivity {
                 break;
             case R.id.iv_release_report:
                 uploadDynamic();
-                Toast.makeText(ReleaseActivity.this, "分享成功,刷新查看", Toast.LENGTH_SHORT).show();
-                finish();
                 break;
             case R.id.iv_release_addimage:
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -118,10 +169,10 @@ public class ReleaseActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         if (which == 0) {
                             getPicFromCamera();
-                            flag=true;
+                            flag = true;
                         } else {
                             getPicFromPhoto();
-                            flag=false;
+                            flag = false;
                         }
                     }
                 });
@@ -133,58 +184,61 @@ public class ReleaseActivity extends AppCompatActivity {
     //上传动态
     private void uploadDynamic() {
 
-        String release_text=etContent.getText().toString().trim();
+        if (ivReleaseImgs.getDrawable() != null) {
+            String release_text = etContent.getText().toString().trim();
+            String  release_place=tvReleasePlace.getText().toString().trim();
+            RequestParams params = new RequestParams(NetUtil.url + "UploadDynamicServlet");
+            params.addBodyParameter("userId", String.valueOf(((MyApplication) this.getApplication()).getUser().getUserId()));
+            try {
+                params.addBodyParameter("release_text", URLEncoder.encode(release_text, "utf-8"));
+                params.addBodyParameter("place", URLEncoder.encode(release_place, "utf-8"));
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            params.addBodyParameter("time", String.valueOf(System.currentTimeMillis()));
 
-        RequestParams params = new RequestParams(NetUtil.url+"UploadDynamicServlet");
+            if (flag) {
+                params.addBodyParameter("file", file);
+            } else {
+                params.addBodyParameter("file", new File(path));
+            }
 
-        params.addBodyParameter("userId", String.valueOf(((MyApplication)this.getApplication()).getUser().getUserId()));
-        try {
-            params.addBodyParameter("release_text", URLEncoder.encode(release_text,"utf-8"));
-            params.addBodyParameter("place",URLEncoder.encode(((MyApplication)this.getApplication()).getDynamic().getPlace(),"utf-8"));
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+            x.http().post(params, new Callback.CommonCallback<String>() {
+                @Override
+                public void onSuccess(String result) {
+                    Toast.makeText(ReleaseActivity.this, "分享成功,刷新查看", Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onError(Throwable ex, boolean isOnCallback) {
+
+                }
+
+                @Override
+                public void onCancelled(CancelledException cex) {
+
+                }
+
+                @Override
+                public void onFinished() {
+
+                }
+            });
+        } else {
+            Toast.makeText(ReleaseActivity.this, "请选择分享图片", Toast.LENGTH_SHORT).show();
         }
-        params.addBodyParameter("time", String.valueOf(System.currentTimeMillis()));
-
-        if(flag) {
-            params.addBodyParameter("file", file);
-        }else {
-            params.addBodyParameter("file", new File(path));
-        }
-
-        x.http().post(params, new Callback.CommonCallback<String>() {
-            @Override
-            public void onSuccess(String result) {
-                System.out.println("成功！！！！！！！！！");
-            }
-
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-
-            }
-
-            @Override
-            public void onCancelled(CancelledException cex) {
-
-            }
-
-            @Override
-            public void onFinished() {
-
-            }
-        });
 
     }
 
     private static String getPhotoFileName() {
         Date date = new Date(System.currentTimeMillis());
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
-        return sdf.format(date)+"_"+ UUID.randomUUID() + ".png";
+        return sdf.format(date) + "_" + UUID.randomUUID() + ".png";
     }
 
     private void getPicFromCamera() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        System.out.println("getPicFromCamera==========="+file.getAbsolutePath());
+        System.out.println("getPicFromCamera===========" + file.getAbsolutePath());
         intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
         startActivityForResult(intent, CAMERA_REQUEST);
     }
@@ -198,7 +252,7 @@ public class ReleaseActivity extends AppCompatActivity {
             case CAMERA_REQUEST:
                 switch (resultCode) {
                     case -1://-1表示拍照成功  固定
-                        System.out.println("CAMERA_REQUEST"+file.getAbsolutePath());
+                        System.out.println("CAMERA_REQUEST" + file.getAbsolutePath());
                         ivReleaseImgs.setImageBitmap(BitmapFactory.decodeFile(file.getAbsolutePath()));
                         break;
                     default:
@@ -208,7 +262,7 @@ public class ReleaseActivity extends AppCompatActivity {
             case PHOTO_REQUEST:
 //
                 if (resultCode != RESULT_OK) {        //此处的 RESULT_OK 是系统自定义得一个常量
-                    Log.e("TAG->onresult","ActivityResult resultCode error");
+                    Log.e("TAG->onresult", "ActivityResult resultCode error");
                     return;
                 }
                 Bitmap bm = null;
@@ -233,8 +287,8 @@ public class ReleaseActivity extends AppCompatActivity {
                         path = cursor.getString(column_index);
                         System.out.println(path);
 
-                    }catch (IOException e) {
-                        Log.e("TAG-->Error",e.toString());
+                    } catch (IOException e) {
+                        Log.e("TAG-->Error", e.toString());
                     }
                 }
                 break;
@@ -244,7 +298,7 @@ public class ReleaseActivity extends AppCompatActivity {
                     if (extras != null) {
                         Log.w("test", "data");
                         Bitmap photo = extras.getParcelable("data");
-                        saveImageToGallery(getApplication(),photo);//保存bitmap到本地
+                        saveImageToGallery(getApplication(), photo);//保存bitmap到本地
                         ivReleaseImgs.setImageBitmap(photo);
                     }
                 }
@@ -285,5 +339,71 @@ public class ReleaseActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onLocationChanged(AMapLocation aMapLocation) {
+        if (aMapLocation != null) {
+            if (aMapLocation.getErrorCode() == 0) {
+                //定位成功回调信息，设置相关消息
+                aMapLocation.getLocationType();//获取当前定位结果来源，如网络定位结果，详见官方定位类型表
+                aMapLocation.getLatitude();//获取纬度
+                aMapLocation.getLongitude();//获取经度
+                aMapLocation.getAccuracy();//获取精度信息
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date date = new Date(aMapLocation.getTime());
+                df.format(date);//定位时间
+                aMapLocation.getAddress();//地址，如果option中设置isNeedAddress为false，则没有此结果，网络定位结果中会有地址信息，GPS定位不返回地址信息。
+                aMapLocation.getCountry();//国家信息
+                aMapLocation.getProvince();//省信息
+                aMapLocation.getCity();//城市信息
+                tvReleasePlace.setText(aMapLocation.getCity());
+                aMapLocation.getDistrict();//城区信息
+                aMapLocation.getStreet();//街道信息
+                aMapLocation.getStreetNum();//街道门牌号信息
+                aMapLocation.getCityCode();//城市编码
+                aMapLocation.getAdCode();//地区编码
+
+                // 如果不设置标志位，此时再拖动地图时，它会不断将地图移动到当前的位置
+                if (isFirstLoc) {
+                    //设置缩放级别
+                    aMap.moveCamera(CameraUpdateFactory.zoomTo(17));
+                    //将地图移动到定位点
+                    aMap.moveCamera(CameraUpdateFactory.changeLatLng(new LatLng(aMapLocation.getLatitude(), aMapLocation.getLongitude())));
+                    //点击定位按钮 能够将地图的中心移动到定位点
+                    mListener.onLocationChanged(aMapLocation);
+                    //添加图钉
+                    //  aMap.addMarker(getMarkerOptions(amapLocation));
+                    //获取定位信息
+                    StringBuffer buffer = new StringBuffer();
+                    buffer.append(aMapLocation.getCountry() + ""
+                            + aMapLocation.getProvince() + ""
+                            + aMapLocation.getCity() + ""
+                            + aMapLocation.getProvince() + ""
+                            + aMapLocation.getDistrict() + ""
+                            + aMapLocation.getStreet() + ""
+                            + aMapLocation.getStreetNum());
+                    Toast.makeText(this, buffer.toString(), Toast.LENGTH_LONG).show();
+                    isFirstLoc = false;
+                }
+
+
+            } else {
+                //显示错误信息ErrCode是错误码，errInfo是错误信息，详见错误码表。
+                Log.e("AmapError", "location Error, ErrCode:"
+                        + aMapLocation.getErrorCode() + ", errInfo:"
+                        + aMapLocation.getErrorInfo());
+                Toast.makeText(this, "定位失败", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    @Override
+    public void activate(OnLocationChangedListener onLocationChangedListener) {
+        mListener = onLocationChangedListener;
+    }
+
+    @Override
+    public void deactivate() {
+        mListener = null;
+    }
 }
 

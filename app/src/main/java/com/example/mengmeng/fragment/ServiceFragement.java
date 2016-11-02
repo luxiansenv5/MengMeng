@@ -55,12 +55,15 @@ public class ServiceFragement extends BaseFragment{
 
                         break;
                     case 2:
-                        Toast.makeText(getActivity(),"这是第三个item",Toast.LENGTH_SHORT).show();
+
+                        Intent intent2=new Intent(getActivity(), AdoptActivity.class);
+                        intent2.putExtra("flag",2);
+                        startActivity(intent2);
                         break;
                     case 3:
-                        Intent intent2=new Intent(getActivity(), AdoptActivity.class);
-                        intent2.putExtra("flag",3);
-                        startActivity(intent2);
+                        Intent intent3=new Intent(getActivity(), AdoptActivity.class);
+                        intent3.putExtra("flag",3);
+                        startActivity(intent3);
                         break;
                 }
 

@@ -80,14 +80,6 @@
         android:layout_alignTop="@id/iv_release_place"
         android:textSize="16dp"
         android:layout_marginLeft="10dp"/>
-    <ImageView
-        android:id="@+id/iv_show_pet"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:padding="8dp"
-        android:src="@drawable/iv_editinfo"/>
      </RelativeLayout>
 
     <View

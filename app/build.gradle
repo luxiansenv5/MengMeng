@@ -10,6 +10,7 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -28,4 +29,5 @@ dependencies {
     compile 'com.jakewharton:butterknife:5.1.1'
     compile files('libs/nineoldandroids-2.4.0.jar')
     compile project(':IMkit')
+    compile files('libs/Amap_2DMap_V2.9.2_20161026.jar')
 }

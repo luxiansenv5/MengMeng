@@ -17,7 +17,6 @@ import org.xutils.x;
 
 public class psd_setActivity extends AppCompatActivity {
 
-
     private EditText old_psd_set;
     private EditText new_psd_set;
     String old_psd= null;

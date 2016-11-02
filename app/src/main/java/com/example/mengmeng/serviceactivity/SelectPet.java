@@ -35,11 +35,14 @@ public class SelectPet extends AppCompatActivity {
     private CommonAdapter<PetInfo> adapter;
     private User user;
     private List<PetInfo> petList=new ArrayList<PetInfo>();
+    private ImageView msback;
+    Integer flag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_pet);
+
         initView();
 
         initData();
@@ -62,8 +65,17 @@ public class SelectPet extends AppCompatActivity {
                 Intent intent=new Intent(SelectPet.this,TakePhotoActivity.class);
                 Bundle bundle=new Bundle();
                 bundle.putParcelable("petInfo",petList.get(position));
+                bundle.putInt("flag",flag);
                 intent.putExtras(bundle);
                 startActivity(intent);
+            }
+        });
+
+        msback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                finish();
             }
         });
     }
@@ -71,10 +83,14 @@ public class SelectPet extends AppCompatActivity {
     private void initView() {
 
         lv_publish = ((ListView) findViewById(R.id.lv_publish));
+        msback = ((ImageView) findViewById(R.id.msback));
     }
 
     private void initData() {
 
+        Intent intent=getIntent();
+        flag=intent.getIntExtra("flag",0);
+        System.out.println("SelectPet-flag======="+flag);
         user=((MyApplication)getApplication()).getUser();
         getPersonalPet();
     }

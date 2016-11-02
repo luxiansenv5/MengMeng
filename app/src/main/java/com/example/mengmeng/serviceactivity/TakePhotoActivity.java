@@ -55,6 +55,8 @@ public class TakePhotoActivity extends AppCompatActivity implements View.OnClick
     private AdoaptInfo adoaptInfo;
     boolean flag=true;
     String path="";
+    private ImageView mtback;
+    private Integer flag2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +75,11 @@ public class TakePhotoActivity extends AppCompatActivity implements View.OnClick
 
         switch (v.getId()){
 
+            case R.id.mtback:
+
+                finish();
+                break;
+
             case R.id.iv_camera:
 
                 getPicFromCamera();
@@ -84,6 +91,8 @@ public class TakePhotoActivity extends AppCompatActivity implements View.OnClick
                 flag=false;
                 break;
             case R.id.btn_confirm:
+
+                RequestParams requestParams=null;
 
                 if (sImage.getDrawable()==null){
                     Toast.makeText(this,"请为萌宠添加一张萌照",Toast.LENGTH_SHORT).show();
@@ -98,7 +107,16 @@ public class TakePhotoActivity extends AppCompatActivity implements View.OnClick
 
                     Log.i("TakePhotoActivity","adoaptStr================"+adoaptStr);
 
-                    RequestParams requestParams=new RequestParams(HttpUtils.HOST+"addadoapt");
+                    if (flag2==1){
+
+                        requestParams=new RequestParams(HttpUtils.HOST+"addadoapt");
+                    }else if (flag2==2){
+
+                        requestParams=new RequestParams(HttpUtils.HOST+"addpair");
+                    }else if (flag2==3){
+
+                        requestParams=new RequestParams(HttpUtils.HOST+"addsearch");
+                    }
                     requestParams.addBodyParameter("adoaptInfo",adoaptStr);
                     if (flag){
                         requestParams.addBodyParameter("file",file);
@@ -208,6 +226,7 @@ public class TakePhotoActivity extends AppCompatActivity implements View.OnClick
         sImage = ((ImageView) findViewById(R.id.simage));
         btn_confirm = ((Button) findViewById(R.id.btn_confirm));
         et_desc = ((EditText) findViewById(R.id.et_desr));
+        mtback = ((ImageView) findViewById(R.id.mtback));
     }
 
     public void initEvent(){
@@ -215,12 +234,15 @@ public class TakePhotoActivity extends AppCompatActivity implements View.OnClick
         iv_camera.setOnClickListener(this);
         iv_openPhoto.setOnClickListener(this);
         btn_confirm.setOnClickListener(this);
+        mtback.setOnClickListener(this);
     }
 
     public void initData(){
 
         Intent intent=getIntent();
         petInfo=intent.getExtras().getParcelable("petInfo");
+        flag2=intent.getExtras().getInt("flag");
+        System.out.println("TakePhoto-flag2======"+flag2);
 
     }
 

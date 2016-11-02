@@ -28,7 +28,7 @@
             android:layout_marginTop="5.0dip"
             android:maxLines="1"
             android:textColor="@color/commo_text_color"
-            android:textSize="14.0sp" />
+            android:textSize="16sp" />
     </RelativeLayout>
 
 </RelativeLayout>
