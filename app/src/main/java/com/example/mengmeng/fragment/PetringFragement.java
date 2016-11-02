@@ -1,6 +1,7 @@
 package com.example.mengmeng.fragment;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -27,7 +28,7 @@ import butterknife.ButterKnife;
 /**
  * Created by 程和 on 2016/10/14.
  */
-public class PetringFragement extends BaseFragment  {
+public class PetringFragement extends BaseFragment implements ViewPager.OnPageChangeListener {
 
     List<BaseFragment> lists = new ArrayList<BaseFragment>();
     private RadioButton rbFriends;
@@ -38,7 +39,7 @@ public class PetringFragement extends BaseFragment  {
     private ImageButton ibMine;
     private ViewPager dynamic_vp;
 
-//    private DrawerLayout mDrawerLayout;
+
 
     @Nullable
     @Override
@@ -50,6 +51,8 @@ public class PetringFragement extends BaseFragment  {
         rbFriends = ((RadioButton) v.findViewById(R.id.rb_friends));
         ibPaizhao=(ImageButton)v.findViewById(R.id.ib_paizhao);
         ibMine=(ImageButton)v.findViewById(R.id.ib_mine);
+
+        onPageSelected(0);
 
         ibMine.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,22 +115,8 @@ public class PetringFragement extends BaseFragment  {
             }
         });
 
-        dynamic_vp.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        dynamic_vp.setOnPageChangeListener(this);
 
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
 
         return v;
     }
@@ -150,4 +139,34 @@ public class PetringFragement extends BaseFragment  {
     }
 
 
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        switch (position) {
+                    case 0:
+                        rbHot.setTextColor(Color.WHITE);
+                        rbFriends.setTextColor(Color.BLACK);
+                        rbConcern.setTextColor(Color.BLACK);
+                        break;
+                    case 1:
+                        rbHot.setTextColor(Color.BLACK);
+                        rbFriends.setTextColor(Color.WHITE);
+                        rbConcern.setTextColor(Color.BLACK);
+                        break;
+                    case 2:
+                        rbHot.setTextColor(Color.BLACK);
+                        rbFriends.setTextColor(Color.BLACK);
+                        rbConcern.setTextColor(Color.WHITE);
+                        break;
+                    }
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
+    }
 }

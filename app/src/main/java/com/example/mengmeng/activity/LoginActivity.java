@@ -63,15 +63,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-
         switch (v.getId()) {
             case R.id.btn_login:
                 checkLogin();
                 break;
         }
-
     }
-
     private void checkLogin(){
         //访问网络  checklogin
         //RequestParams params = new RequestParams("http://10.40.5.102:8080/Mengmeng/CheckLogin");

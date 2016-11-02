@@ -4,16 +4,30 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 public class Dynamic implements Parcelable {
 
-	private Integer dynamicId;
-	private Timestamp releaseTime;//发布时间
-	private String releaseText;//发布内容
-	private String picture;//发布照片
-	private String place;//地点
-	private User  user;  
-	
+	public Integer dynamicId;
+	public Timestamp releaseTime;//发布时间
+	public String releaseText;//发布内容
+	public String picture;//发布照片
+	public String place;//地点
+	public User  user;
+	public List<Zan> zan;//点赞人
+
+	public Dynamic(Integer dynamicId, Timestamp releaseTime,
+				   String releaseText, String picture, String place, User user,
+				   List<Zan> zan) {
+		super();
+		this.dynamicId = dynamicId;
+		this.releaseTime = releaseTime;
+		this.releaseText = releaseText;
+		this.picture = picture;
+		this.place = place;
+		this.user = user;
+		this.zan = zan;
+	}
 	public Dynamic(){
 		
 	}
@@ -80,6 +94,13 @@ public class Dynamic implements Parcelable {
 		this.user = user;
 	}
 
+	public List<Zan> getZan() {
+		return zan;
+	}
+
+	public void setZan(List<Zan> zan) {
+		this.zan = zan;
+	}
 	@Override
 	public int describeContents() {
 		return 0;
@@ -93,6 +114,7 @@ public class Dynamic implements Parcelable {
 		dest.writeString(this.picture);
 		dest.writeString(this.place);
 		dest.writeParcelable(this.user, flags);
+		dest.writeTypedList(this.zan);
 	}
 
 	protected Dynamic(Parcel in) {
@@ -102,9 +124,10 @@ public class Dynamic implements Parcelable {
 		this.picture = in.readString();
 		this.place = in.readString();
 		this.user = in.readParcelable(User.class.getClassLoader());
+		this.zan = in.createTypedArrayList(Zan.CREATOR);
 	}
 
-	public static final Parcelable.Creator<Dynamic> CREATOR = new Parcelable.Creator<Dynamic>() {
+	public static final Creator<Dynamic> CREATOR = new Creator<Dynamic>() {
 		@Override
 		public Dynamic createFromParcel(Parcel source) {
 			return new Dynamic(source);

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 public class Mine_SetActivity extends AppCompatActivity implements View.OnClickListener{
@@ -31,11 +30,11 @@ public class Mine_SetActivity extends AppCompatActivity implements View.OnClickL
         switch (v.getId()){
             case R.id.count_set:
                 //已经测试，可以跳转
-                Intent intent = new Intent(getApplication(), count_setActivity.class);
+                Intent intent = new Intent(getApplication(), Count_setActivity.class);
                 startActivity(intent);
                 break;
             case R.id.psd_set:
-                Intent intent1 = new Intent(getApplication(), pad_setActivity.class);
+                Intent intent1 = new Intent(getApplication(), Psd_setActivity.class);
                 startActivity(intent1);
                 break;
         }
