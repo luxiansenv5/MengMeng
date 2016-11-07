@@ -2,35 +2,37 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#00000000" >
+    android:background="#00000000"
+    >
 
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
 
     <LinearLayout
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:orientation="vertical" >
-
-        下面的Relativelayout是测试图片的
+        下面的Relativelayout是测试图片
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             >
-
             <ImageView
-
                 android:id="@+id/background_head"
-                android:layout_width="120dp"
-                android:layout_height="80dp"
+                android:layout_width="110dp"
+                android:layout_height="75dp"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
                 android:src="@drawable/robotdog"/>
+            <TextView
+                android:id="@+id/count_name"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="jack"
+                android:textSize="20dp"
+                android:layout_toRightOf="@+id/background_head"
+                android:layout_alignTop="@+id/background_head"
+                />
             <TextView
                 android:id="@+id/sign"
                 android:layout_width="wrap_content"
@@ -39,19 +41,10 @@
                 android:layout_alignBottom="@+id/background_head"
                 android:visibility="visible"
                 android:text="登录"
+                android:textStyle="bold"
+                android:textSize="20dp"
                 />
-            <!--<TextView-->
-                <!--android:id="@+id/register"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_toRightOf="@+id/sign"-->
-                <!--android:layout_alignBottom="@+id/title"-->
-                <!--android:text="注册"-->
-                <!--/>-->
-
         </RelativeLayout>
-
-
 
 
         <RelativeLayout
@@ -74,12 +67,12 @@
                 android:layout_marginLeft="20dp"
                 android:layout_toRightOf="@id/one"
                 android:text="个人中心"
-                android:textColor="#f0f0f0"
+                android:textColor="@color/pray3"
                 android:textSize="20sp" />
         </RelativeLayout>
 
         <RelativeLayout
-
+            android:id="@+id/my_pet_set"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
@@ -98,8 +91,8 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="20dp"
                 android:layout_toRightOf="@id/two"
-                android:text="个性装扮"
-                android:textColor="#f0f0f0"
+                android:text="我的宠物"
+                android:textColor="@color/pray3"
                 android:textSize="20sp" />
         </RelativeLayout>
 
@@ -123,7 +116,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_toRightOf="@id/three"
                 android:text="宠物百科"
-                android:textColor="#f0f0f0"
+                android:textColor="@color/pray3"
                 android:textSize="20sp" />
         </RelativeLayout>
 
@@ -147,7 +140,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_toRightOf="@id/four"
                 android:text="宠物领养"
-                android:textColor="#f0f0f0"
+                android:textColor="@color/pray3"
                 android:textSize="20sp" />
         </RelativeLayout>
 
@@ -170,34 +163,37 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="20dp"
                 android:layout_toRightOf="@id/five"
-                android:text="第5个Item"
-                android:textColor="#f0f0f0"
+                android:text="个性装扮"
+                android:textColor="@color/pray3"
                 android:textSize="20sp" />
+
         </RelativeLayout>
 
         <LinearLayout
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
         <RelativeLayout
+            android:id="@+id/mine_set"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <ImageView
-                android:id="@+id/mine_set"
+                android:id="@+id/mine_set_icon"
                 android:layout_marginLeft="22dp"
                 android:layout_marginTop="30dp"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-
                 android:src="@drawable/mine_set"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="设置"
-                android:layout_toRightOf="@+id/mine_set"
-                android:layout_alignBottom="@+id/mine_set"
+                android:layout_toRightOf="@+id/mine_set_icon"
+                android:layout_alignBottom="@+id/mine_set_icon"
                 android:layout_marginLeft="5dp"/>
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">

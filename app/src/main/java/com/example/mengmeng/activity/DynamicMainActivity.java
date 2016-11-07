@@ -77,10 +77,7 @@ public class DynamicMainActivity extends AppCompatActivity implements View.OnCli
 //        register = ((TextView) findViewById(R.id.register));
 //        register.setOnClickListener(this);
 
-
-
         //ib_mine.setOnClickListener(this);
-
 
 
         initView();
@@ -139,21 +136,7 @@ public class DynamicMainActivity extends AppCompatActivity implements View.OnCli
     }
 
 
-
-    //    public void OpenRightMenu(View view)
-//    {
-//        mDrawerLayout.openDrawer(Gravity.RIGHT);
-//        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED,
-//                Gravity.RIGHT);
-//    }
-//    public void OpenLeftMenu(View view)
-//    {
-//        mDrawerLayout.openDrawer(Gravity.LEFT);
-//        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED,
-//                Gravity.LEFT);
-//    }
-    private void initEvents()
-    {
+    private void initEvents() {
         mDrawerLayout.setDrawerListener(new DrawerLayout.DrawerListener()
         {
             @Override
@@ -171,9 +154,7 @@ public class DynamicMainActivity extends AppCompatActivity implements View.OnCli
 
                 if (drawerView.getTag().equals("LEFT"))
                 {
-
                     float leftScale = 1 - 0.3f * scale;
-
                     ViewHelper.setScaleX(mMenu, leftScale);
                     ViewHelper.setScaleY(mMenu, leftScale);
                     ViewHelper.setAlpha(mMenu, 0.6f + 0.4f * (1 - scale));
@@ -212,8 +193,7 @@ public class DynamicMainActivity extends AppCompatActivity implements View.OnCli
         });
     }
 
-    private void initView()
-    {
+    private void initView() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer);
         mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED,
                 Gravity.RIGHT);

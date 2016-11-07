@@ -7,23 +7,28 @@ public class DetailsBean {
 	private String petName;
 	private String petType;
 	private String describe;
-	private String userPhoto;
-	private String userName;
+	private String publisherPhoto;
+	private String publisherName;
+	private Integer releaseId;
+	private Integer publisherId;
 	
 	public DetailsBean(){
 		
 	}
-	
+
 	public DetailsBean(String petImage, String petPhoto, String petName,
-			String petType, String describe, String userPhoto, String userName) {
+			String petType, String describe, String publisherPhoto,
+			String publisherName, Integer releaseId, Integer publisherId) {
 		super();
 		this.petImage = petImage;
 		this.petPhoto = petPhoto;
 		this.petName = petName;
 		this.petType = petType;
 		this.describe = describe;
-		this.userPhoto = userPhoto;
-		this.userName = userName;
+		this.publisherPhoto = publisherPhoto;
+		this.publisherName = publisherName;
+		this.releaseId = releaseId;
+		this.publisherId = publisherId;
 	}
 	
 	public String getPetImage() {
@@ -56,19 +61,37 @@ public class DetailsBean {
 	public void setDescribe(String describe) {
 		this.describe = describe;
 	}
-	public String getUserPhoto() {
-		return userPhoto;
+
+	public String getPublisherPhoto() {
+		return publisherPhoto;
 	}
-	public void setUserPhoto(String userPhoto) {
-		this.userPhoto = userPhoto;
+
+	public void setPublisherPhoto(String publisherPhoto) {
+		this.publisherPhoto = publisherPhoto;
 	}
-	public String getUserName() {
-		return userName;
+
+	public String getPublisherName() {
+		return publisherName;
 	}
-	public void setUserName(String userName) {
-		this.userName = userName;
+
+	public void setPublisherName(String publisherName) {
+		this.publisherName = publisherName;
 	}
-	
-	
+
+	public Integer getReleaseId() {
+		return releaseId;
+	}
+
+	public void setReleaseId(Integer releaseId) {
+		this.releaseId = releaseId;
+	}
+
+	public Integer getPublisherId() {
+		return publisherId;
+	}
+
+	public void setPublisherId(Integer publisherId) {
+		this.publisherId = publisherId;
+	}
 	
 }

@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.mengmeng.activity.R;
 import com.example.mengmeng.pojo.AdoaptInfo;
@@ -54,6 +55,8 @@ public class TakePhotoActivity extends AppCompatActivity implements View.OnClick
     private AdoaptInfo adoaptInfo;
     boolean flag=true;
     String path="";
+    private ImageView mtback;
+    private Integer flag2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +75,11 @@ public class TakePhotoActivity extends AppCompatActivity implements View.OnClick
 
         switch (v.getId()){
 
+            case R.id.mtback:
+
+                finish();
+                break;
+
             case R.id.iv_camera:
 
                 getPicFromCamera();
@@ -84,47 +92,62 @@ public class TakePhotoActivity extends AppCompatActivity implements View.OnClick
                 break;
             case R.id.btn_confirm:
 
-                Integer userId=((MyApplication)getApplication()).getUser().getUserId();
-                Integer petId=petInfo.petId;
-                String describle=et_desc.getText().toString();
-//                Date releaseTime=new Date(System.currentTimeMillis());
+                RequestParams requestParams=null;
 
-                adoaptInfo=new AdoaptInfo(userId,petId,describle);
-                Gson gson=new Gson();
-                String adoaptStr=gson.toJson(adoaptInfo);
-
-                Log.i("TakePhotoActivity","adoaptStr================"+adoaptStr);
-
-                RequestParams requestParams=new RequestParams(HttpUtils.HOST+"addadoapt");
-                requestParams.addBodyParameter("adoaptInfo",adoaptStr);
-                if (flag){
-                    requestParams.addBodyParameter("file",file);
+                if (sImage.getDrawable()==null){
+                    Toast.makeText(this,"请为萌宠添加一张萌照",Toast.LENGTH_SHORT).show();
                 }else {
-                    requestParams.addBodyParameter("file",new File(path));
+                    Integer userId=((MyApplication)getApplication()).getUser().getUserId();
+                    Integer petId=petInfo.petId;
+                    String describle=et_desc.getText().toString();
+
+                    adoaptInfo=new AdoaptInfo(userId,petId,describle);
+                    Gson gson=new Gson();
+                    String adoaptStr=gson.toJson(adoaptInfo);
+
+                    Log.i("TakePhotoActivity","adoaptStr================"+adoaptStr);
+
+                    if (flag2==1){
+
+                        requestParams=new RequestParams(HttpUtils.HOST+"addadoapt");
+                    }else if (flag2==2){
+
+                        requestParams=new RequestParams(HttpUtils.HOST+"addpair");
+                    }else if (flag2==3){
+
+                        requestParams=new RequestParams(HttpUtils.HOST+"addsearch");
+                    }
+                    requestParams.addBodyParameter("adoaptInfo",adoaptStr);
+                    if (flag){
+                        requestParams.addBodyParameter("file",file);
+                    }else {
+                        requestParams.addBodyParameter("file",new File(path));
+                    }
+
+                    x.http().post(requestParams, new Callback.CommonCallback<String>() {
+                        @Override
+                        public void onSuccess(String result) {
+
+                            finish();
+                        }
+
+                        @Override
+                        public void onError(Throwable ex, boolean isOnCallback) {
+
+                            System.out.println("TakePhotoError================"+ex);
+                        }
+
+                        @Override
+                        public void onCancelled(CancelledException cex) {
+
+                        }
+
+                        @Override
+                        public void onFinished() {
+
+                        }
+                    });
                 }
-
-                x.http().post(requestParams, new Callback.CommonCallback<String>() {
-                    @Override
-                    public void onSuccess(String result) {
-                        System.out.println("Onsuccess=====");
-                    }
-
-                    @Override
-                    public void onError(Throwable ex, boolean isOnCallback) {
-
-                        System.out.println("TakePhotoError================"+ex);
-                    }
-
-                    @Override
-                    public void onCancelled(CancelledException cex) {
-
-                    }
-
-                    @Override
-                    public void onFinished() {
-
-                    }
-                });
 
                 break;
         }
@@ -203,6 +226,7 @@ public class TakePhotoActivity extends AppCompatActivity implements View.OnClick
         sImage = ((ImageView) findViewById(R.id.simage));
         btn_confirm = ((Button) findViewById(R.id.btn_confirm));
         et_desc = ((EditText) findViewById(R.id.et_desr));
+        mtback = ((ImageView) findViewById(R.id.mtback));
     }
 
     public void initEvent(){
@@ -210,12 +234,15 @@ public class TakePhotoActivity extends AppCompatActivity implements View.OnClick
         iv_camera.setOnClickListener(this);
         iv_openPhoto.setOnClickListener(this);
         btn_confirm.setOnClickListener(this);
+        mtback.setOnClickListener(this);
     }
 
     public void initData(){
 
         Intent intent=getIntent();
         petInfo=intent.getExtras().getParcelable("petInfo");
+        flag2=intent.getExtras().getInt("flag");
+        System.out.println("TakePhoto-flag2======"+flag2);
 
     }
 
@@ -268,6 +295,7 @@ public class TakePhotoActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void getPicFromPhoto() {
+
         Intent intent = new Intent(Intent.ACTION_PICK, null);
         intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                 "image/*");

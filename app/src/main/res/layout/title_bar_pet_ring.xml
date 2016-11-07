@@ -5,32 +5,17 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="#99ff0000">
 
-        <!--<View-->
-            <!--android:id="@+id/struct1"-->
-            <!--android:background="#0f0"-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="0dp"-->
-            <!--android:layout_marginTop="50dp"-->
-            <!--/>-->
-
-        <!--<FrameLayout-->
-            <!--android:id="@+id/fl_content1"-->
-            <!--android:background="#ffff"-->
-            <!--android:layout_toRightOf="@id/struct1"-->
-            <!--android:layout_alignTop="@id/struct1"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--&gt;-->
-        <!--</FrameLayout>-->
         <RadioGroup
             android:id="@+id/rg_tab1"
-            android:layout_width="match_parent"
+            android:layout_width="240dp"
             android:orientation="horizontal"
             android:layout_height="50dp"
             android:layout_alignParentTop="true"
-            android:background="#99ff0000">
+            android:layout_marginLeft="80dp"
+           >
 
             <RadioButton
                 android:id="@+id/rb_hot"
@@ -40,7 +25,6 @@
                 android:gravity="center"
                 android:layout_width="80dp"
                 android:layout_height="50dp"
-                android:layout_marginLeft="78dp"
                 />
             <RadioButton
                 android:id="@+id/rb_friends"
@@ -49,7 +33,7 @@
                 android:button="@null"
                 android:gravity="center"
                 android:layout_width="80dp"
-                android:layout_height="50dp" />
+                android:layout_height="50dp"/>
             <RadioButton
                 android:id="@+id/rb_concern"
                 android:text="关注"
@@ -57,13 +41,14 @@
                 android:button="@null"
                 android:gravity="center"
                 android:layout_width="80dp"
-                android:layout_height="50dp"/>
+                android:layout_height="50dp"
+                />
+         </RadioGroup>
 
 
-        </RadioGroup>
         <ImageButton
             android:id="@+id/ib_mine"
-            android:layout_width="70dp"
+            android:layout_width="78dp"
             android:layout_height="50dp"
             android:src="@drawable/head"
             android:background="@android:color/transparent"
@@ -78,7 +63,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginTop="0dp"
             />
+        </RelativeLayout>
 
-    </RelativeLayout>
 
 </LinearLayout>

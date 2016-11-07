@@ -1,98 +1,65 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.mengmeng.fragment.ServiceFragement">
 
-    <RelativeLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/bg"
+        android:orientation="vertical"
+        tools:context="com.example.mengmeng.fragment.ServiceFragement">
 
-        <View
-            android:id="@+id/struct_hor"
+        <TextView
+            android:id="@+id/service"
             android:layout_width="match_parent"
-            android:layout_height="8dp"
-            android:background="#AAAAAA"
-            android:layout_centerVertical="true"/>
+            android:layout_height="50dp"
+            android:text="服务"
+            android:gravity="center"
+            android:textSize="24sp"
+            android:background="#99ff0000" />
 
-        <View
-            android:id="@+id/struct_ver"
-            android:layout_width="5dp"
-            android:layout_height="match_parent"
-            android:background="#DDDDDD"
-            android:layout_centerHorizontal="true"/>
+        <com.example.mengmeng.utils.MyGridView
+                android:id="@+id/gridview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:horizontalSpacing="0.0dip"
+                android:listSelector="@null"
+                android:numColumns="2"
+                android:scrollbars="none"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="0.0dip"
+                android:layout_marginTop="15dp"/>
 
-        <ImageView
-            android:id="@+id/iv_baodian"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/baodian"
-            android:layout_toLeftOf="@id/struct_ver"
-            android:layout_above="@id/struct_hor"
-            android:layout_marginBottom="100dp"/>
+        <!--<LinearLayout style="@style/wrap_layout" >-->
+            <!--&lt;!&ndash; 上圆角&ndash;&gt;-->
+            <!--<LinearLayout style="@style/top_layout">-->
+                <!--<TextView style="@style/usertext"-->
+                    <!--android:id="@+id/count_set"-->
+                    <!--android:text="我的发布" />-->
+                <!--<ImageView style="@style/img_arrow"/>-->
+            <!--</LinearLayout>-->
 
-        <ImageView
-            android:id="@+id/iv_lingyang"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/lingyang"
-            android:layout_toRightOf="@id/struct_ver"
-            android:layout_alignBottom="@id/iv_baodian"/>
+            <!--&lt;!&ndash; 分割线 &ndash;&gt;-->
+            <!--<View style="@style/bg_line"/>-->
 
-        <ImageView
-            android:id="@+id/iv_peidui"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/peidui"
-            android:layout_below="@id/struct_hor"
-            android:layout_toLeftOf="@id/struct_ver"
-            android:layout_marginTop="20dp"/>
+            <!--&lt;!&ndash; 无圆角&ndash;&gt;-->
+            <!--<LinearLayout style="@style/mid_layout">-->
+                <!--<TextView style="@style/usertext"-->
+                    <!--android:id="@+id/message_push_set"-->
+                    <!--android:text="我的领养" />-->
+                <!--<ImageView style="@style/img_arrow"/>-->
+            <!--</LinearLayout>-->
 
-        <ImageView
-            android:id="@+id/iv_xunchong"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/xunchong"
-            android:layout_below="@id/struct_hor"
-            android:layout_toRightOf="@id/struct_ver"
-            android:layout_marginTop="20dp"/>
+            <!--&lt;!&ndash; 分割线 &ndash;&gt;-->
+            <!--<View style="@style/bg_line"/>-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="养宠宝典"
-            android:textSize="26sp"
-            android:layout_marginTop="180dp"
-            android:layout_marginLeft="60dp"/>
+            <!--&lt;!&ndash; 下圆角&ndash;&gt;-->
+            <!--<LinearLayout style="@style/bottom_layout">-->
+                <!--<TextView style="@style/usertext"-->
+                    <!--android:id="@+id/Blacklist"-->
+                    <!--android:text="我的配对" />-->
+                <!--<ImageView style="@style/img_arrow"/>-->
+            <!--</LinearLayout>-->
 
-        <TextView
-            android:id="@+id/tv_lingyang"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="宠物领养"
-            android:textSize="26sp"
-            android:layout_marginTop="180dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="60dp"/>
+        <!--</LinearLayout>-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="萌宠配对"
-            android:textSize="26sp"
-            android:layout_below="@id/iv_peidui"
-            android:layout_marginLeft="60dp"
-            android:layout_marginTop="20dp"/>
+    </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="寻宠接力"
-            android:textSize="26sp"
-            android:layout_below="@id/iv_xunchong"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="250dp"/>
-
-    </RelativeLayout>
-
-</FrameLayout>

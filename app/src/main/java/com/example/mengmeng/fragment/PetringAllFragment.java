@@ -5,14 +5,29 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.ImageSpan;
+import android.util.Log;
+import android.util.Size;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.view.animation.TranslateAnimation;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -20,13 +35,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mengmeng.activity.DynamicInfoActivity;
+import com.example.mengmeng.activity.PictureActivity;
 import com.example.mengmeng.activity.R;
 import com.example.mengmeng.activity.UserInfoActivity;
 import com.example.mengmeng.pojo.Dynamic;
+import com.example.mengmeng.pojo.User;
+import com.example.mengmeng.pojo.Zan;
 import com.example.mengmeng.utils.CommonAdapter;
 import com.example.mengmeng.utils.NetUtil;
 import com.example.mengmeng.utils.RefreshListView;
 import com.example.mengmeng.utils.ViewHolder;
+import com.example.mengmeng.utils.xUtilsImageUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -35,6 +54,9 @@ import org.xutils.http.RequestParams;
 import org.xutils.x;
 
 import java.lang.reflect.Type;
+import java.net.URL;
+import java.sql.SQLOutput;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,11 +76,15 @@ public class PetringAllFragment extends BaseFragment implements RefreshListView.
 
     @InjectView(R.id.lv_dynamics)
     RefreshListView lvDynamics;
+
     private List<Integer> choice = new ArrayList<Integer>();//点赞
     private List<Integer> follow = new ArrayList<Integer>();//关注
 
+    private List<String> lists;//点赞人集合
+
+
     int pageNo = 1;
-    int pageSize = 3;
+    int pageSize = 5;
 
     Handler handler = new Handler();
 
@@ -66,12 +92,26 @@ public class PetringAllFragment extends BaseFragment implements RefreshListView.
     private ViewPager dynamic_vp;
 
     private  boolean flag11=true;
+    SharedPreferences  sharedPreferences;
+    SharedPreferences.Editor editor;
+
+    SharedPreferences  sharedPreferences1;
+    SharedPreferences.Editor editor1;
+    User newUser;
+
+    String str="";
+    String  strContent="";
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.dynamic_all, null);
         ButterKnife.inject(this, v);
+        sharedPreferences = PetringAllFragment.this.getActivity().getSharedPreferences("guanzhu_sp", Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        sharedPreferences1 = PetringAllFragment.this.getActivity().getSharedPreferences("dianzan_sp", Context.MODE_PRIVATE);
+        editor1 = sharedPreferences1.edit();
+        getUser();
         return v;
     }
 
@@ -82,17 +122,16 @@ public class PetringAllFragment extends BaseFragment implements RefreshListView.
 
     @Override
     public void initEvent() {
-
-        lvDynamics.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (RefreshListView.isTag() == false && position != 0 && position <= dynamics.size()) {
-                    Intent intent = new Intent(getActivity(), DynamicInfoActivity.class);
-                    intent.putExtra("dynamicInfo", dynamics.get(position - 1));
-                    startActivityForResult(intent, 1);
-                }
-            }
-        });
+//        lvDynamics.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                if (RefreshListView.isTag() == false && position != 0 && position <= dynamics.size()) {
+//                    Intent intent = new Intent(getActivity(), DynamicInfoActivity.class);
+//                    intent.putExtra("dynamicInfo", dynamics.get(position - 1));
+//                    startActivityForResult(intent, 1);
+//                }
+//            }
+//        });
         lvDynamics.setOnRefreshUploadChangeListener(this);
     }
 
@@ -137,11 +176,11 @@ public class PetringAllFragment extends BaseFragment implements RefreshListView.
                 if (dynamicsAdapter == null) {
                     dynamicsAdapter = new CommonAdapter<Dynamic>(getActivity(), dynamics, R.layout.layout_dynamic) {
                         @Override
-                        public void convert(ViewHolder viewHolder, final Dynamic dynamic, int position) {
+                        public void convert(ViewHolder viewHolder, final Dynamic dynamic, final int position) {
                             boolean flag1 = false;
                             //取件赋值
                             ImageView ivHead = viewHolder.getViewById(R.id.im_dynamic_head);
-                            x.image().bind(ivHead, NetUtil.photo_url + dynamic.getUser().getUserPhoto());
+                            xUtilsImageUtils.display(ivHead,NetUtil.photo_url + dynamic.getUser().getUserPhoto(),true);
 
                             final TextView tvName = viewHolder.getViewById(R.id.tv_dynamic_name);
                             tvName.setText(dynamic.getUser().getUserName());
@@ -149,14 +188,53 @@ public class PetringAllFragment extends BaseFragment implements RefreshListView.
                             TextView tvTime = viewHolder.getViewById(R.id.tv_dynamic_time);
                             tvTime.setText(dynamic.getReleaseTime() + "");
 
+
                             TextView tvContent = viewHolder.getViewById(R.id.tv_dynamic_content);
                             tvContent.setText(dynamic.getReleaseText());
+                            strContent=dynamic.getReleaseText();
 
                             ImageView ivImag = viewHolder.getViewById(R.id.iv_dynamic_imag);
                             x.image().bind(ivImag, NetUtil.picture_url + dynamic.getPicture());
+                            final String str=NetUtil.picture_url + dynamic.getPicture();
+                            ivImag.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Intent intent=new Intent(getActivity(), PictureActivity.class);
+                                    intent.putExtra("picture",str);
+                                    startActivity(intent);
+                                }
+                            });
+
 
                             TextView tvPlace = viewHolder.getViewById(R.id.tv_dynamic_place);
                             tvPlace.setText(dynamic.getPlace());
+
+                            final TextView tvZan=viewHolder.getViewById(R.id.tv_zan);
+
+                            String zan3="";
+                            if (dynamic.zan.size()>0&&dynamic.zan!=null){
+                                System.out.println("dynamic.zan.size():"+dynamic.zan.size());
+                                String zan2="";
+                                tvZan.setVisibility(View.VISIBLE);
+                                for (Zan zan1:dynamic.zan) {
+                                    zan2=zan1.getUser().getUserName();
+                                    zan2+="、";
+                                }
+                                zan2=zan2.substring(0,zan2.length()-1);
+                                zan2="我 "+zan2;
+                                SpannableString ss = new SpannableString(zan2);
+                                Drawable d=getResources().getDrawable(R.drawable.zan);
+                                d.setBounds(0,0,30,30);
+                                ss.setSpan(new ImageSpan(d),0,1, Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+                                ss.setSpan(new ForegroundColorSpan(Color.BLUE),2,zan2.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                                zan3=zan2;
+                                tvZan.setText(ss);
+                            }else{
+                                tvZan.setVisibility(View.GONE);
+                            }
+
+
 
                             //设置头像点击事件
                             ivHead.setOnClickListener(new View.OnClickListener() {
@@ -177,79 +255,127 @@ public class PetringAllFragment extends BaseFragment implements RefreshListView.
                             });
 
                             //设置点赞点击事件
-                            ImageButton imZan = viewHolder.getViewById(R.id.im_zan);
-                            imZan.setTag(position);
+                            final ImageButton imZan = viewHolder.getViewById(R.id.im_zan);
+//
+                            final String finalZan = zan3;
                             imZan.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    if (choice.contains((Integer) (((ImageView) v).getTag()))) {
-                                        ((ImageView) v).setImageResource(R.drawable.zan);
-                                        choice.remove((Integer) (((ImageView) v).getTag()));
+                                    if(sharedPreferences1.contains(position+"")){//选中状态
+                                        imZan.setImageResource(R.drawable.zan);
+                                        String zan5=finalZan;
+                                        System.out.println("zan5:"+zan5);
+                                        zan5=zan5.substring(4,zan5.length());
+                                        if (zan5.length()>0){
+                                            SpannableString ss = new SpannableString(zan5);
+                                            Drawable d=getResources().getDrawable(R.drawable.zan);
+                                            d.setBounds(0,0,30,30);
+                                            ss.setSpan(new ImageSpan(d),0,1, Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+                                            ss.setSpan(new ForegroundColorSpan(Color.BLUE),2,zan5.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                            tvZan.setText(ss);
+                                        }else {
+                                            PetringAllFragment.this.getActivity().runOnUiThread(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    tvZan.setText("");
+                                                }
+                                            });
+
+                                        }
 
                                         int user_Id = ((MyApplication) getActivity().getApplication()).getUser().getUserId();    //点赞人Id
                                         int dynamic_Id = dynamic.getDynamicId();
                                         removeZan(dynamic_Id, user_Id);
+                                        Toast.makeText(getActivity(),"取消点赞",Toast.LENGTH_SHORT).show();
+                                        editor1.remove(position+"");
 
-                                    } else {
-                                        Bitmap bitmap = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.zan1);
-                                        ((ImageView) v).setImageBitmap(bitmap);
-                                        choice.add((Integer) (((ImageView) v).getTag()));
+                                        String zanTime = String.valueOf(System.currentTimeMillis());
+                                        Timestamp zanTime1=new Timestamp(Long.parseLong(zanTime));
+                                        Zan zan1=new Zan(newUser,user_Id,dynamic_Id,zanTime1);
+                                        dynamic.zan.remove(zan1);
+                                        dynamicsAdapter.notifyDataSetChanged();
+
+                                    }else{
+                                        tvZan.setVisibility(View.VISIBLE);
+                                        imZan.setImageResource(R.drawable.zan1);
+                                        //增加动画效果
+                                        imZan.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.shake));
+
+                                        String zan4="我"+"萌萌"+finalZan;
+                                        System.out.println("zan4:"+zan4);
+                                        SpannableString ss = new SpannableString(zan4);
+                                        Drawable d=getResources().getDrawable(R.drawable.zan);
+                                        d.setBounds(0,0,30,30);
+                                        ss.setSpan(new ImageSpan(d),0,1, Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+                                        ss.setSpan(new ForegroundColorSpan(Color.BLUE),2,zan4.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                        tvZan.setText(ss);
 
                                         int user_Id = ((MyApplication) getActivity().getApplication()).getUser().getUserId();    //点赞人Id
                                         int dynamic_Id = dynamic.getDynamicId();                                                  //动态Id
                                         String zanTime = String.valueOf(System.currentTimeMillis());                             //点赞时间
                                         addZan(dynamic_Id, user_Id, zanTime);
-                                    }
+                                        Toast.makeText(getActivity(),"点赞成功",Toast.LENGTH_SHORT).show();
+                                        editor1.putInt(position+"",(Integer)imZan.getTag());
 
+                                        Timestamp zanTime1=new Timestamp(Long.parseLong(zanTime));
+                                        Zan zan=new Zan(newUser,user_Id,dynamic_Id,zanTime1);
+
+                                        dynamic.zan.add(zan);
+                                        dynamicsAdapter.notifyDataSetChanged();
+                                    }
+                                    editor1.commit();
                                 }
                             });
-
-                            if (choice.contains(position)) {
+                            imZan.setTag(dynamic.getDynamicId());
+                            if(sharedPreferences1.contains(position+"")){
                                 imZan.setImageResource(R.drawable.zan1);
-                            } else {
-                                imZan.setImageResource(R.drawable.zan);
+                            }else{
+                                imZan.setImageResource(R.drawable.zan );
                             }
 
-                            //设置关注点击事件
-                            ImageButton imConcern = viewHolder.getViewById(R.id.ib_dynamic_concern);
+
+//                            设置关注点击事件
+                            final ImageButton imConcern = viewHolder.getViewById(R.id.ib_dynamic_concern);
                             imConcern.setTag(position);
                             SharedPreferences sharedPreferences = PetringAllFragment.this.getActivity().getSharedPreferences("guanzhu_sp", Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
                             String guanzhu = sharedPreferences.getString("guanzhu", "");
                             String[] ids = guanzhu.split("&");
-                            System.out.println(ids + "1==========");
+
                             int userId = dynamic.getUser().getUserId();
                             boolean flag111 = false;
                             for (String id : ids) {
                                 if (id.equals(userId + "")) {
                                     flag111 = true;
-                                    return;
+                                    break;
                                 }
                             }
-                            System.out.println("flag1:" + flag111);
+                            System.out.println("flag111:" + flag111);
                             if (flag111) {
                                 imConcern.setImageResource(R.drawable.already_concern);
                             } else {
                                 imConcern.setImageResource(R.drawable.add_concern);
                             }
 
-                            final boolean f = flag111;
 
                             imConcern.setOnClickListener(new View.OnClickListener() {
-
                                 @Override
                                 public void onClick(View v) {
                                     SharedPreferences sharedPreferences = PetringAllFragment.this.getActivity().getSharedPreferences("guanzhu_sp", Context.MODE_PRIVATE);
                                     SharedPreferences.Editor editor = sharedPreferences.edit();
-                                    String guanzhu = sharedPreferences.getString("guanzhu", "");
+                                    String guanzhu = sharedPreferences.getString("guanzhu", "-1&");
                                     String[] ids = guanzhu.split("&");
-                                    for (String id : ids) {
-                                        System.out.println(id);
-                                    }
-                                    int userId = dynamic.getUser().getUserId();
-                                    System.out.println(ids.length + "================2==========");
+                                    boolean f = false;
 
-                                    if (follow.contains((Integer) (((ImageView) v).getTag())) && f) {
+                                    int userId = dynamic.getUser().getUserId();
+                                    for (String id : ids) {
+                                        if(id.equals(userId+"")){
+                                            f = true;
+                                            break;
+                                        }
+                                    }
+
+                                    if (f) {
                                         ((ImageView) v).setImageResource(R.drawable.add_concern);
                                         follow.remove((Integer) (((ImageView) v).getTag()));
 
@@ -278,9 +404,9 @@ public class PetringAllFragment extends BaseFragment implements RefreshListView.
                                             if (!id.equals(userId + "")) {
                                                 s += id + "&";
                                             }
-                                            s = s + userId;
                                         }
-                                        System.out.println("s:" + s);
+                                        s = s + userId;
+
 
                                         editor.putString("guanzhu", s.substring(0, s.length()));
                                     }
@@ -288,11 +414,20 @@ public class PetringAllFragment extends BaseFragment implements RefreshListView.
                                 }
                             });
 
-                            if (follow.contains(position)) {
-                                imConcern.setImageResource(R.drawable.already_concern);
-                            } else {
-                                imConcern.setImageResource(R.drawable.add_concern);
-                            }
+                            //点击评论按钮事件
+                            ImageButton imPinlun = viewHolder.getViewById(R.id.im_pinglun);
+                            final EditText editText=viewHolder.getViewById(R.id.et_pinglun);
+                            imPinlun.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    editText.requestFocus();
+                                    InputMethodManager imm= (InputMethodManager) editText.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                                    imm.toggleSoftInput(0,InputMethodManager.SHOW_FORCED);
+                                }
+                            });
+
+                            //评论列表
+
                         }
                     };
                     lvDynamics.setAdapter(dynamicsAdapter);
@@ -300,7 +435,6 @@ public class PetringAllFragment extends BaseFragment implements RefreshListView.
                         dynamicsAdapter.notifyDataSetChanged();
                    }
                 if (!flag11){
-                    System.out.println("flag11++++++++++++"+flag11);
                     lvDynamics.completeLoad();//获取完数据后在改变界面
                 }
             }
@@ -321,6 +455,39 @@ public class PetringAllFragment extends BaseFragment implements RefreshListView.
         });
     }
 
+    //获取user对象
+    public void  getUser(){
+        RequestParams requestParams1 = new RequestParams(NetUtil.url + "UserQueryServlet");
+        requestParams1.addQueryStringParameter("userId", 1+"");
+
+        x.http().get(requestParams1, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Gson gson = new Gson();
+                Type type = new TypeToken<User>() {
+                }.getType();
+                 User newUser1 = gson.fromJson(result, type);
+                newUser=newUser1;
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+    }
+
+
 
     //增加点赞
     public void addZan(int a, int b, String c) {
@@ -333,8 +500,7 @@ public class PetringAllFragment extends BaseFragment implements RefreshListView.
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                Toast.makeText(getActivity(), "点赞成功", Toast.LENGTH_SHORT).show();
-                System.out.println("点赞成功");
+
             }
 
             @Override
@@ -366,8 +532,7 @@ public class PetringAllFragment extends BaseFragment implements RefreshListView.
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                Toast.makeText(getActivity(), "取消点赞成功", Toast.LENGTH_SHORT).show();
-                System.out.println("取消点赞成功");
+
             }
 
             @Override
@@ -397,8 +562,7 @@ public class PetringAllFragment extends BaseFragment implements RefreshListView.
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                Toast.makeText(getActivity(), "关注成功", Toast.LENGTH_SHORT).show();
-                System.out.println("关注成功");
+
             }
 
             @Override
@@ -428,7 +592,7 @@ public class PetringAllFragment extends BaseFragment implements RefreshListView.
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                Toast.makeText(getActivity(), "取消关注成功", Toast.LENGTH_SHORT).show();
+
             }
 
             @Override
@@ -458,13 +622,13 @@ public class PetringAllFragment extends BaseFragment implements RefreshListView.
         // 分享时Notification的图标和文字  2.5.9以后的版本不调用此方法
         //oks.setNotification(R.drawable.ic_launcher, getString(R.string.app_name));
         // title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间使用
-        oks.setTitle("标题");
+        oks.setTitle("来自萌萌的分享");
         // titleUrl是标题的网络链接，仅在人人网和QQ空间使用
         oks.setTitleUrl("http://sharesdk.cn");
         // text是分享文本，所有平台都需要这个字段
-        oks.setText("我是分享文本");
+        oks.setText(strContent);
         //分享网络图片，新浪微博分享网络图片需要通过审核后申请高级写入接口，否则请注释掉测试新浪微博
-        oks.setImageUrl("http://f1.sharesdk.cn/imgs/2014/02/26/owWpLZo_638x960.jpg");
+        oks.setImageUrl(str);
         // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
         //oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
         // url仅在微信（包括好友和朋友圈）中使用
@@ -480,6 +644,8 @@ public class PetringAllFragment extends BaseFragment implements RefreshListView.
         oks.show(getActivity());
     }
 
+
+    //下拉刷新
     @Override
     public void onRefresh() {
         pageNo = 1; //每次刷新，让pageNo变成初始值1
@@ -490,10 +656,13 @@ public class PetringAllFragment extends BaseFragment implements RefreshListView.
                 flag11 = true;
                 getData();  //再次获取数据
                 lvDynamics.completeRefresh();  //刷新数据后，改变页面为初始页面：隐藏头部
+                Toast.makeText(getActivity(), "已是最新数据", Toast.LENGTH_SHORT).show();
             }
         }, 1000);
     }
 
+
+    //上拉加载
     @Override
     public void onPull() {
         pageNo++;

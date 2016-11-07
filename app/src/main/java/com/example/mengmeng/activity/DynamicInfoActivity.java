@@ -23,7 +23,6 @@ import butterknife.OnClick;
  */
 public class DynamicInfoActivity extends AppCompatActivity {
 
-
     Dynamic dynamic;//动态信息
     @InjectView(R.id.textView)
     TextView textView;
