@@ -11,12 +11,9 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.mengmeng.activity.CommunicatePetFriendAdd;
-import com.example.mengmeng.activity.CommunicatePetFriendSearch;
 import com.example.mengmeng.activity.PersonDataActivity;
 import com.example.mengmeng.activity.R;
 import com.example.mengmeng.pojo.ContactsInfoBean;
@@ -37,7 +34,6 @@ import java.util.List;
 import application.MyApplication;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import butterknife.OnClick;
 import io.rong.imkit.RongIM;
 import io.rong.imlib.model.UserInfo;
 
@@ -47,12 +43,6 @@ import io.rong.imlib.model.UserInfo;
  */
 public class PetFriendsFragment extends BaseFragment {
 
-    @InjectView(R.id.iv_search)
-    ImageView ivSearch;
-    @InjectView(R.id.iv_petfriend_add)
-    ImageView ivPetfriendAdd;
-    @InjectView(R.id.petfriend_bottom)
-    RelativeLayout petfriendBottom;
     @InjectView(R.id.lv_petfriend)
     ListView lvPetfriend;
     private BaseAdapter adapter;
@@ -228,17 +218,5 @@ public class PetFriendsFragment extends BaseFragment {
         ButterKnife.reset(this);
     }
 
-    @OnClick({R.id.iv_search, R.id.iv_petfriend_add})
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.iv_search:
-                Intent intent = new Intent(getActivity(), CommunicatePetFriendSearch.class);
-                startActivity(intent);
-                break;
-            case R.id.iv_petfriend_add:
-                Intent intent1 = new Intent(getActivity(), CommunicatePetFriendAdd.class);
-                startActivity(intent1);
-                break;
-        }
     }
-}
+

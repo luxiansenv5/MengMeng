@@ -26,7 +26,6 @@ public class CommunicateFragment extends BaseFragment implements View.OnClickLis
     Fragment[] fragments;
     PetFriendsFragment petFriendsFragment = new PetFriendsFragment();
     MessageFragment messageFragment = new MessageFragment();
-    GroupFragment groupFragment = new GroupFragment();
     Button[] tabs;//按钮的数组，一开始第一个按钮被选中
     View v;
 
@@ -40,10 +39,6 @@ public class CommunicateFragment extends BaseFragment implements View.OnClickLis
     Button btnPetFriend;
     @InjectView(R.id.btn_container_pet_friend)
     RelativeLayout btnContainerPetFriend;
-    @InjectView(R.id.btn_group)
-    Button btnGroup;
-    @InjectView(R.id.btn_container_group)
-    RelativeLayout btnContainerGroup;
     @InjectView(R.id.main_top)
     LinearLayout mainTop;
     @InjectView(R.id.fragment_container)
@@ -95,16 +90,14 @@ public class CommunicateFragment extends BaseFragment implements View.OnClickLis
     @Override
     public void initView() {
 
-        btnGroup.setOnClickListener(this);
         btnMessage.setOnClickListener(this);
         btnPetFriend.setOnClickListener(this);
 
-        fragments = new Fragment[]{petFriendsFragment, messageFragment, groupFragment};
+        fragments = new Fragment[]{petFriendsFragment, messageFragment};
 
-        tabs = new Button[3];
+        tabs = new Button[2];
         tabs[0] = ((Button) v.findViewById(R.id.btn_pet_friend));//petfriend的button
         tabs[1] = (Button) v.findViewById(R.id.btn_message);//message的button
-        tabs[2] = (Button) v.findViewById(R.id.btn_group);//group的button
         //界面初始显示第一个fragment;添加第一个fragment
         getActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, fragments[0]).commit();
         //初始时，按钮1选中
@@ -137,9 +130,6 @@ public class CommunicateFragment extends BaseFragment implements View.OnClickLis
                 break;
             case R.id.btn_message:
                 newIndex = 1;//选中message
-                break;
-            case R.id.btn_group:
-                newIndex = 2;//选中group
                 break;
 
         }
