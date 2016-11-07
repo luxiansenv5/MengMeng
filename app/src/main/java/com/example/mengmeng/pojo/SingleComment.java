@@ -16,10 +16,18 @@ public class SingleComment {
 	
 	public SingleComment(){}
 
+	public SingleComment(Integer publisherId, Integer commentatorId, Integer releaseId, String content, Integer commentType) {
+		this.publisherId = publisherId;
+		this.commentatorId = commentatorId;
+		this.releaseId = releaseId;
+		this.content = content;
+		this.commentType = commentType;
+	}
+
 	public SingleComment(Integer commentId, Integer publisherId,
-			Integer commentatorId, Integer releaseId, String content,
-			Timestamp commentTime, Integer commentType, String commentatorName,
-			String commentatorPhoto) {
+						 Integer commentatorId, Integer releaseId, String content,
+						 Timestamp commentTime, Integer commentType, String commentatorName,
+						 String commentatorPhoto) {
 		super();
 		this.commentId = commentId;
 		this.publisherId = publisherId;

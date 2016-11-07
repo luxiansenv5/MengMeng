@@ -159,6 +159,7 @@ public class ReleaseActivity extends AppCompatActivity implements LocationSource
                 break;
             case R.id.iv_release_report:
                 uploadDynamic();
+                finish();
                 break;
             case R.id.iv_release_addimage:
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -339,6 +340,7 @@ public class ReleaseActivity extends AppCompatActivity implements LocationSource
     }
 
 
+    //定位
     @Override
     public void onLocationChanged(AMapLocation aMapLocation) {
         if (aMapLocation != null) {
@@ -355,7 +357,11 @@ public class ReleaseActivity extends AppCompatActivity implements LocationSource
                 aMapLocation.getCountry();//国家信息
                 aMapLocation.getProvince();//省信息
                 aMapLocation.getCity();//城市信息
+                if(aMapLocation.getProvince().equalsIgnoreCase(aMapLocation.getCity())){
                 tvReleasePlace.setText(aMapLocation.getCity());
+                }else{
+                    tvReleasePlace.setText(aMapLocation.getProvince()+aMapLocation.getCity());
+                }
                 aMapLocation.getDistrict();//城区信息
                 aMapLocation.getStreet();//街道信息
                 aMapLocation.getStreetNum();//街道门牌号信息

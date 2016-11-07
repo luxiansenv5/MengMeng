@@ -10,6 +10,8 @@ public class AdoaptInfo {
 	private String petImage;
 	private boolean state;
 	private Timestamp releaseTime;
+	private Integer type;
+	private Integer publishId;
 	
 	public AdoaptInfo(){
 		
@@ -68,6 +70,18 @@ public class AdoaptInfo {
 	public void setReleaseTime(Timestamp releaseTime) {
 		this.releaseTime = releaseTime;
 	}
-	
-	
+	public Integer getType() {
+		return type;
+	}
+	public void setType(Integer type) {
+		this.type = type;
+	}
+
+	public Integer getPublishId() {
+		return publishId;
+	}
+
+	public void setPublishId(Integer publishId) {
+		this.publishId = publishId;
+	}
 }

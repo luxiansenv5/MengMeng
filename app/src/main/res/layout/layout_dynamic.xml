@@ -124,7 +124,7 @@
         android:layout_height="1dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:background="#99000000" />
+        android:background="#D3D3D3" />
     <TextView
         android:id="@+id/tv_zan"
         android:layout_width="wrap_content"
@@ -136,40 +136,28 @@
         android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp"
         />
-    <EditText
-        android:id="@+id/et_pinglun"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
+    <com.example.mengmeng.widget.NoScrollListView
+        android:id="@+id/lv_remarks"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:layout_below="@id/tv_zan"
-        android:layout_marginTop="80dp"
-        android:background="@drawable/bg_edittext"
-        android:padding="5dp"
-        android:layout_marginLeft="12dp"
-        android:hint="说点什么吧："
-        android:textColorHint="#aa000000"
-        android:textSize="15dp"
-        android:layout_toStartOf="@+id/im_pinglun"
-        android:layout_toLeftOf="@+id/im_pinglun" />
+        android:layout_marginTop="10dp"
+        android:gravity="left"
+        android:divider="@null"
+        android:textSize="10sp" />
 
-    <Button
-        android:id="@+id/btn_fasong"
-        android:layout_width="80dp"
-        android:layout_height="40dp"
-        android:text="发送"
-        android:background="@drawable/shape"
-        android:layout_marginLeft="10dp"
-        android:layout_alignBottom="@id/et_pinglun"
-        android:layout_toRightOf="@+id/et_pinglun"
-        android:layout_toEndOf="@+id/et_pinglun" />
     <View
         android:id="@+id/v_zhixian2"
-        android:layout_below="@id/et_pinglun"
+        android:layout_below="@id/lv_remarks"
         android:layout_width="fill_parent"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="30dp"
         android:layout_height="1dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:background="#99000000" />
+        android:background="#aa000000" />
 
 
 </RelativeLayout>

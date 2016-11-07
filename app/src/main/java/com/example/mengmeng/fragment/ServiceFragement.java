@@ -7,10 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Toast;
 
 import com.example.mengmeng.activity.R;
 import com.example.mengmeng.serviceactivity.AdoptActivity;
+import com.example.mengmeng.serviceactivity.BaikeActivity;
 import com.example.mengmeng.utils.MyGridAdapter;
 import com.example.mengmeng.utils.MyGridView;
 
@@ -45,7 +45,9 @@ public class ServiceFragement extends BaseFragment{
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (position){
                     case 0:
-                        Toast.makeText(getActivity(),"这是第一个item",Toast.LENGTH_SHORT).show();
+
+                        Intent intent0=new Intent(getActivity(), BaikeActivity.class);
+                        startActivity(intent0);
                         break;
                     case 1:
 

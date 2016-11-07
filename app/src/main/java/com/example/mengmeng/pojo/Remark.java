@@ -16,9 +16,22 @@ public class Remark {
 	public Remark(){
 		
 	}
-	
+
+	public Remark(User user, String remarkContent, Timestamp remarkTime, User fatherUser) {
+		this.user = user;
+		this.remarkContent = remarkContent;
+		this.remarkTime = remarkTime;
+		this.fatherUser = fatherUser;
+	}
+
+	public Remark(User user, Timestamp remarkTime, String remarkContent) {
+		this.user = user;
+		this.remarkTime = remarkTime;
+		this.remarkContent = remarkContent;
+	}
+
 	public Remark(Integer remarkId, String remarkContent, Timestamp remarkTime,
-			User user, Boolean isEnd, Integer fatherRemarkId, Integer dynamicId,User fatherUser) {
+				  User user, Boolean isEnd, Integer fatherRemarkId, Integer dynamicId, User fatherUser) {
 		super();
 		this.remarkId = remarkId;
 		this.remarkContent = remarkContent;
