@@ -1,7 +1,9 @@
 package com.example.mengmeng.fragment;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +38,8 @@ import application.MyApplication;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
+import io.rong.imkit.RongIM;
+import io.rong.imlib.model.UserInfo;
 
 
 /**
@@ -155,7 +159,10 @@ public class PetFriendsFragment extends BaseFragment {
                 newConList= gson.fromJson(result,type);//解析成list<ContactsInfoBean>
                 contactsInfoBeanList.clear();
                 contactsInfoBeanList.addAll(newConList);
-
+                for (ContactsInfoBean contactsInfoBean : contactsInfoBeanList) {
+                    RongIM.getInstance().refreshUserInfoCache(new UserInfo(contactsInfoBean.getUser().getUserId()+"",contactsInfoBean.getUser().getUserName(), Uri.parse(HttpUtils.HOST_COMMUNICATIE +contactsInfoBean.getUser().getUserPhoto())));
+                    Log.e("fimg", "onSuccess: "+contactsInfoBean.getUser().getUserPhoto());
+                }
                 adapter=new BaseAdapter() {
                     @Override
                     public int getCount() {

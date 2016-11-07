@@ -1,8 +1,10 @@
 package com.example.mengmeng.activity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,6 +17,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.UserInfo;
 
 public class PersonDataActivity extends AppCompatActivity {
 
@@ -37,6 +40,7 @@ public class PersonDataActivity extends AppCompatActivity {
     User user;
     String MyToken;
     Integer MyId;
+    String MyName;
     String ContactsToken;
     Integer ContactsId;
     @Override
@@ -75,7 +79,7 @@ public class PersonDataActivity extends AppCompatActivity {
         user = intent.getParcelableExtra("user");
         MyToken = user.getToken();
         MyId =user.getUserId();
-        System.out.println(MyId);
+        MyName =user.getUserName();
 
         //拿到联系人的token和id
         ContactsId = contactsInfoBean.getUser().getUserId();
@@ -101,7 +105,7 @@ public class PersonDataActivity extends AppCompatActivity {
     @OnClick(R.id.sendMessage)
     public void onClick() {
         if(RongIM.getInstance()!=null) {
-            RongIM.getInstance().startPrivateChat(PersonDataActivity.this, ContactsId+"", "聊天");
+            RongIM.getInstance().startPrivateChat(PersonDataActivity.this, ContactsId+"",contactsInfoBean.getUser().getUserName() );
         }
     }
 
@@ -115,12 +119,20 @@ public class PersonDataActivity extends AppCompatActivity {
 
             @Override
             public void onSuccess(String s) {
-
+                Log.e("e", "onSuccess: "+s );
+                /**
+                 * 刷新用户缓存数据。
+                 *
+                 * @param userInfo 需要更新的用户缓存数据。
+                 */
+                RongIM.getInstance().refreshUserInfoCache(new UserInfo(MyId+"",MyName, Uri.parse( HttpUtils.HOST_COMMUNICATIE + user.getUserPhoto())));
+                Log.e("img", "onSuccess: "+HttpUtils.HOST_COMMUNICATIE + contactsInfoBean.getUser().getUserPhoto());
+                Log.e("img", "onSuccess: "+MyId );
             }
 
             @Override
             public void onError(RongIMClient.ErrorCode errorCode) {
-
+                Log.e("img", "onError: "+errorCode );
             }
         });
     }
