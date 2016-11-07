@@ -4,6 +4,7 @@ package com.example.mengmeng.fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.mengmeng.activity.Mine_SetActivity;
+import com.example.mengmeng.activity.MyReleaseActivity;
 import com.example.mengmeng.activity.My_PetActivity;
 import com.example.mengmeng.activity.R;
 
@@ -28,7 +30,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 
 /**
  * A simple {@link Fragment} subclass.
@@ -42,9 +43,10 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener {
     private static final int CAMERA_REQUEST = 2;
     private static final int PHOTO_CLIP = 3;
     private ImageView background_head;
-    private ImageView mine_set;
     private TextView count_name;
     private RelativeLayout my_pet_set;
+    private RelativeLayout mine_set;
+    private TextView myrelease;
 
 
     public MenuLeftFragment() {
@@ -59,16 +61,25 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener {
 
             background_head = ((ImageView) view.findViewById(R.id.background_head));//头像的背景图片
             background_head.setOnClickListener(this);
-            mine_set = ((ImageView) view.findViewById(R.id.mine_set));
+
+            mine_set = ((RelativeLayout) view.findViewById(R.id.mine_set));
             mine_set.setOnClickListener(this);
+
             //拿到显示的用户名
             count_name = ((TextView) view.findViewById(R.id.count_name));
-            count_name.setText("dkgsngk");
+            //ceshi
+//            count_name.setText("gjsgnjk");
+            SharedPreferences shared_prefs = getActivity().getSharedPreferences("userinfo_shared_prefs", Context.MODE_PRIVATE);
+            String loginName = shared_prefs.getString("loginName","");
+            System.out.print(loginName+"jkgsn nskdjgnjksdngjk snjkgsngjksngjksgnksgnsjkgnsjkgns");
+            count_name.setText(loginName);
 
             //拿到我的宠物部分点击控件
             my_pet_set = ((RelativeLayout) view.findViewById(R.id.my_pet_set));
             my_pet_set.setOnClickListener(this);
 
+            myrelease = ((TextView) view.findViewById(R.id.myrelease));
+            myrelease.setOnClickListener(this);
             return view;
         }
 
@@ -86,6 +97,12 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener {
             case R.id.my_pet_set:
                 Intent intent1  = new Intent(getActivity(), My_PetActivity.class);
                 startActivity(intent1);
+                break;
+
+            case R.id.myrelease:
+
+                Intent intent2=new Intent(getActivity(), MyReleaseActivity.class);
+                startActivity(intent2);
                 break;
 
         }
@@ -212,7 +229,6 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener {
         Intent intent = new Intent(Intent.ACTION_PICK, null);
         intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
         startActivityForResult(intent, PHOTO_REQUEST);
-
     }
 
     private String getPhotoFileName() {
@@ -221,8 +237,12 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener {
         return sdf.format(date) + ".png";
     }
 
-    
-
-
+    @Override
+    public void onStart() {
+        super.onStart();
+        SharedPreferences shared_prefs = getActivity().getSharedPreferences("userinfo_shared_prefs", Context.MODE_PRIVATE);
+        String loginName = shared_prefs.getString("loginName","");
+        count_name.setText(loginName);
+    }
 }
 

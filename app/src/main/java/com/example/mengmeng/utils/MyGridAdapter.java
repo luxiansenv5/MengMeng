@@ -17,7 +17,7 @@ import com.example.mengmeng.activity.R;
 public class MyGridAdapter extends BaseAdapter {
 	private Context mContext;
 
-	public String[] img_text = { "养宠宝典", "宠物领养", "萌宠配对", "寻宠启示" };
+	public String[] img_text = { "宠物百科", "宠物领养", "萌宠配对", "寻宠启示" };
 	public int[] imgs = { R.drawable.baodian, R.drawable.lingyang,
 			R.drawable.peidui, R.drawable.xunchong};
 
