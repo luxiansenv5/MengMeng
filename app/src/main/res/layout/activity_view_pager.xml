@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.mengmeng.activity.ViewPagerActivity">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v4.view.ViewPager>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:background="#fff"
+        android:gravity="center"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="120dp"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/iv_iv1"
+            android:src="@drawable/point_red"
+            android:layout_margin="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/iv_iv2"
+            android:src="@drawable/point_gray1"
+            android:layout_margin="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/iv_iv3"
+            android:src="@drawable/point_gray1"
+            android:layout_margin="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/bt_enter"
+        android:textColor="#990000ff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:text="进入应用"
+        android:gravity="center"
+        android:textSize="18dp"
+        android:visibility="gone"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="60dp"/>
+
+
+</FrameLayout>

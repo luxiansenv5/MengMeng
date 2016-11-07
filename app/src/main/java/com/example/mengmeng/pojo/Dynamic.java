@@ -15,6 +15,7 @@ public class Dynamic implements Parcelable {
 	public String place;//地点
 	public User  user;
 	public List<Zan> zan;//点赞人
+	public List<Remark> remarklist;//评论list
 
 	public Dynamic(Integer dynamicId, Timestamp releaseTime,
 				   String releaseText, String picture, String place, User user,
@@ -27,7 +28,7 @@ public class Dynamic implements Parcelable {
 		this.place = place;
 		this.user = user;
 		this.zan = zan;
-	}
+		}
 	public Dynamic(){
 		
 	}
