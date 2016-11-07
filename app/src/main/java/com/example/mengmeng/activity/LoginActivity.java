@@ -12,9 +12,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.mengmeng.pojo.LoginInfo;
-import com.google.gson.Gson;
-
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
@@ -87,7 +84,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             e.printStackTrace();
         }
 
-        RequestParams params = new RequestParams("http://10.0.2.2:8080/Mengmeng/CheckLogin?name="+name+"&psd="+psd+"");
+        RequestParams params = new RequestParams("http://10.0.2.2:8080/MMAPP/checkLogin?name="+name+"&psd="+psd+"");
         final String finalName = name;
 
         x.http().get(params, new Callback.CommonCallback<String>() {

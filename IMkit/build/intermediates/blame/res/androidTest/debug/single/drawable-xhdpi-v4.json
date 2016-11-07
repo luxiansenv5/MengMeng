@@ -500,12 +500,12 @@
         "source": "D:\\mengmeng_project\\MengMeng\\IMkit\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\u1f615.png"
     },
     {
-        "merged": "D:\\mengmeng_project\\MengMeng\\IMkit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\rc_read_receipt_request.png",
-        "source": "D:\\mengmeng_project\\MengMeng\\IMkit\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\rc_read_receipt_request.png"
-    },
-    {
         "merged": "D:\\mengmeng_project\\MengMeng\\IMkit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\rc_ac_audio_file_icon.png",
         "source": "D:\\mengmeng_project\\MengMeng\\IMkit\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\rc_ac_audio_file_icon.png"
+    },
+    {
+        "merged": "D:\\mengmeng_project\\MengMeng\\IMkit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\rc_read_receipt_request.png",
+        "source": "D:\\mengmeng_project\\MengMeng\\IMkit\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\rc_read_receipt_request.png"
     },
     {
         "merged": "D:\\mengmeng_project\\MengMeng\\IMkit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\rc_ed_pub_service_search_normal.9.png",
@@ -1036,12 +1036,12 @@
         "source": "D:\\mengmeng_project\\MengMeng\\IMkit\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\u1f60c.png"
     },
     {
-        "merged": "D:\\mengmeng_project\\MengMeng\\IMkit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\u1f35a.png",
-        "source": "D:\\mengmeng_project\\MengMeng\\IMkit\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\u1f35a.png"
-    },
-    {
         "merged": "D:\\mengmeng_project\\MengMeng\\IMkit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\rc_btn_pub_service_enter_hover.png",
         "source": "D:\\mengmeng_project\\MengMeng\\IMkit\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\rc_btn_pub_service_enter_hover.png"
+    },
+    {
+        "merged": "D:\\mengmeng_project\\MengMeng\\IMkit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\u1f35a.png",
+        "source": "D:\\mengmeng_project\\MengMeng\\IMkit\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\u1f35a.png"
     },
     {
         "merged": "D:\\mengmeng_project\\MengMeng\\IMkit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\u1f494.png",
