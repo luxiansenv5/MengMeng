@@ -1,11 +1,13 @@
 package com.example.mengmeng.serviceactivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -13,12 +15,13 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mengmeng.activity.R;
 import com.example.mengmeng.pojo.DetailsBean;
 import com.example.mengmeng.pojo.GetAdoptBean;
 import com.example.mengmeng.pojo.SingleComment;
-import com.example.mengmeng.utils.CommentAdapter;
+import com.example.mengmeng.utils.SingleCommentAdapter;
 import com.example.mengmeng.utils.HttpUtils;
 import com.example.mengmeng.utils.viewpageAdapter;
 import com.example.mengmeng.utils.xUtilsImageUtils;
@@ -33,6 +36,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import application.MyApplication;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 
@@ -66,7 +70,9 @@ public class ReleaseDetailsActivity extends AppCompatActivity implements View.On
     private LinearLayout rl_enroll;
     private RelativeLayout rl_comment;
 
-    private CommentAdapter commentAdapter;
+    private SingleCommentAdapter singleCommentAdapter;
+    private List<ListView> listViews;
+    private List<SingleCommentAdapter> singleCommentAdapterList = new ArrayList<SingleCommentAdapter>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,7 +117,6 @@ public class ReleaseDetailsActivity extends AppCompatActivity implements View.On
 
         getAdoptDetails();
 
-//        getComment();
     }
 
     public void initEvent(){
@@ -130,6 +135,12 @@ public class ReleaseDetailsActivity extends AppCompatActivity implements View.On
                 finish();
             }
         });
+
+
+        comment.setOnClickListener(this);
+
+        hide_down.setOnClickListener(this);
+        comment_send.setOnClickListener(this);
     }
 
     public void getAdoptDetails(){
@@ -154,11 +165,11 @@ public class ReleaseDetailsActivity extends AppCompatActivity implements View.On
                 Type type=new TypeToken<List<DetailsBean>>(){}.getType();
                 detailList=gson.fromJson(result, type);
 
+                list_pager.setOffscreenPageLimit(2);
 
                 for (DetailsBean detailsBean : detailList) {
 
                     View view= LayoutInflater.from(ReleaseDetailsActivity.this).inflate(R.layout.fragment_viewpage,null);
-
 
                     iv_petImage = ((ImageView) view.findViewById(R.id.iv_petImage));
                     iv_ApetPhoto = ((ImageView) view.findViewById(R.id.iv_ApetPhoto));
@@ -218,6 +229,7 @@ public class ReleaseDetailsActivity extends AppCompatActivity implements View.On
         requestParams.addBodyParameter("commentType",flag+"");
 
         x.http().get(requestParams, new Callback.CommonCallback<String>() {
+
             @Override
             public void onSuccess(String result) {
                 System.out.println("getComment-result===="+result);
@@ -231,29 +243,11 @@ public class ReleaseDetailsActivity extends AppCompatActivity implements View.On
 
                 data.addAll(newData);
 
-//                if (commentAdapter==null){
-//                    commentAdapter= new CommonAdapter<SingleComment>(ReleaseDetailsActivity.this,data,R.layout.item_comment) {
-//                        @Override
-//                        public void convert(ViewHolder viewHolder, SingleComment singleComment, int position) {
-//                            TextView commentatorName=viewHolder.getViewById(R.id.commentatorName);
-//                            TextView content=viewHolder.getViewById(R.id.content);
-//                            ImageView commentatorPhoto=viewHolder.getViewById(R.id.commentatorPhoto);
-//
-//                            System.out.println("commentatorName==="+commentatorName.getText());
-//                            commentatorName.setText(singleComment.getCommentatorName());
-//                            content.setText(singleComment.getContent());
-//                            xUtilsImageUtils.display(commentatorPhoto,HttpUtils.HOST+singleComment.getCommentatorPhoto(),true);
-//
-//                        }
-//                    };
-//                    comment_list.setAdapter(commentAdapter);
-//                }else {
-//                    commentAdapter.notifyDataSetChanged();
-//                }
                 // 初始化适配器
-                commentAdapter = new CommentAdapter(ReleaseDetailsActivity.this, data);
+                SingleCommentAdapter singleCommentAdapter = new SingleCommentAdapter(ReleaseDetailsActivity.this, data);
                 // 为评论列表设置适配器
-                comment_list.setAdapter(commentAdapter);
+                singleCommentAdapterList.add(singleCommentAdapter);
+                comment_list.setAdapter(singleCommentAdapter);
             }
 
             @Override
@@ -272,6 +266,57 @@ public class ReleaseDetailsActivity extends AppCompatActivity implements View.On
 
             }
         });
+    }
+    public void sendComment(){
+
+        if(comment_content.getText().toString().equals("")){
+            Toast.makeText(getApplicationContext(), "评论不能为空！", Toast.LENGTH_SHORT).show();
+
+        }else{
+
+            // 生成评论数据
+            SingleComment comment = new SingleComment(detailList.get(currentItem).getPublisherId(),((MyApplication)getApplication()).getUser().getUserId(),
+                    detailList.get(currentItem).getReleaseId(),comment_content.getText().toString(),
+                    flag);
+
+            SingleCommentAdapter cp = singleCommentAdapterList.get(list_pager.getCurrentItem());
+            if(cp!=null){
+                cp.addComment(comment);
+            }
+
+            Gson gson=new Gson();
+            String commentStr=gson.toJson(comment);
+
+            RequestParams requestParams=new RequestParams(HttpUtils.HOST+"sendcomment");
+            requestParams.addBodyParameter("comment",commentStr);
+
+            x.http().get(requestParams, new Callback.CommonCallback<String>() {
+                @Override
+                public void onSuccess(String result) {
+
+
+                }
+
+                @Override
+                public void onError(Throwable ex, boolean isOnCallback) {
+
+                }
+
+                @Override
+                public void onCancelled(CancelledException cex) {
+
+                }
+
+                @Override
+                public void onFinished() {
+
+                }
+            });
+            // 发送完，清空输入框
+            comment_content.setText("");
+
+            Toast.makeText(getApplicationContext(), "评论成功！", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void showShare() {
@@ -308,5 +353,30 @@ public class ReleaseDetailsActivity extends AppCompatActivity implements View.On
     @Override
     public void onClick(View v) {
 
+        switch (v.getId()) {
+            case R.id.comment:
+                // 弹出输入法
+                InputMethodManager imm = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+                // 显示评论框
+                rl_enroll.setVisibility(View.GONE);
+                rl_comment.setVisibility(View.VISIBLE);
+                break;
+            case R.id.hide_down:
+                // 隐藏评论框
+                rl_enroll.setVisibility(View.VISIBLE);
+                rl_comment.setVisibility(View.GONE);
+                // 隐藏输入法，然后暂存当前输入框的内容，方便下次使用
+                InputMethodManager im = (InputMethodManager)getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                im.hideSoftInputFromWindow(comment_content.getWindowToken(), 0);
+                break;
+            case R.id.comment_send:
+
+                sendComment();
+                break;
+            default:
+                break;
+        }
     }
+
 }

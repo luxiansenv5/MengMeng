@@ -4,6 +4,7 @@ package com.example.mengmeng.fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.mengmeng.activity.Mine_SetActivity;
+import com.example.mengmeng.activity.MyReleaseActivity;
 import com.example.mengmeng.activity.My_PetActivity;
 import com.example.mengmeng.activity.R;
 
@@ -28,7 +30,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import android.content.SharedPreferences;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,6 +46,7 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener {
     private TextView count_name;
     private RelativeLayout my_pet_set;
     private RelativeLayout mine_set;
+    private TextView myrelease;
 
 
     public MenuLeftFragment() {
@@ -76,6 +78,8 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener {
             my_pet_set = ((RelativeLayout) view.findViewById(R.id.my_pet_set));
             my_pet_set.setOnClickListener(this);
 
+            myrelease = ((TextView) view.findViewById(R.id.myrelease));
+            myrelease.setOnClickListener(this);
             return view;
         }
 
@@ -93,6 +97,12 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener {
             case R.id.my_pet_set:
                 Intent intent1  = new Intent(getActivity(), My_PetActivity.class);
                 startActivity(intent1);
+                break;
+
+            case R.id.myrelease:
+
+                Intent intent2=new Intent(getActivity(), MyReleaseActivity.class);
+                startActivity(intent2);
                 break;
 
         }

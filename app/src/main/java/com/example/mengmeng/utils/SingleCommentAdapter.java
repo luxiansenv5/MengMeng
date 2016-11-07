@@ -16,12 +16,12 @@ import java.util.List;
 /**
  * Created by 陆猛 on 2016/10/31.
  */
-public class CommentAdapter extends BaseAdapter {
+public class SingleCommentAdapter extends BaseAdapter {
 
     Context context;
     List<SingleComment> data;
 
-    public CommentAdapter(Context c, List<SingleComment> data){
+    public SingleCommentAdapter(Context c, List<SingleComment> data){
         this.context = c;
         this.data = data;
     }

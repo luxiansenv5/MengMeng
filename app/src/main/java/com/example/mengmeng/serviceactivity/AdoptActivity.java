@@ -7,13 +7,13 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupWindow;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,6 +52,8 @@ public class AdoptActivity extends AppCompatActivity implements RefreshListView.
     boolean flag11=true;
     private TextView adopt;
     private ImageView mlback;
+    private ImageView right_trangle;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +74,8 @@ public class AdoptActivity extends AppCompatActivity implements RefreshListView.
         tv_allkind = ((TextView) findViewById(R.id.tv_allkind));
         mlback = ((ImageView) findViewById(R.id.mlback));
         adopt = ((TextView) findViewById(R.id.adopt));
+        right_trangle = ((ImageView) findViewById(R.id.right_trangle));
+        progressBar = ((ProgressBar) findViewById(R.id.progressBar));
 
     }
 
@@ -107,7 +111,7 @@ public class AdoptActivity extends AppCompatActivity implements RefreshListView.
             }
         });
 
-        tv_allkind.setOnClickListener(new View.OnClickListener() {
+        right_trangle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 initPopupWindow(v);
@@ -140,10 +144,19 @@ public class AdoptActivity extends AppCompatActivity implements RefreshListView.
         });
 
         lv_petInfo.setOnRefreshUploadChangeListener(this);
+
+        tv_allkind.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                queryFlag=1;
+                getAdoaptInfo();
+            }
+        });
     }
 
     private void getAdoaptInfo() {
 
+        progressBar.setVisibility(View.VISIBLE);
         RequestParams params = null;
 
         if (flag==1){
@@ -165,6 +178,7 @@ public class AdoptActivity extends AppCompatActivity implements RefreshListView.
             @Override
             public void onSuccess(String result) {
 
+                progressBar.setVisibility(View.GONE);
                 Gson gson = new Gson();
 
                 List<GetAdoptBean> newAdoaptLists=new ArrayList<GetAdoptBean>();
@@ -201,8 +215,11 @@ public class AdoptActivity extends AppCompatActivity implements RefreshListView.
                             tv_petType.setText(petInfo.getPetType());
                             tv_petAge.setText(petInfo.getPetAge().toString().trim() + "岁");
                             tv_releasetime.setText(petInfo.getReleaseTime()+"");
-                            xUtilsImageUtils.display(iv_petPhoto, HttpUtils.HOST + petInfo.getPetPhoto(), true);
+                            xUtilsImageUtils.display(iv_petPhoto, HttpUtils.HOST_PIC + petInfo.getPetPhoto(), true);
+
+                            System.out.println("adoptActivity-pic==="+HttpUtils.HOST_PIC + petInfo.getPetPhoto());
                         }
+
                     };
                     lv_petInfo.setAdapter(adapter);
                 }else {
@@ -236,7 +253,7 @@ public class AdoptActivity extends AppCompatActivity implements RefreshListView.
     public void initPopupWindow(View v) {
 
         View view = LayoutInflater.from(AdoptActivity.this).inflate(R.layout.all_kind, null);
-        final PopupWindow popupWindow = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT, 200);
+        final PopupWindow popupWindow = new PopupWindow(view, 200, 200);
 
         ListView lv = (ListView) view.findViewById(R.id.lv_allkind);
 

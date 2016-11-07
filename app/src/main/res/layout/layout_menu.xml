@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:orientation="vertical" >
-        下面的Relativelayout是测试图片
+        <!--下面的Relativelayout是测试图片-->
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -110,12 +110,13 @@
                 android:src="@drawable/img_3" />
 
             <TextView
+                android:id="@+id/myrelease"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="20dp"
                 android:layout_toRightOf="@id/three"
-                android:text="宠物百科"
+                android:text="我的发布"
                 android:textColor="@color/pray3"
                 android:textSize="20sp" />
         </RelativeLayout>

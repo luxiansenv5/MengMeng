@@ -108,7 +108,8 @@
             android:layout_height="match_parent"
             android:background="@null"
             android:layout_toRightOf="@id/hide_down"
-            android:layout_marginLeft="20dp"/>
+            android:layout_marginLeft="20dp"
+            android:textColor="#000"/>
 
         <Button
             android:id="@+id/comment_send"
