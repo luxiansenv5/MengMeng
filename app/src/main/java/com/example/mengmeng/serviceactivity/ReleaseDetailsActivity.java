@@ -182,9 +182,9 @@ public class ReleaseDetailsActivity extends AppCompatActivity implements View.On
                     ListView comment_list = (ListView) view.findViewById(R.id.comment_list);
                     getComment(comment_list,detailsBean);
 
-                    xUtilsImageUtils.display(iv_petImage,HttpUtils.HOST+detailsBean.getPetImage());
-                    xUtilsImageUtils.display(iv_ApetPhoto,HttpUtils.HOST+detailsBean.getPetPhoto(),true);
-                    xUtilsImageUtils.display(iv_publisherPhoto,HttpUtils.HOST+detailsBean.getPublisherPhoto(),true);
+                    xUtilsImageUtils.display(iv_petImage,HttpUtils.HOST_PIC+detailsBean.getPetImage());
+                    xUtilsImageUtils.display(iv_ApetPhoto,HttpUtils.HOST_PIC+detailsBean.getPetPhoto(),true);
+                    xUtilsImageUtils.display(iv_publisherPhoto,HttpUtils.HOST_PIC+detailsBean.getPublisherPhoto(),true);
 
                     tv_ApetName.setText(detailsBean.getPetName());
                     tv_ApetType.setText(detailsBean.getPetType());

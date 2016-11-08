@@ -9,7 +9,7 @@
         <!-- 上圆角-->
         <LinearLayout style="@style/top_layout">
             <TextView style="@style/usertext"
-                android:id="@+id/count_set"
+                android:id="@+id/dog"
                 android:text="狗狗" />
             <ImageView style="@style/img_arrow"/>
         </LinearLayout>
@@ -20,7 +20,7 @@
         <!-- 无圆角-->
         <LinearLayout style="@style/mid_layout">
             <TextView style="@style/usertext"
-                android:id="@+id/psd_set"
+                android:id="@+id/cat"
                 android:text="猫猫" />
             <ImageView style="@style/img_arrow"/>
         </LinearLayout>
@@ -31,7 +31,7 @@
         <!-- 无圆角-->
         <LinearLayout style="@style/mid_layout">
             <TextView style="@style/usertext"
-                android:id="@+id/message_push_set"
+                android:id="@+id/other"
                 android:text="其他" />
             <ImageView style="@style/img_arrow"/>
         </LinearLayout>

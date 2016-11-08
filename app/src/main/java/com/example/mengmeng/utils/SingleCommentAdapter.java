@@ -60,7 +60,7 @@ public class SingleCommentAdapter extends BaseAdapter {
         holder.commentatorName.setText(data.get(position).getCommentatorName());
         System.out.println("commentatorName===="+data.get(position).getCommentatorName());
         holder.content.setText(data.get(position).getContent());
-        xUtilsImageUtils.display(holder.commentatorPhoto,HttpUtils.HOST+data.get(position).getCommentatorPhoto(),true);
+        xUtilsImageUtils.display(holder.commentatorPhoto,HttpUtils.HOST_PIC+data.get(position).getCommentatorPhoto(),true);
 
 
         return convertView;

@@ -10,7 +10,7 @@ import android.widget.AdapterView;
 
 import com.example.mengmeng.activity.R;
 import com.example.mengmeng.serviceactivity.AdoptActivity;
-import com.example.mengmeng.serviceactivity.BaikeActivity;
+import com.example.mengmeng.serviceactivity.BakeiPagerActivity;
 import com.example.mengmeng.utils.MyGridAdapter;
 import com.example.mengmeng.utils.MyGridView;
 
@@ -46,7 +46,7 @@ public class ServiceFragement extends BaseFragment{
                 switch (position){
                     case 0:
 
-                        Intent intent0=new Intent(getActivity(), BaikeActivity.class);
+                        Intent intent0=new Intent(getActivity(), BakeiPagerActivity.class);
                         startActivity(intent0);
                         break;
                     case 1:

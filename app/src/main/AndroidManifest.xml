@@ -115,7 +115,8 @@
         <activity android:name=".Psd_setActivity" />
         <activity android:name=".My_PetActivity" />
         <activity android:name=".MyReleaseActivity" />
-        <activity android:name="com.example.mengmeng.serviceactivity.BaikeActivity"></activity>
+        <activity android:name="com.example.mengmeng.serviceactivity.BakeiPagerActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
     </application>
 
 </manifest>

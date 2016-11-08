@@ -124,19 +124,18 @@ public class PetFragment extends BaseFragment {
         Button button_left=viewHolder.getViewById(R.id.button_left);
         Button button_right=viewHolder.getViewById(R.id.button_right);
 
-        xUtilsImageUtils.display(petImage,HttpUtils.HOST+adoaptInfo.getPetImage());
+        xUtilsImageUtils.display(petImage,HttpUtils.HOST_PIC+adoaptInfo.getPetImage());
         describe.setText(adoaptInfo.getDescribe());
         releaseTime.setText(adoaptInfo.getReleaseTime()+"");
 
-        btnShow(adoaptInfo,button_left,button_right,position);
+        btnShow(adoaptInfo.isState(),button_left,button_right);
 
-
-        btnClick(adoaptInfo,button_left,button_right,position);
+        if (!adoaptInfo.isState()) {
+            btnClick(adoaptInfo, button_left, button_right, position);
+        }
     }
 
-    public void btnShow(AdoaptInfo adoaptInfo,Button btnLeft,Button btnRight,int position){
-
-       boolean petState=adoaptInfo.isState();
+    public void btnShow(boolean petState,Button btnLeft,Button btnRight){
 
         if (petState){
 
@@ -152,19 +151,24 @@ public class PetFragment extends BaseFragment {
             btnLeft.setText("取消");
             btnRight.setText("确认");
 
-            System.out.println("petFragment-btnShow");
         }
     }
 
     public void btnClick(final AdoaptInfo adoaptInfo, Button button_left, Button button_right, final int position){
 
-        button_left.setOnClickListener(new View.OnClickListener() {
+        button_right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                System.out.println("petFragment-btnClick");
 
                 changeState(adoaptInfo.getPublishId(),adoaptInfo.getType(),position);
+            }
+        });
+
+        button_left.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cancelRelease(adoaptInfo.getType(),adoaptInfo.getPublishId(),adoaptInfo.getPetId(),position);
             }
         });
     }
@@ -181,6 +185,38 @@ public class PetFragment extends BaseFragment {
             public void onSuccess(String result) {
 
                 adoaptInfos.get(position).setState(true);
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+    }
+
+    public void cancelRelease(Integer type, Integer publisherId, Integer petId, final int position){
+
+        RequestParams requestParams=new RequestParams(HttpUtils.HOST+"cancelrelease");
+
+        requestParams.addBodyParameter("type",type+"");
+        requestParams.addBodyParameter("publisherId",publisherId+"");
+        requestParams.addBodyParameter("petId",petId+"");
+
+        x.http().get(requestParams, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                adoaptInfos.remove(position);
                 adapter.notifyDataSetChanged();
             }
 
