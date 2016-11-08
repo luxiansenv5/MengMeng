@@ -12,6 +12,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mengmeng.pojo.User;
+import com.google.gson.Gson;
+
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
@@ -90,71 +93,33 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         x.http().get(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                //之前测试的传json
-//                Gson gson = new Gson();
-//                LoginInfo login = gson.fromJson(result, LoginInfo.class);
-//                String name = login.logininfolist.get(0).loginName;
-//                String psd = login.logininfolist.get(0).loginPsd;
 
-//                System.out.println(result);
-//                System.out.println(login.logininfolist.get(0));
-//                System.out.println(login.logininfolist.get(0).loginPsd);
-//                System.out.println(name);
-//                System.out.println(psd+"+================");
-                //Toast.makeText(getApplicationContext(),result,Toast.LENGTH_SHORT).show();
-
-//                if (name.equals(et_userName.getText().toString().trim()) && psd.equals(et_userPsd.getText().toString().trim())) {
-//                    //登录成功
-//
-//                    SharedPreferences shared_prefs = getSharedPreferences("userinfo_shared_prefs", Context.MODE_PRIVATE);
-//                    SharedPreferences.Editor editor = shared_prefs.edit();
-//                    if (cb_remeber.isChecked()) {
-//                        //保存用户名信息
-//                        editor.putString("loginName", et_userName.getText().toString().trim());
-//                        editor.putBoolean("remeberName",true);
-//
-//                    }else {
-//                        editor.putString("loginName", "");
-//                        editor.putBoolean("remeberName",false);
-//                        //editor.remove("loginName");
-//                        //editor.clear();
-//                    }
-//                    editor.commit();
-//                    //跳转
-//                    Toast.makeText(getApplicationContext(), "登录成功", Toast.LENGTH_SHORT).show();
-//                } else {
-//                    //登录失败
-//                    Toast.makeText(getApplicationContext(), "登录失败", Toast.LENGTH_SHORT).show();
-//                }
-
-                if (result.length() ==0) {
+                if (result.equals("Error")) {
                     //返回值为零 表示不匹配 传会的result值就是psd
                     Toast.makeText(LoginActivity.this, "用户名或密码错误", Toast.LENGTH_LONG).show();
                 } else {
-                    SharedPreferences shared_prefs = getSharedPreferences("userinfo_shared_prefs", Context.MODE_PRIVATE);
+
+                    Gson gson=new Gson();
+                    User user=gson.fromJson(result,User.class);
+
+                    SharedPreferences shared_prefs = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = shared_prefs.edit();
-                    if (cb_remeber.isChecked()) {
-                        //保存用户名信息
-                        editor.putString("loginName", et_userName.getText().toString().trim());
-                        editor.putBoolean("remeberName",true);
 
-                    }else {
-                        editor.putString("loginName","");
-                        editor.putBoolean("remeberName",false);
-                        //editor.remove("loginName");
-                        //editor.clear();
-                    }
+                    editor.putInt("userId",user.getUserId());
+                    editor.putString("userPhoto",user.getUserPhoto());
+                    editor.putString("address",user.getAddress());
+                    editor.putBoolean("sex",user.isUserSex());
+                    editor.putString("underWrite",user.getUserWrite());
+                    editor.putString("token",user.getToken());
+                    editor.putString("userPsd",user.getUserPsd());
+
                     editor.commit();
-
-                    //这是原来的登录代码
-//                    Sport_name.NAME=finalName;
-//                    Sport_name.ID=result;
                     et_userName.setText(finalName);
                     et_userPsd.setText(result);
-                    //登录成功跳转到动态页面
-                    //sign.setVisibility(View.INVISIBLE);
                     Intent intent = new Intent(LoginActivity.this, DynamicMainActivity.class);
                     startActivity(intent);
+                    Toast.makeText(LoginActivity.this,"lognin-result=="+result,Toast.LENGTH_SHORT).show();
+                    System.out.println("LoginActivity---result==="+result);
                 }
             }
 

@@ -9,6 +9,8 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.example.mengmeng.utils.HttpUtils;
+
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
@@ -25,6 +27,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private Button btn_register;
     private Button btn_cancel;
     private int sex;
+
+    String name=null;
+    String psd=null;
+    String psd_again=null;
 
 
     @Override
@@ -63,9 +69,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         startActivity(intent);
     }
     private void register(){
-        String name=null;
-        String psd=null;
-        String psd_again=null;
+
 
 
         try {
@@ -95,84 +99,110 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             Toast.makeText(getApplicationContext(),"两次密码不同，请重新输入", Toast.LENGTH_SHORT).show();
             reg_psd_again.setText("");
         }else{
-            RequestParams params = new RequestParams("http://10.0.2.2:8080/MMAPP/checkLogin?name="+name+"&psd="+psd+"");
-
-            x.http().get(params, new Callback.CacheCallback<String>() {
-                @Override
-                public void onSuccess(String result) {
-                    //服务端传一个大于零的值，表示用户名已经存在
-                    if (result.length() > 0) {
-                        Toast.makeText(RegisterActivity.this, "用户名已存在", Toast.LENGTH_LONG).show();
-                    }else{
-                        RequestParams p = new RequestParams("http://10.0.2.2:8080/MMAPP/regist");
-                        p.addBodyParameter("name",reg_name.getText()+"");
-                        p.addBodyParameter("psd",reg_psd.getText()+"");
-                        p.addBodyParameter("sex",sex+"");
-                        x.http().get(p, new Callback.CacheCallback<String>() {
-                            @Override
-                            public void onSuccess(String result) {
-
-
-                                    Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_LONG).show();
-                                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                                    startActivity(intent);
-
-
-                            }
-
-                            @Override
-                            public void onError(Throwable ex, boolean isOnCallback) {
-                                Toast.makeText(RegisterActivity.this, "注册失败", Toast.LENGTH_LONG).show();
-                            }
-
-                            @Override
-                            public void onCancelled(CancelledException cex) {
-                                Toast.makeText(RegisterActivity.this, "注册失败", Toast.LENGTH_LONG).show();
-                            }
-
-                            @Override
-                            public void onFinished() {
-
-                            }
-
-                            @Override
-                            public boolean onCache(String result) {
-                                return false;
-                            }
-                        });
-                    }
-                }
-
-                @Override
-                public void onError(Throwable ex, boolean isOnCallback) {
-
-                }
-
-                @Override
-                public void onCancelled(CancelledException cex) {
-
-                }
-
-                @Override
-                public void onFinished() {
-
-                }
-
-                @Override
-                public boolean onCache(String result) {
-                    return false;
-                }
-            });
+            checkLogin();
         }
-
-
-
-
 
 
     }
 
+    private void checkLogin(){
+        RequestParams params = new RequestParams(HttpUtils.HOST_COMMUNICATIE+"checkLogin?name="+name+"&psd="+psd+"");
 
+        x.http().get(params, new Callback.CacheCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                //服务端传一个大于零的值，表示用户名已经存在
+                if (result.length() > 0) {
+                    Toast.makeText(RegisterActivity.this, "用户名已存在", Toast.LENGTH_LONG).show();
+                }else{
+                    regist();
 
+                }
+            }
 
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+
+            @Override
+            public boolean onCache(String result) {
+                return false;
+            }
+        });
+    }
+
+    private void regist(){
+        RequestParams p = new RequestParams(HttpUtils.HOST_COMMUNICATIE+"regist");
+        p.addBodyParameter("name",reg_name.getText()+"");
+        p.addBodyParameter("psd",reg_psd.getText()+"");
+        p.addBodyParameter("sex",sex+"");
+        x.http().get(p, new Callback.CacheCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_LONG).show();
+                insertToken();
+                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                Toast.makeText(RegisterActivity.this, "注册失败", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+                Toast.makeText(RegisterActivity.this, "注册失败", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+
+            @Override
+            public boolean onCache(String result) {
+                return false;
+            }
+        });
+    }
+
+    private void insertToken(){
+        RequestParams p1 = new RequestParams(HttpUtils.HOST_COMMUNICATIE+"registinfoservlet");
+        p1.addBodyParameter("userName",reg_name.getText()+"");
+        Toast.makeText(RegisterActivity.this,"register----"+reg_name.getText(),Toast.LENGTH_SHORT);
+        x.http().get(p1, new Callback.CommonCallback<String>() {
+
+            @Override
+            public void onSuccess(String result) {
+                Toast.makeText(RegisterActivity.this, "插入成功", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                Toast.makeText(RegisterActivity.this, "插入失败", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+    }
 }

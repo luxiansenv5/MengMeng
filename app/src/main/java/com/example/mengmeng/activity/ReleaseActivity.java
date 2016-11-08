@@ -46,7 +46,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
-import application.MyApplication;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -189,7 +188,7 @@ public class ReleaseActivity extends AppCompatActivity implements LocationSource
             String release_text = etContent.getText().toString().trim();
             String  release_place=tvReleasePlace.getText().toString().trim();
             RequestParams params = new RequestParams(NetUtil.url + "UploadDynamicServlet");
-            params.addBodyParameter("userId", String.valueOf(((MyApplication) this.getApplication()).getUser().getUserId()));
+            params.addBodyParameter("userId", 1+"");
             try {
                 params.addBodyParameter("release_text", URLEncoder.encode(release_text, "utf-8"));
                 params.addBodyParameter("place", URLEncoder.encode(release_place, "utf-8"));
@@ -397,7 +396,7 @@ public class ReleaseActivity extends AppCompatActivity implements LocationSource
                 Log.e("AmapError", "location Error, ErrCode:"
                         + aMapLocation.getErrorCode() + ", errInfo:"
                         + aMapLocation.getErrorInfo());
-                Toast.makeText(this, "定位失败", Toast.LENGTH_LONG).show();
+//                Toast.makeText(this, "定位失败", Toast.LENGTH_LONG).show();
             }
         }
     }

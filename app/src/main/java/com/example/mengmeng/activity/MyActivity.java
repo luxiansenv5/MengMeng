@@ -86,7 +86,7 @@ public class MyActivity extends AppCompatActivity implements View.OnClickListene
                 concern.setText("关注数："+newUser.getFollowCount());
                 username.setText("昵称：" + newUser.getUserName());
 
-                if (newUser.userSex){
+                if (newUser.isUserSex()){
                     userSex="男";
                 }else {
                     userSex="女";

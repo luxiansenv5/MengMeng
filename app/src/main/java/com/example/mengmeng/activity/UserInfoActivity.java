@@ -102,7 +102,7 @@ public class UserInfoActivity extends AppCompatActivity {
                 tvUserInfoConcern.setText("关注数：" + newUser.getFollowCount());
                 tvUserInfoName.setText("昵称：" + newUser.getUserName());
 
-                if (newUser.userSex) {
+                if (newUser.isUserSex()) {
                     userSex = "男";
                 } else {
                     userSex = "女";
