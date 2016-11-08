@@ -71,11 +71,15 @@ public class UserInfoActivity extends AppCompatActivity {
 
     private void initData() {
         Intent intent = getIntent();
-        String userId = intent.getStringExtra("userId");
-        //从数据库获取数据
         RequestParams requestParams = new RequestParams(NetUtil.url + "UserQueryServlet");
-        requestParams.addQueryStringParameter("userId", userId);
-
+        if(intent.getStringExtra("userId")!=null) {
+            String userId = intent.getStringExtra("userId");
+            requestParams.addQueryStringParameter("userId", userId);
+        }
+        if (intent.getStringExtra("userName")!=null){
+            String userName = intent.getStringExtra("userName");
+            requestParams.addQueryStringParameter("userName", userName);
+        }
         x.http().get(requestParams, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {

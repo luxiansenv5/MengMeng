@@ -12,15 +12,38 @@ public class User implements Parcelable {
 	private boolean userSex;
 	private String userWrite;
 	private String token;
+	private Integer phoneNum;
+	private String userPsd;
 
 	public User(){}
+
+	public Integer getPhoneNum() {
+		return phoneNum;
+	}
+
+	public void setPhoneNum(Integer phoneNum) {
+		this.phoneNum = phoneNum;
+	}
+
+	public String getUserPsd() {
+		return userPsd;
+	}
+
+	public void setUserPsd(String userPsd) {
+		this.userPsd = userPsd;
+	}
 
 	public User(Integer userId){
 		this.userId = userId;
 	}
 
-	public User( String userName, String userPhoto,
-					 String address){
+	public User(Integer userId, String userName) {
+		this.userId = userId;
+		this.userName = userName;
+	}
+
+	public User(String userName, String userPhoto,
+				String address){
 		this.userName = userName;
 		this.userPhoto = userPhoto;
 		this.address = address;

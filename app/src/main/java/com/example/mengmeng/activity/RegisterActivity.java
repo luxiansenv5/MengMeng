@@ -1,15 +1,13 @@
 package com.example.mengmeng.activity;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Toast;
-
-import com.example.mengmeng.utils.NetUtil;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
@@ -26,6 +24,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private RadioGroup check_sex;
     private Button btn_register;
     private Button btn_cancel;
+    private int sex;
 
 
     @Override
@@ -67,41 +66,24 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         String name=null;
         String psd=null;
         String psd_again=null;
-        String[] sex = new String[0];
 
-        try {
-            sex = new String[]{URLEncoder.encode("男","utf-8")};
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        final String[] finalSex = sex;
 
         try {
             name = URLEncoder.encode(reg_name.getText().toString().trim(),"utf-8");
             psd = URLEncoder.encode(reg_psd.getText().toString().trim(),"utf-8");
             psd_again=URLEncoder.encode(reg_psd_again.getText().toString().trim(),"utf-8");
 
+
             check_sex.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
                 @Override
                 public void onCheckedChanged(RadioGroup group, int checkedId) {
                     switch (checkedId){
                         case R.id.female:
-                            try {
-                                finalSex[0] = URLEncoder.encode("女","utf-8");
-                                System.out.println(finalSex[0]);
-                            } catch (UnsupportedEncodingException e) {
-                                e.printStackTrace();
-                            }
-
+                                sex=0;
                             break;
                         case R.id.male:
-                            try {
-                                finalSex[0] = URLEncoder.encode("男","utf-8");
-                                System.out.println(finalSex[0]);
-                            } catch (UnsupportedEncodingException e) {
-                                e.printStackTrace();
-                            }
-
+                            sex=1;
                             break;
                     }
                 }
@@ -113,10 +95,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             Toast.makeText(getApplicationContext(),"两次密码不同，请重新输入", Toast.LENGTH_SHORT).show();
             reg_psd_again.setText("");
         }else{
-            RequestParams params = new RequestParams("http://10.0.2.2:8080/Mengmeng/CheckLogin?name="+name+"&psd="+psd+"");
-            final String finalName = name;
-            final String finalPsd = psd;
-            final String finalsex = finalSex[0];
+            RequestParams params = new RequestParams("http://10.0.2.2:8080/MMAPP/checkLogin?name="+name+"&psd="+psd+"");
+
             x.http().get(params, new Callback.CacheCallback<String>() {
                 @Override
                 public void onSuccess(String result) {
@@ -124,26 +104,30 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     if (result.length() > 0) {
                         Toast.makeText(RegisterActivity.this, "用户名已存在", Toast.LENGTH_LONG).show();
                     }else{
-                        RequestParams p = new RequestParams("http://10.0.2.2:8080/Mengmeng/Register?name="+ finalName + "&psd=" + finalPsd + "&sex="+""+ finalsex+"");
+                        RequestParams p = new RequestParams("http://10.0.2.2:8080/MMAPP/regist");
+                        p.addBodyParameter("name",reg_name.getText()+"");
+                        p.addBodyParameter("psd",reg_psd.getText()+"");
+                        p.addBodyParameter("sex",sex+"");
                         x.http().get(p, new Callback.CacheCallback<String>() {
                             @Override
                             public void onSuccess(String result) {
 
-                                if (result.length() > 0) {
-                                    Intent intent = new Intent(RegisterActivity.this, DynamicMainActivity.class);
+
+                                    Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_LONG).show();
+                                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                                     startActivity(intent);
-                                }
+
 
                             }
 
                             @Override
                             public void onError(Throwable ex, boolean isOnCallback) {
-
+                                Toast.makeText(RegisterActivity.this, "注册失败", Toast.LENGTH_LONG).show();
                             }
 
                             @Override
                             public void onCancelled(CancelledException cex) {
-
+                                Toast.makeText(RegisterActivity.this, "注册失败", Toast.LENGTH_LONG).show();
                             }
 
                             @Override
