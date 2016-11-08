@@ -3,33 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-<RelativeLayout
-    android:id="@+id/petfriend_bottom"
-    android:layout_width="match_parent"
-    android:background="@color/pray2"
-    android:layout_height="60dp">
-
-
-    <ImageView
-        android:id="@+id/iv_search"
-        android:src="@drawable/search"
-        android:layout_marginTop="8dp"
-        android:background="#EAEAEA"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content" />
-
-    <ImageView
-        android:id="@+id/iv_petfriend_add"
-        android:src="@drawable/add"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="8dp"
-        android:background="#EAEAEA"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content" />
-    </RelativeLayout>
 
     <RelativeLayout
-        android:layout_below="@+id/petfriend_bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     <ListView

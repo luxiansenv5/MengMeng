@@ -2,6 +2,7 @@ package com.example.mengmeng.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.widget.TextView;
 
 import io.rong.imlib.model.Conversation;
 
@@ -21,9 +22,20 @@ public class ConversationActivity extends FragmentActivity {
      * 会话类型
      */
     private Conversation.ConversationType mConversationType;
+    private TextView friendName;
+    String name=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversation);
+        initView();
+        initDate();
+    }
+    private void initView(){
+        friendName = ((TextView) findViewById(R.id.name));
+    }
+    private void initDate(){
+        name=getIntent().getData().getQueryParameter("title");
+        friendName.setText(name);
     }
 }

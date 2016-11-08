@@ -122,7 +122,7 @@ public class SelectPet extends AppCompatActivity {
                             tv_petName.setText(petInfo.petName);
                             tv_petType.setText(petInfo.petType);
                             tv_petAge.setText(petInfo.petAge.toString().trim() + "岁");
-                            xUtilsImageUtils.display(iv_petPhoto, HttpUtils.HOST + petInfo.petPhoto, true);
+                            xUtilsImageUtils.display(iv_petPhoto, HttpUtils.HOST_PIC + petInfo.petPhoto, true);
 
                         }
                     };
