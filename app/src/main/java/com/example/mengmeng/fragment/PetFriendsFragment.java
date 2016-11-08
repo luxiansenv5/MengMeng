@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mengmeng.activity.LoginInfo;
 import com.example.mengmeng.activity.PersonDataActivity;
 import com.example.mengmeng.activity.R;
 import com.example.mengmeng.pojo.ContactsInfoBean;
@@ -31,7 +32,6 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import application.MyApplication;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import io.rong.imkit.RongIM;
@@ -50,7 +50,7 @@ public class PetFriendsFragment extends BaseFragment {
     String MyToken;
     User user;
 
-    public static final Integer USERID = 1;
+    public static final Integer USERID = LoginInfo.userId;
 
     final List<ContactsInfoBean> contactsInfoBeanList = new ArrayList<ContactsInfoBean>();
 
@@ -104,7 +104,7 @@ public class PetFriendsFragment extends BaseFragment {
 
     private void getTokenByUserId(){
         RequestParams params = new RequestParams(HttpUtils.HOST_COMMUNICATIE + "gettokenbyuserid");
-        params.addBodyParameter("userId",((MyApplication)getActivity().getApplication()).getUser().getUserId().toString());
+        params.addBodyParameter("userId",LoginInfo.userId+"");
 
         x.http().get(params, new Callback.CommonCallback<String>() {
             @Override
@@ -137,7 +137,7 @@ public class PetFriendsFragment extends BaseFragment {
     private void getFriInfoList() {
 
         RequestParams params = new RequestParams(HttpUtils.HOST_COMMUNICATIE + "getcontactinfobypage");
-        params.addBodyParameter("userId",((MyApplication)getActivity().getApplication()).getUser().getUserId().toString());
+        params.addBodyParameter("userId",LoginInfo.userId+"");
         x.http().get(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {

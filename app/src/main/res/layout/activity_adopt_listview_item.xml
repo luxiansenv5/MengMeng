@@ -2,41 +2,40 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:padding="8dp">
 
     <ImageView
         android:id="@+id/iv_petPhoto"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:src="@mipmap/ic_launcher"
         android:layout_marginRight="30dp"/>
 
     <TextView
         android:id="@+id/tv_petName"
         android:textColor="#000"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/iv_petPhoto"
         android:text="二哈"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="5dp"/>
 
     <TextView
         android:id="@+id/tv_petType"
         android:textColor="#000"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/iv_petPhoto"
         android:layout_alignBottom="@id/iv_petPhoto"
-        android:layout_marginRight="40dp"
         android:text="哈士奇"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginBottom="5dp"/>
 
     <TextView
         android:id="@+id/tv_petAge"
         android:textColor="#000"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
@@ -50,7 +49,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/tv_petType"
         android:layout_alignParentRight="true"
-        android:textSize="18sp"
+        android:textSize="14sp"
         android:textColor="#000"
         android:text="2016-10-27"/>
 

@@ -17,6 +17,11 @@ public class User implements Parcelable {
 	
 	public User(){}
 
+	public User(Integer userId,String userName){
+		this.userId=userId;
+		this.userName=userName;
+	}
+
 	public User(Integer userId){
 		this.userId=userId;
 	}

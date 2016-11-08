@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mengmeng.pojo.User;
+import com.example.mengmeng.utils.HttpUtils;
 import com.google.gson.Gson;
 
 import org.xutils.common.Callback;
@@ -87,9 +89,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             e.printStackTrace();
         }
 
-        RequestParams params = new RequestParams("http://10.0.2.2:8080/MMAPP/checkLogin?name="+name+"&psd="+psd+"");
+        RequestParams params = new RequestParams(HttpUtils.HOST_COMMUNICATIE+"checkLogin");
         final String finalName = name;
-
+        params.addParameter("name",name);
+        params.addParameter("psd",psd);
+        Log.e("parameter", "getLoginInfoList: "+params );
         x.http().get(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
@@ -101,19 +105,28 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                     Gson gson=new Gson();
                     User user=gson.fromJson(result,User.class);
+                    Toast.makeText(LoginActivity.this, "result="+result, Toast.LENGTH_LONG).show();
+//                    SharedPreferences shared_prefs = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
+//                    SharedPreferences.Editor editor = shared_prefs.edit();
+//
+//                    editor.putInt("userId",user.getUserId());
+//                    editor.putString("userPhoto",user.getUserPhoto());
+//                    editor.putString("address",user.getAddress());
+//                    editor.putBoolean("sex",user.isUserSex());
+//                    editor.putString("underWrite",user.getUserWrite());
+//                    editor.putString("token",user.getToken());
+//                    editor.putString("userPsd",user.getUserPsd());
+//
+//                    editor.commit();
+                    LoginInfo.userId=user.getUserId();
+                    LoginInfo.address=user.getAddress();
+                    LoginInfo.name = user.getUserName();
+                    LoginInfo.sex = user.isUserSex();
+                    LoginInfo.token = user.getToken();
+                    LoginInfo.underWrite = user.getUserWrite();
+                    LoginInfo.userPhoto = user.getUserPhoto();
+                    LoginInfo.userPsd = user.getUserPsd();
 
-                    SharedPreferences shared_prefs = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = shared_prefs.edit();
-
-                    editor.putInt("userId",user.getUserId());
-                    editor.putString("userPhoto",user.getUserPhoto());
-                    editor.putString("address",user.getAddress());
-                    editor.putBoolean("sex",user.isUserSex());
-                    editor.putString("underWrite",user.getUserWrite());
-                    editor.putString("token",user.getToken());
-                    editor.putString("userPsd",user.getUserPsd());
-
-                    editor.commit();
                     et_userName.setText(finalName);
                     et_userPsd.setText(result);
                     Intent intent = new Intent(LoginActivity.this, DynamicMainActivity.class);
