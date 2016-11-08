@@ -55,7 +55,22 @@
         <activity android:name=".Count_setActivity" />
         <activity android:name=".CommunicateGroupActivity" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".ConversationActivity" />
+        <activity android:name=".ConversationActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="com.example.mengmeng"
+                    android:pathPrefix="/conversation/"
+                    android:scheme="rong" />
+            </intent-filter>
+
+        </activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".Mine_SetActivity" />
         <activity android:name=".My_PetActivity" />

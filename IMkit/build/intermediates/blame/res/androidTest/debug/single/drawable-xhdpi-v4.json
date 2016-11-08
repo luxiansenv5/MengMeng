@@ -476,12 +476,12 @@
         "source": "D:\\mengmeng_project\\MengMeng\\IMkit\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\u1f606.png"
     },
     {
-        "merged": "D:\\mengmeng_project\\MengMeng\\IMkit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\rc_ac_file_preview.png",
-        "source": "D:\\mengmeng_project\\MengMeng\\IMkit\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\rc_ac_file_preview.png"
-    },
-    {
         "merged": "D:\\mengmeng_project\\MengMeng\\IMkit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\rc_ic_voice_sent_play3.png",
         "source": "D:\\mengmeng_project\\MengMeng\\IMkit\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\rc_ic_voice_sent_play3.png"
+    },
+    {
+        "merged": "D:\\mengmeng_project\\MengMeng\\IMkit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\rc_ac_file_preview.png",
+        "source": "D:\\mengmeng_project\\MengMeng\\IMkit\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\rc_ac_file_preview.png"
     },
     {
         "merged": "D:\\mengmeng_project\\MengMeng\\IMkit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\rc_ad_list_folder_icon.png",
@@ -500,12 +500,12 @@
         "source": "D:\\mengmeng_project\\MengMeng\\IMkit\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\u1f615.png"
     },
     {
-        "merged": "D:\\mengmeng_project\\MengMeng\\IMkit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\rc_ac_audio_file_icon.png",
-        "source": "D:\\mengmeng_project\\MengMeng\\IMkit\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\rc_ac_audio_file_icon.png"
-    },
-    {
         "merged": "D:\\mengmeng_project\\MengMeng\\IMkit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\rc_read_receipt_request.png",
         "source": "D:\\mengmeng_project\\MengMeng\\IMkit\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\rc_read_receipt_request.png"
+    },
+    {
+        "merged": "D:\\mengmeng_project\\MengMeng\\IMkit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\rc_ac_audio_file_icon.png",
+        "source": "D:\\mengmeng_project\\MengMeng\\IMkit\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\rc_ac_audio_file_icon.png"
     },
     {
         "merged": "D:\\mengmeng_project\\MengMeng\\IMkit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\rc_ed_pub_service_search_normal.9.png",
