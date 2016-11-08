@@ -54,8 +54,6 @@
         <activity android:name=".DingweiActivity" />
         <activity android:name=".Count_setActivity" />
         <activity android:name=".CommunicateGroupActivity" />
-        <activity android:name=".CommunicatePetFriendAdd" />
-        <activity android:name=".CommunicatePetFriendSearch" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".ConversationActivity" />
         <activity android:name=".MainActivity" />
@@ -110,10 +108,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AddPetActivity" />
-        <activity android:name=".AboutActivity" />
-        <activity android:name=".SetAddressActivity" />
-        <activity android:name=".SetQianmingActivity"></activity>
+        <activity android:name="com.example.mengmeng.serviceactivity.BakeiPagerActivity"/>
+        <activity android:name="com.example.mengmeng.serviceactivity.AdoptActivity"/>
+        <activity android:name="com.example.mengmeng.serviceactivity.SelectPet"/>
+        <activity android:name="com.example.mengmeng.serviceactivity.TakePhotoActivity"/>
+        <activity android:name="com.example.mengmeng.serviceactivity.ReleaseDetailsActivity"/>
     </application>
 
 </manifest>
