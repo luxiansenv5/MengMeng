@@ -22,7 +22,6 @@ import com.example.mengmeng.pojo.Dynamic;
 import com.example.mengmeng.pojo.Remark;
 import com.example.mengmeng.pojo.User;
 import com.example.mengmeng.utils.CommentAdapter;
-import com.example.mengmeng.utils.CommonAdapter;
 import com.example.mengmeng.utils.NetUtil;
 import com.example.mengmeng.utils.RefreshListView;
 import com.example.mengmeng.widget.NoTouchLinearLayout;
@@ -661,7 +660,7 @@ public class DynamicFragment extends BaseFragment implements RefreshListView.OnR
     public void replyComment(){
 
         User fatheruser= dynamics.get(commentPosition).remarklist.get(replayPosition-1).user;
-        User user=new User(1,"萌萌");
+        User user=new User(1,"萌萌","");
 
         String remarkContent= mCommentEdittext.getText().toString().trim();
         long remarkTime = System.currentTimeMillis();
@@ -710,7 +709,7 @@ public class DynamicFragment extends BaseFragment implements RefreshListView.OnR
 
     public void publishComment(){
         User fatheruser= dynamics.get(commentPosition).getUser();
-        User user=new User(1,"萌萌");
+        User user=new User(1,"萌萌","");
         String remarkContent= mCommentEdittext.getText().toString().trim();
         long remarkTime = System.currentTimeMillis();
         Timestamp timestamp=new Timestamp(remarkTime);
