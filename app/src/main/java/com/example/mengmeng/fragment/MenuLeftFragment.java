@@ -31,6 +31,7 @@ import com.amap.api.maps2d.LocationSource;
 import com.amap.api.maps2d.model.LatLng;
 import com.example.mengmeng.activity.Mine_SetActivity;
 import com.example.mengmeng.activity.MyActivity;
+import com.example.mengmeng.activity.MyConcernActivity;
 import com.example.mengmeng.activity.MyReleaseActivity;
 import com.example.mengmeng.activity.My_PetActivity;
 import com.example.mengmeng.activity.R;
@@ -69,9 +70,10 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener ,
     //标识，用于判断是否只显示一次定位信息和用户重新定位
     private boolean isFirstLoc = true;
     private AMap aMap;
+    private RelativeLayout myConcern;
 
 
-        @Override
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
           View view = inflater.inflate(R.layout.layout_menu, container, false);
@@ -86,7 +88,10 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener ,
             userInfo = ((RelativeLayout) view.findViewById(R.id.userInfo));
             userInfo.setOnClickListener(this);
 
-            place = ((TextView) view.findViewById(R.id.tv_place));
+            myConcern = ((RelativeLayout) view.findViewById(R.id.rl_myconcern));
+        myConcern.setOnClickListener(this);
+
+        place = ((TextView) view.findViewById(R.id.tv_place));
 
             //拿到显示的用户名
             count_name = ((TextView) view.findViewById(R.id.count_name));
@@ -168,12 +173,19 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener ,
                 break;
             case R.id.my_pet_set:
                 Intent intent1  = new Intent(getActivity(), My_PetActivity.class);
+                intent1.putExtra("userId",1+"");
                 startActivity(intent1);
                 break;
 
             case R.id.myrelease:
                 Intent intent2=new Intent(getActivity(), MyReleaseActivity.class);
                 startActivity(intent2);
+                break;
+
+            case R.id.rl_myconcern:
+                Intent intent4=new Intent(getActivity(), MyConcernActivity.class);
+                intent4.putExtra("userId",1+"");
+                startActivity(intent4);
                 break;
 
         }

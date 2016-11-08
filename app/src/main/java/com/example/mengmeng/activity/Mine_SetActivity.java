@@ -42,10 +42,12 @@ public class Mine_SetActivity extends AppCompatActivity implements View.OnClickL
         switch (v.getId()){
             case R.id.count_set:
                 Intent intent = new Intent(getApplication(), Count_setActivity.class);
+                intent.putExtra("userId",1+"");
                 startActivity(intent);
                 break;
             case R.id.psd_set:
                 Intent intent1 = new Intent(getApplication(), Psd_setActivity.class);
+                intent1.putExtra("userId",1+"");
                 startActivity(intent1);
                 break;
             case  R.id.message_photo_set:

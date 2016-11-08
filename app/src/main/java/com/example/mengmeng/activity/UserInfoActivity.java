@@ -60,6 +60,8 @@ public class UserInfoActivity extends AppCompatActivity {
     List<User> users = new ArrayList<User>();
     User user = new User();
 
+    int userID;
+
     String userSex = "";
     @InjectView(R.id.tv_userInfo_address)
     TextView tvUserInfoAddress;
@@ -110,6 +112,10 @@ public class UserInfoActivity extends AppCompatActivity {
                 tvUserInfoSex.setText("性别：" + userSex);
                 tvUserInfoAddress.setText("地址：" + newUser.getAddress());
                 tvUserInfoQianming.setText("个性签名：" + newUser.getUserWrite());
+
+                userID=newUser.getUserId();
+                System.out.println("userID1:"+userID);
+
             }
 
             @Override
@@ -138,8 +144,16 @@ public class UserInfoActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.tv_userInfo_adduser:
-
                 break;
+//
         }
+    }
+
+    @OnClick(R.id.rl_userInfo_pet)
+    public void onClick() {
+                Intent intent=new Intent(this,My_PetActivity.class);
+                intent.putExtra("userId",userID+"");
+                System.out.println("userID2:"+userID);
+                startActivity(intent);
     }
 }

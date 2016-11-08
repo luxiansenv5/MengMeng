@@ -122,6 +122,7 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/rl_myconcern"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
@@ -140,41 +141,10 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="20dp"
                 android:layout_toRightOf="@id/four"
-                android:text="宠物领养"
+                android:text="我的关注"
                 android:textColor="@color/pray3"
                 android:textSize="20sp" />
         </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-            <ImageView
-                android:id="@+id/five"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:src="@drawable/img_5" />
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="20dp"
-                android:layout_toRightOf="@id/five"
-                android:text="个性装扮"
-                android:textColor="@color/pray3"
-                android:textSize="20sp" />
-
-        </RelativeLayout>
-
-        <LinearLayout
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
         <RelativeLayout
             android:id="@+id/mine_set"
             android:layout_width="wrap_content"
@@ -182,25 +152,53 @@
             <ImageView
                 android:id="@+id/mine_set_icon"
                 android:layout_marginLeft="22dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:src="@drawable/mine_set"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="设置"
+                android:text="常规设置"
+                android:textSize="20dp"
                 android:layout_toRightOf="@+id/mine_set_icon"
                 android:layout_alignBottom="@+id/mine_set_icon"
-                android:layout_marginLeft="5dp"/>
+                android:textColor="@color/pray3"
+                android:layout_marginLeft="20dp"/>
         </RelativeLayout>
+
+
+        <LinearLayout
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+        <!--<RelativeLayout-->
+            <!--android:id="@+id/mine_set"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content">-->
+            <!--<ImageView-->
+                <!--android:id="@+id/mine_set_icon"-->
+                <!--android:layout_marginLeft="22dp"-->
+                <!--android:layout_marginTop="30dp"-->
+                <!--android:layout_width="25dp"-->
+                <!--android:layout_height="25dp"-->
+                <!--android:src="@drawable/mine_set"/>-->
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="设置"-->
+                <!--android:layout_toRightOf="@+id/mine_set_icon"-->
+                <!--android:layout_alignBottom="@+id/mine_set_icon"-->
+                <!--android:layout_marginLeft="5dp"/>-->
+        <!--</RelativeLayout>-->
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <ImageView
                 android:id="@+id/mine_night"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="100dp"
                 android:layout_marginTop="30dp"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
