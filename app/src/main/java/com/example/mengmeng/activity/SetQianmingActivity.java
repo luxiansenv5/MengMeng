@@ -53,7 +53,8 @@ public class SetQianmingActivity extends AppCompatActivity implements View.OnCli
                 x.http().post(requestParams, new Callback.CommonCallback<String>() {
                     @Override
                     public void onSuccess(String result) {
-
+                        Toast.makeText(SetQianmingActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
+                        finish();
                     }
 
                     @Override

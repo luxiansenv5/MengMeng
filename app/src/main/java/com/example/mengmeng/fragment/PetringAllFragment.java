@@ -1,29 +1,59 @@
 package com.example.mengmeng.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.TextPaint;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.ImageSpan;
+import android.util.Log;
+import android.util.Size;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mengmeng.activity.DynamicInfoActivity;
+import com.example.mengmeng.activity.PictureActivity;
 import com.example.mengmeng.activity.R;
+import com.example.mengmeng.activity.UserInfoActivity;
 import com.example.mengmeng.pojo.Dynamic;
 import com.example.mengmeng.pojo.Remark;
 import com.example.mengmeng.pojo.User;
+import com.example.mengmeng.pojo.Zan;
 import com.example.mengmeng.utils.CommentAdapter;
+import com.example.mengmeng.utils.CommonAdapter;
 import com.example.mengmeng.utils.NetUtil;
 import com.example.mengmeng.utils.RefreshListView;
+import com.example.mengmeng.utils.ViewHolder;
+import com.example.mengmeng.utils.xUtilsImageUtils;
 import com.example.mengmeng.widget.NoTouchLinearLayout;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -34,12 +64,18 @@ import org.xutils.x;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
+import java.net.URL;
 import java.net.URLEncoder;
+import java.sql.SQLOutput;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import application.MyApplication;
 import butterknife.ButterKnife;
+import butterknife.InjectView;
+import cn.sharesdk.framework.ShareSDK;
+import cn.sharesdk.onekeyshare.OnekeyShare;
 
 /**
  * Created by 程和 on 2016/10/18.
@@ -182,6 +218,7 @@ public class PetringAllFragment extends BaseFragment implements RefreshListView.
             @Override
             public void onSuccess(String result) {
                 Gson gson = new Gson();
+                System.out.println(result);
                 Type type = new TypeToken<List<Dynamic>>() {
                 }.getType();
                 newDynamic = new ArrayList<Dynamic>();
@@ -410,6 +447,7 @@ public class PetringAllFragment extends BaseFragment implements RefreshListView.
             }
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
+                System.out.println("ex1:"+ex);
                 Toast.makeText(getActivity(), "无法获取网络数据，请检查网络连接", Toast.LENGTH_SHORT).show();
             }
 
@@ -659,7 +697,8 @@ public class PetringAllFragment extends BaseFragment implements RefreshListView.
     public void replyComment(){
 
         User fatheruser= dynamics.get(commentPosition).remarklist.get(replayPosition-1).user;
-        User user=new User(1,"萌萌","");
+        Integer fatherremarkId=dynamics.get(commentPosition).remarklist.get(replayPosition-1).remarkId;
+        User user=new User(1,"萌萌");
 
         String remarkContent= mCommentEdittext.getText().toString().trim();
         long remarkTime = System.currentTimeMillis();
@@ -677,6 +716,7 @@ public class PetringAllFragment extends BaseFragment implements RefreshListView.
         Long time=System.currentTimeMillis();
         params.addBodyParameter("remarkTime",time+"");
         params.addBodyParameter("fatherUserId",fatheruser.getUserId()+"");
+        params.addBodyParameter("fatherremarkId",fatherremarkId+"");
         try {
             params.addBodyParameter("remarkContent", URLEncoder.encode(remarkContent,"utf-8"));
         } catch (UnsupportedEncodingException e) {
@@ -708,7 +748,7 @@ public class PetringAllFragment extends BaseFragment implements RefreshListView.
 
     public void publishComment(){
         User fatheruser= dynamics.get(commentPosition).getUser();
-        User user=new User(1,"萌萌","");
+        User user=new User(1,"萌萌");
         String remarkContent= mCommentEdittext.getText().toString().trim();
         long remarkTime = System.currentTimeMillis();
         Timestamp timestamp=new Timestamp(remarkTime);

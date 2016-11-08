@@ -47,14 +47,23 @@ public class My_PetActivity extends AppCompatActivity implements View.OnClickLis
         addpet = ((ImageView) findViewById(R.id.iv_addpet));
         addpet.setOnClickListener(this);
         petListview = ((ListView) findViewById(R.id.listview_mypet));
+
+
     }
 
 
     private void intData() {
 //        http://10.40.5.17:8080/MengmengWeb/querypersonalpet
+        Intent intent = getIntent();
         RequestParams requestParams = new RequestParams(NetUtil.url + "querypersonalpet");
-        requestParams.addBodyParameter("userId",1+"");
-
+        if(intent.getStringExtra("userId")!=null) {
+            String userId = intent.getStringExtra("userId");
+            requestParams.addQueryStringParameter("userId", userId);
+            int userID=Integer.parseInt(userId);
+            if(userID!=1){
+                addpet.setVisibility(View.GONE);
+            }
+        }
         x.http().get(requestParams, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {

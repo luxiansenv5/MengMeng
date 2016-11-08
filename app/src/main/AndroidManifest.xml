@@ -81,8 +81,8 @@
         <activity android:name=".AddPetActivity" />
         <activity android:name=".AboutActivity" />
         <activity android:name=".SetAddressActivity" />
-        <activity android:name=".SetQianmingActivity"/>
-
+        <activity android:name=".SetQianmingActivity" />
+        <activity android:name=".MyConcernActivity"/>
         //地图
         <meta-data
             android:name="com.amap.api.v2.apikey"
