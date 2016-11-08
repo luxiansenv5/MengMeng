@@ -12,7 +12,6 @@ import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextPaint;
-import android.text.format.DateUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ImageSpan;
@@ -29,7 +28,6 @@ import android.widget.Toast;
 import com.example.mengmeng.activity.PictureActivity;
 import com.example.mengmeng.activity.R;
 import com.example.mengmeng.activity.UserInfoActivity;
-import com.example.mengmeng.fragment.PetringAllFragment;
 import com.example.mengmeng.pojo.Dynamic;
 import com.example.mengmeng.pojo.User;
 import com.example.mengmeng.pojo.Zan;
@@ -46,7 +44,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-import application.MyApplication;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 

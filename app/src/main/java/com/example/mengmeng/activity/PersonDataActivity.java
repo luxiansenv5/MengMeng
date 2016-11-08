@@ -89,7 +89,7 @@ public class PersonDataActivity extends AppCompatActivity {
         xUtilsImageUtils.display(personPhoto, HttpUtils.HOST_COMMUNICATIE + contactsInfoBean.getUser().getUserPhoto(), true);
         personName.setText(contactsInfoBean.getUser().getUserName());
         personAddress.setText(contactsInfoBean.getUser().getAddress());
-        personSex.setText(contactsInfoBean.getUser().isSex() == true ? "man" : "woman");
+        personSex.setText(contactsInfoBean.getUser().isUserSex() == true ? "man" : "woman");
         personUnderwrite.setText(contactsInfoBean.getUser().getUserWrite());
         //获得宠物的个人资料
         xUtilsImageUtils.display(petPhoto, HttpUtils.HOST_COMMUNICATIE + contactsInfoBean.getPetInfo().petPhoto, true);

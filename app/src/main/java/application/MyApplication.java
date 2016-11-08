@@ -16,8 +16,7 @@ import io.rong.imkit.RongIM;
  */
 public class MyApplication extends Application{
 
-    private  User user=new User(1);//设置默认用户，用户ID为1；
-
+    private User user=new User(1);
     public User getUser() {
         return user;
     }
