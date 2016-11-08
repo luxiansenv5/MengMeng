@@ -9,7 +9,7 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toobar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:background="#99ff0000">
 
         <ImageView
@@ -21,9 +21,9 @@
         <TextView
             android:id="@+id/adopt"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:text="领养"
-            android:textSize="26sp"
+            android:textSize="20sp"
             android:layout_marginLeft="140dp"/>
 
         <Button
@@ -31,8 +31,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="发布"
-            android:textSize="20sp"
-            android:layout_marginLeft="100dp"
+            android:textSize="18sp"
+            android:layout_marginLeft="80dp"
             android:background="#00000000"/>
 
     </android.support.v7.widget.Toolbar>

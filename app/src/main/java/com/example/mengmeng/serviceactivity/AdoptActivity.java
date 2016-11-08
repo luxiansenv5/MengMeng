@@ -45,7 +45,7 @@ public class AdoptActivity extends AppCompatActivity implements RefreshListView.
     List<String> kindContents = new ArrayList<String>();
     private Integer queryFlag=1;
     private Integer pageNo=1;
-    private Integer pageSize=4;
+    private Integer pageSize=5;
     Handler handler = new Handler();
 
     private RefreshListView lv_petInfo;

@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -73,6 +74,7 @@ public class ReleaseDetailsActivity extends AppCompatActivity implements View.On
     private SingleCommentAdapter singleCommentAdapter;
     private List<ListView> listViews;
     private List<SingleCommentAdapter> singleCommentAdapterList = new ArrayList<SingleCommentAdapter>();
+    private ProgressBar xprogressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +101,7 @@ public class ReleaseDetailsActivity extends AppCompatActivity implements View.On
         hide_down = (TextView) findViewById(R.id.hide_down);
         comment_content = (EditText) findViewById(R.id.comment_content);
         comment_send = (Button) findViewById(R.id.comment_send);
+        xprogressBar = ((ProgressBar) findViewById(R.id.xprogressBar));
 
         rl_enroll = (LinearLayout) findViewById(R.id.rl_enroll);
         rl_comment = (RelativeLayout) findViewById(R.id.rl_comment);
@@ -145,6 +148,7 @@ public class ReleaseDetailsActivity extends AppCompatActivity implements View.On
 
     public void getAdoptDetails(){
 
+        xprogressBar.setVisibility(View.VISIBLE);
         RequestParams requestParams=null;
 
         if (flag==1){
@@ -161,6 +165,7 @@ public class ReleaseDetailsActivity extends AppCompatActivity implements View.On
             @Override
             public void onSuccess(String result) {
 
+                xprogressBar.setVisibility(View.GONE);
                 Gson gson=new Gson();
                 Type type=new TypeToken<List<DetailsBean>>(){}.getType();
                 detailList=gson.fromJson(result, type);

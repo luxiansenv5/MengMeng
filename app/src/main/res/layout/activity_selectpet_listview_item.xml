@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="8dp">
 
     <ImageView
         android:id="@+id/iv_petPhoto"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:src="@drawable/baodian"/>
 
     <TextView
@@ -16,9 +17,9 @@
         android:textColor="#000"
         android:layout_toRightOf="@id/iv_petPhoto"
         android:layout_alignTop="@id/iv_petPhoto"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:text="二哈"/>
 
     <TextView
@@ -29,8 +30,8 @@
         android:layout_toRightOf="@id/iv_petPhoto"
         android:layout_alignBottom="@id/iv_petPhoto"
         android:layout_marginLeft="20dp"
-        android:textSize="20sp"
-        android:layout_marginBottom="10dp"
+        android:textSize="18sp"
+        android:layout_marginBottom="5dp"
         android:text="哈士奇"/>
 
     <TextView
@@ -40,8 +41,8 @@
         android:textColor="#000"
         android:layout_toRightOf="@id/tv_petType"
         android:layout_alignBottom="@id/tv_petType"
-        android:layout_marginLeft="20sp"
-        android:textSize="20sp"
+        android:layout_marginLeft="20dp"
+        android:textSize="18sp"
         android:text="1岁"/>
 
     <View style="@style/bg_line"
