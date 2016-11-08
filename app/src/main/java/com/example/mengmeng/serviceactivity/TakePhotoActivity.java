@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amap.api.location.AMapLocation;
@@ -67,6 +68,8 @@ public class TakePhotoActivity extends AppCompatActivity implements View.OnClick
 
     //声明AMapLocationClientOption对象
     public AMapLocationClientOption mLocationOption = null;
+    private ImageView dingwei;
+    private TextView city;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +81,8 @@ public class TakePhotoActivity extends AppCompatActivity implements View.OnClick
         initEvent();
 
         initData();
+
+        getLocation();
     }
 
     @Override
@@ -237,6 +242,8 @@ public class TakePhotoActivity extends AppCompatActivity implements View.OnClick
         btn_confirm = ((Button) findViewById(R.id.btn_confirm));
         et_desc = ((EditText) findViewById(R.id.et_desr));
         mtback = ((ImageView) findViewById(R.id.mtback));
+        dingwei = ((ImageView) findViewById(R.id.dingwei));
+        city = ((TextView) findViewById(R.id.city));
     }
 
     public void initEvent(){
@@ -362,10 +369,11 @@ public class TakePhotoActivity extends AppCompatActivity implements View.OnClick
                     amapLocation.getDistrict();//城区信息
                     amapLocation.getStreet();//街道信息
                     amapLocation.getStreetNum();//街道门牌号信息
-                    amapLocation.getCityCode();//城市编码
-                    Toast.makeText(TakePhotoActivity.this,"chengshi"+amapLocation.getCityCode(),Toast.LENGTH_SHORT).show();
-                    amapLocation.getAdCode();//地区编码
+                    amapLocation.getCityCode();//城市编码amapLocation.getAdCode();//地区编码
                     amapLocation.getAoiName();//获取当前定位点的AOI信息
+
+                    city.setText(amapLocation.getCity());
+
                 }else {
                     //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
                     Log.e("AmapError","location Error, ErrCode:"

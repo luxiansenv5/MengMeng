@@ -90,7 +90,6 @@ public class SelectPet extends AppCompatActivity {
 
         Intent intent=getIntent();
         flag=intent.getIntExtra("flag",0);
-        System.out.println("SelectPet-flag======="+flag);
         user=((MyApplication)getApplication()).getUser();
         getPersonalPet();
     }
