@@ -50,7 +50,6 @@ public class CommunicateFragment extends BaseFragment implements View.OnClickLis
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.communicate_fragment, null);
-
         ButterKnife.inject(this, v);
         return v;
     }

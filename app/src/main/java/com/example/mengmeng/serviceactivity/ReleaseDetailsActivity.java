@@ -18,12 +18,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mengmeng.activity.DynamicMainActivity;
 import com.example.mengmeng.activity.R;
 import com.example.mengmeng.pojo.DetailsBean;
 import com.example.mengmeng.pojo.GetAdoptBean;
 import com.example.mengmeng.pojo.SingleComment;
-import com.example.mengmeng.utils.SingleCommentAdapter;
 import com.example.mengmeng.utils.HttpUtils;
+import com.example.mengmeng.utils.SingleCommentAdapter;
 import com.example.mengmeng.utils.viewpageAdapter;
 import com.example.mengmeng.utils.xUtilsImageUtils;
 import com.google.gson.Gson;
@@ -72,9 +73,9 @@ public class ReleaseDetailsActivity extends AppCompatActivity implements View.On
     private RelativeLayout rl_comment;
 
     private SingleCommentAdapter singleCommentAdapter;
-    private List<ListView> listViews;
     private List<SingleCommentAdapter> singleCommentAdapterList = new ArrayList<SingleCommentAdapter>();
     private ProgressBar xprogressBar;
+    private Button wantadoapt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +106,7 @@ public class ReleaseDetailsActivity extends AppCompatActivity implements View.On
 
         rl_enroll = (LinearLayout) findViewById(R.id.rl_enroll);
         rl_comment = (RelativeLayout) findViewById(R.id.rl_comment);
+        wantadoapt= ((Button) findViewById(R.id.wantadopt));
     }
 
     public void initData(){
@@ -144,6 +146,7 @@ public class ReleaseDetailsActivity extends AppCompatActivity implements View.On
 
         hide_down.setOnClickListener(this);
         comment_send.setOnClickListener(this);
+        wantadoapt.setOnClickListener(this);
     }
 
     public void getAdoptDetails(){
@@ -378,6 +381,15 @@ public class ReleaseDetailsActivity extends AppCompatActivity implements View.On
             case R.id.comment_send:
 
                 sendComment();
+                break;
+            case R.id.wantadopt:
+
+                int userId=detailList.get(currentItem).getPublisherId();
+                Intent intent=new Intent(ReleaseDetailsActivity.this, DynamicMainActivity.class);
+
+                intent.putExtra("userId",userId);
+
+                startActivity(intent);
                 break;
             default:
                 break;
