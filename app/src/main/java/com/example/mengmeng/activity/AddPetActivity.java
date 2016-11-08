@@ -208,8 +208,6 @@ public class AddPetActivity extends AppCompatActivity {
     private String getPhotoFileName() {
         Date date = new Date(System.currentTimeMillis());
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
-
-        System.out.println("============"+ UUID.randomUUID());
         return sdf.format(date)+"_"+UUID.randomUUID() + ".png";
     }
 

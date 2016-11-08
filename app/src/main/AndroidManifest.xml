@@ -70,6 +70,14 @@
         <activity android:name=".SetAddressActivity" />
         <activity android:name=".SetQianmingActivity" />
         <activity android:name=".MyConcernActivity"/>
+
+
+        <activity android:name="com.example.mengmeng.serviceactivity.AdoptActivity"/>
+        <activity android:name="com.example.mengmeng.serviceactivity.BakeiPagerActivity"/>
+        <activity android:name="com.example.mengmeng.serviceactivity.ReleaseDetailsActivity"/>
+        <activity android:name="com.example.mengmeng.serviceactivity.SelectPet"/>
+        <activity android:name="com.example.mengmeng.serviceactivity.TakePhotoActivity"/>
+
         //地图
         <meta-data
             android:name="com.amap.api.v2.apikey"
