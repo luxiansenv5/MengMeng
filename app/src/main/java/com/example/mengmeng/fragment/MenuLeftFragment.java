@@ -391,7 +391,7 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener ,
                 Log.e("AmapError", "location Error, ErrCode:"
                         + aMapLocation.getErrorCode() + ", errInfo:"
                         + aMapLocation.getErrorInfo());
-                Toast.makeText(getActivity(), "定位失败", Toast.LENGTH_LONG).show();
+//                Toast.makeText(getActivity(), "定位失败", Toast.LENGTH_LONG).show();
             }
         }
     }
