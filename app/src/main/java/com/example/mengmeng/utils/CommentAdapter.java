@@ -411,7 +411,7 @@ public class CommentAdapter extends BaseAdapter {
             }
         });
         imZan.setTag(dynamic.getDynamicId());
-        if(sharedPreferences1.contains(position+"")){
+        if(sharedPreferences1.contains(dynamic.dynamicId+"")){
             imZan.setImageResource(R.drawable.zan1);
         }else{
             imZan.setImageResource(R.drawable.zan );
@@ -511,12 +511,10 @@ public class CommentAdapter extends BaseAdapter {
                 .setOnClickListener(new ListViewButtonOnClickListener(position));
         viewHolder.ibPinglun.setFocusable(false);
 
-        if (dynamic!=null&&dynamic.remarklist!=null){
-        if(dynamic.remarklist.size()>0){
-            viewHolder.lv_remarks.setVisibility(View.VISIBLE);
-            ReplayAdapter replayAdapter = new ReplayAdapter(context,handler,dynamic.remarklist,position);
-            viewHolder.lv_remarks.setAdapter(replayAdapter);
-        }
+        if (dynamic!=null&&dynamic.remarklist!=null&&dynamic.remarklist.size()>0){
+                viewHolder.lv_remarks.setVisibility(View.VISIBLE);
+                ReplayAdapter replayAdapter = new ReplayAdapter(context,handler,dynamic.remarklist,position);
+                viewHolder.lv_remarks.setAdapter(replayAdapter);
         }else{
             viewHolder.lv_remarks.setVisibility(View.GONE);
         }

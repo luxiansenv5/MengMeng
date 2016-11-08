@@ -123,6 +123,7 @@ public class MyActivity extends AppCompatActivity implements View.OnClickListene
                 break;
             case R.id.rl_userInfo_pet:
                 Intent intent=new Intent(this,My_PetActivity.class);
+                intent.putExtra("userId",1+"");
                 startActivity(intent);
                 break;
         }

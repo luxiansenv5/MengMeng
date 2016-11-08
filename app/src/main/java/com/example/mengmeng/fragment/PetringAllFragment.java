@@ -218,6 +218,7 @@ public class PetringAllFragment extends BaseFragment implements RefreshListView.
             @Override
             public void onSuccess(String result) {
                 Gson gson = new Gson();
+                System.out.println(result);
                 Type type = new TypeToken<List<Dynamic>>() {
                 }.getType();
                 newDynamic = new ArrayList<Dynamic>();
@@ -446,6 +447,7 @@ public class PetringAllFragment extends BaseFragment implements RefreshListView.
             }
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
+                System.out.println("ex1:"+ex);
                 Toast.makeText(getActivity(), "无法获取网络数据，请检查网络连接", Toast.LENGTH_SHORT).show();
             }
 
@@ -695,6 +697,7 @@ public class PetringAllFragment extends BaseFragment implements RefreshListView.
     public void replyComment(){
 
         User fatheruser= dynamics.get(commentPosition).remarklist.get(replayPosition-1).user;
+        Integer fatherremarkId=dynamics.get(commentPosition).remarklist.get(replayPosition-1).remarkId;
         User user=new User(1,"萌萌");
 
         String remarkContent= mCommentEdittext.getText().toString().trim();
@@ -713,6 +716,7 @@ public class PetringAllFragment extends BaseFragment implements RefreshListView.
         Long time=System.currentTimeMillis();
         params.addBodyParameter("remarkTime",time+"");
         params.addBodyParameter("fatherUserId",fatheruser.getUserId()+"");
+        params.addBodyParameter("fatherremarkId",fatherremarkId+"");
         try {
             params.addBodyParameter("remarkContent", URLEncoder.encode(remarkContent,"utf-8"));
         } catch (UnsupportedEncodingException e) {

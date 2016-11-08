@@ -661,6 +661,8 @@ public class DynamicFragment extends BaseFragment implements RefreshListView.OnR
     public void replyComment(){
 
         User fatheruser= dynamics.get(commentPosition).remarklist.get(replayPosition-1).user;
+        Integer fatherremarkId=dynamics.get(commentPosition).remarklist.get(replayPosition-1).remarkId;
+
         User user=new User(1,"萌萌");
 
         String remarkContent= mCommentEdittext.getText().toString().trim();
@@ -679,6 +681,7 @@ public class DynamicFragment extends BaseFragment implements RefreshListView.OnR
         Long time=System.currentTimeMillis();
         params.addBodyParameter("remarkTime",time+"");
         params.addBodyParameter("fatherUserId",fatheruser.getUserId()+"");
+        params.addBodyParameter("fatherremarkId",fatherremarkId+"");
         try {
             params.addBodyParameter("remarkContent", URLEncoder.encode(remarkContent,"utf-8"));
         } catch (UnsupportedEncodingException e) {
