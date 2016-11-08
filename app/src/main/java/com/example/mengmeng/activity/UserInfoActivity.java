@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.mengmeng.activity.R;
 import com.example.mengmeng.pojo.User;
 import com.example.mengmeng.utils.NetUtil;
 import com.google.gson.Gson;
@@ -61,6 +60,16 @@ public class UserInfoActivity extends AppCompatActivity {
     List<User> users = new ArrayList<User>();
     User user = new User();
 
+    String userSex = "";
+    @InjectView(R.id.tv_userInfo_address)
+    TextView tvUserInfoAddress;
+    @InjectView(R.id.tv_userInfo_address_v)
+    View tvUserInfoAddressV;
+    @InjectView(R.id.tv_userInfo_qianming)
+    TextView tvUserInfoQianming;
+    @InjectView(R.id.tv_userInfo_qianming_v)
+    View tvUserInfoQianmingV;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,11 +81,11 @@ public class UserInfoActivity extends AppCompatActivity {
     private void initData() {
         Intent intent = getIntent();
         RequestParams requestParams = new RequestParams(NetUtil.url + "UserQueryServlet");
-        if(intent.getStringExtra("userId")!=null) {
+        if (intent.getStringExtra("userId") != null) {
             String userId = intent.getStringExtra("userId");
             requestParams.addQueryStringParameter("userId", userId);
         }
-        if (intent.getStringExtra("userName")!=null){
+        if (intent.getStringExtra("userName") != null) {
             String userName = intent.getStringExtra("userName");
             requestParams.addQueryStringParameter("userName", userName);
         }
@@ -90,7 +99,17 @@ public class UserInfoActivity extends AppCompatActivity {
 
                 x.image().bind(ivUserInfoPhoto, NetUtil.photo_url + newUser.getUserPhoto());
                 tvUsername.setText(newUser.getUserName());
+                tvUserInfoConcern.setText("关注数：" + newUser.getFollowCount());
                 tvUserInfoName.setText("昵称：" + newUser.getUserName());
+
+                if (newUser.userSex) {
+                    userSex = "男";
+                } else {
+                    userSex = "女";
+                }
+                tvUserInfoSex.setText("性别：" + userSex);
+                tvUserInfoAddress.setText("地址：" + newUser.getAddress());
+                tvUserInfoQianming.setText("个性签名：" + newUser.getUserWrite());
             }
 
             @Override
@@ -116,7 +135,7 @@ public class UserInfoActivity extends AppCompatActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_userInfo_back:
-                    finish();
+                finish();
                 break;
             case R.id.tv_userInfo_adduser:
 

@@ -91,11 +91,45 @@
         android:layout_height="1px"
         android:background="#C0C5C7"/>
 
+    <TextView
+        android:id="@+id/tv_userInfo_address"
+        android:layout_width="wrap_content"
+        android:layout_height="38dp"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="18dp"
+        android:text="地址:"
+        android:textSize="20dp"
+        android:layout_below="@id/tv_userInfo_sex_v"/>
+
+    <View
+        android:id="@+id/tv_userInfo_address_v"
+        android:layout_width="match_parent"
+        android:layout_below="@id/tv_userInfo_address"
+        android:layout_height="1px"
+        android:background="#C0C5C7"/>
+
+    <TextView
+        android:id="@+id/tv_userInfo_qianming"
+        android:layout_width="wrap_content"
+        android:layout_height="38dp"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="18dp"
+        android:text="个性签名:"
+        android:textSize="20dp"
+        android:layout_below="@id/tv_userInfo_address_v"/>
+
+    <View
+        android:id="@+id/tv_userInfo_qianming_v"
+        android:layout_width="match_parent"
+        android:layout_below="@id/tv_userInfo_qianming"
+        android:layout_height="1px"
+        android:background="#C0C5C7"/>
+
     <RelativeLayout
         android:id="@+id/rl_userInfo_pet"
         android:layout_width="match_parent"
         android:layout_height="38dp"
-        android:layout_below="@id/tv_userInfo_sex_v"
+        android:layout_below="@id/tv_userInfo_qianming_v"
         >
 
         <TextView
@@ -113,7 +147,11 @@
             android:layout_centerVertical="true"
             android:padding="6dp"
             android:src="@drawable/iv_editinfo"/>
+
     </RelativeLayout>
+
+
+
 
 
     <TextView

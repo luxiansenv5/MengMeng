@@ -5,13 +5,14 @@ import android.os.Parcelable;
 
 public class User implements Parcelable {
 
-	private Integer userId;
-	private String userName;
-	private String userPhoto;
-	private String address;
-	private boolean userSex;
-	private String userWrite;
-	private String token;
+	public Integer userId;
+	public String userName;
+	public String userPhoto;
+	public String address;
+	public boolean userSex;
+	public String userWrite;
+	public String token;
+	public Integer followCount;
 
 	public User(){}
 
@@ -83,6 +84,14 @@ public class User implements Parcelable {
 	}
 	public void setToken(String token) {
 		this.token = token;
+	}
+
+	public Integer getFollowCount() {
+		return followCount;
+	}
+
+	public void setFollowCount(Integer followCount) {
+		this.followCount = followCount;
 	}
 
 	@Override

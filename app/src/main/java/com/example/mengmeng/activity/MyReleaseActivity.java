@@ -1,6 +1,7 @@
 package com.example.mengmeng.activity;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -36,8 +37,11 @@ public class MyReleaseActivity extends AppCompatActivity {
         tabs[0]= ((RadioButton) findViewById(R.id.rb_dynamic));
         tabs[1]= ((RadioButton) findViewById(R.id.rb_pet));
 
-        getSupportFragmentManager().beginTransaction().add(R.id.mfl_content,fragments[0]);
+
+        getSupportFragmentManager().beginTransaction().add(R.id.mfl_content,fragments[0]).show(fragments[0]).commit();
         tabs[0].setSelected(true);
+
+
     }
 
     public void onTabClicked(View view) {

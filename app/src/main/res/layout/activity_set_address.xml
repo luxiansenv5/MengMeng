@@ -7,34 +7,22 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".Psd_setActivity">
+    tools:context="com.example.mengmeng.activity.SetAddressActivity">
 
     <LinearLayout style="@style/wrap_layout" >
         <!-- 上圆角-->
         <LinearLayout style="@style/top_layout">
             <EditText style="@style/usertext"
-                android:id="@+id/old_psd_set"
-                android:hint="请输入新的密码"
+                android:id="@+id/new_address"
+                android:hint="请输入新地址"
                 android:textSize="20dp"
-                android:inputType="numberPassword"
-                android:gravity="center_vertical"
-                />
-        </LinearLayout>
-
-        <!-- 下圆角-->
-        <LinearLayout style="@style/bottom_layout">
-            <EditText style="@style/usertext"
-                android:id="@+id/new_psd_set"
-                android:hint="请确认新的密码"
-                android:textSize="20dp"
-                android:inputType="numberPassword"
                 android:gravity="center_vertical"
                 />
         </LinearLayout>
 
         <LinearLayout style="@style/bottom_layout">
             <Button style="@style/usertext"
-                android:id="@+id/psd_confirm"
+                android:id="@+id/count_confirm"
                 android:textSize="22dp"
                 android:text="确认" />
 

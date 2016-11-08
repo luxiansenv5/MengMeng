@@ -29,8 +29,8 @@ public class Psd_setActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pad_set);
         //拿到原来的用户名，取出对应密码
-        SharedPreferences shared_prefs = getSharedPreferences("userinfo_shared_prefs", Context.MODE_PRIVATE);
-        loginName = shared_prefs.getString("loginName","");
+//        SharedPreferences shared_prefs = getSharedPreferences("userinfo_shared_prefs", Context.MODE_PRIVATE);
+//        loginName = shared_prefs.getString("loginName","");
 
         old_psd_set = ((EditText) findViewById(R.id.old_psd_set));
         new_psd_set = ((EditText) findViewById(R.id.new_psd_set));
@@ -41,45 +41,50 @@ public class Psd_setActivity extends AppCompatActivity {
         psd_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                old_psd = old_psd_set.getText().toString();//输入的旧密码
-                new_psd = new_psd_set.getText().toString();//输入的新密码
-
-                //Toast.makeText(getApplication(),old_psd,Toast.LENGTH_SHORT).show();
-                RequestParams params = new RequestParams("http://10.40.5.41:8080/Mengmeng/GetLoginInfo");
-                params.addBodyParameter("loginName",loginName);
-
-                x.http().get(params, new Callback.CacheCallback<String>() {
-                    @Override
-                    public void onSuccess(String result) {
-
-
-
-                    }
-
-                    @Override
-                    public void onError(Throwable ex, boolean isOnCallback) {
-
-                    }
-                    @Override
-                    public void onCancelled(CancelledException cex) {
-
-                    }
-
-                    @Override
-                    public void onFinished() {
-
-                    }
-
-                    @Override
-                    public boolean onCache(String result) {
-                        return false;
-                    }
-                });
+//                old_psd = old_psd_set.getText().toString();//输入的旧密码
+//                new_psd = new_psd_set.getText().toString();//输入的新密码
+//
+//                //Toast.makeText(getApplication(),old_psd,Toast.LENGTH_SHORT).show();
+//                RequestParams params = new RequestParams("http://10.40.5.41:8080/Mengmeng/GetLoginInfo");
+//                params.addBodyParameter("loginName",loginName);
+//
+//                x.http().get(params, new Callback.CacheCallback<String>() {
+//                    @Override
+//                    public void onSuccess(String result) {
+//
+//
+//
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable ex, boolean isOnCallback) {
+//
+//                    }
+//                    @Override
+//                    public void onCancelled(CancelledException cex) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onFinished() {
+//
+//                    }
+//
+//                    @Override
+//                    public boolean onCache(String result) {
+//                        return false;
+//                    }
+//                });
+                
+                intData();
             }
         });
 
 
 
 
+    }
+
+    private void intData() {
     }
 }

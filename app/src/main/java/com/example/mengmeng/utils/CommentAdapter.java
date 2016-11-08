@@ -511,10 +511,12 @@ public class CommentAdapter extends BaseAdapter {
                 .setOnClickListener(new ListViewButtonOnClickListener(position));
         viewHolder.ibPinglun.setFocusable(false);
 
+        if (dynamic!=null&&dynamic.remarklist!=null){
         if(dynamic.remarklist.size()>0){
             viewHolder.lv_remarks.setVisibility(View.VISIBLE);
             ReplayAdapter replayAdapter = new ReplayAdapter(context,handler,dynamic.remarklist,position);
             viewHolder.lv_remarks.setAdapter(replayAdapter);
+        }
         }else{
             viewHolder.lv_remarks.setVisibility(View.GONE);
         }

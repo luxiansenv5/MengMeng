@@ -4,8 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/drawer"
-
-    android:background="@drawable/background_mine"
     tools:context=".DynamicMainActivity">
 
     <!--android:background="#ffffff"-->
