@@ -89,7 +89,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             e.printStackTrace();
         }
 
-        RequestParams params = new RequestParams(HttpUtils.HOST_COMMUNICATIE+"checkLogin");
+        RequestParams params = new RequestParams(HttpUtils.HOST+"checkLogin");
         final String finalName = name;
         params.addParameter("name",name);
         params.addParameter("psd",psd);
@@ -105,7 +105,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                     Gson gson=new Gson();
                     User user=gson.fromJson(result,User.class);
-                    Toast.makeText(LoginActivity.this, "result="+result, Toast.LENGTH_LONG).show();
+//                    Toast.makeText(LoginActivity.this, "result="+result, Toast.LENGTH_LONG).show();
 //                    SharedPreferences shared_prefs = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
 //                    SharedPreferences.Editor editor = shared_prefs.edit();
 //
@@ -131,7 +131,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     et_userPsd.setText(result);
                     Intent intent = new Intent(LoginActivity.this, DynamicMainActivity.class);
                     startActivity(intent);
-                    Toast.makeText(LoginActivity.this,"lognin-result=="+result,Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(LoginActivity.this,"lognin-result=="+result,Toast.LENGTH_SHORT).show();
                     System.out.println("LoginActivity---result==="+result);
                 }
             }

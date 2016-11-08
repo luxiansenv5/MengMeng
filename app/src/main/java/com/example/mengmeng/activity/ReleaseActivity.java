@@ -188,7 +188,7 @@ public class ReleaseActivity extends AppCompatActivity implements LocationSource
             String release_text = etContent.getText().toString().trim();
             String  release_place=tvReleasePlace.getText().toString().trim();
             RequestParams params = new RequestParams(NetUtil.url + "UploadDynamicServlet");
-            params.addBodyParameter("userId", 1+"");
+            params.addBodyParameter("userId", LoginInfo.userId+"");
             try {
                 params.addBodyParameter("release_text", URLEncoder.encode(release_text, "utf-8"));
                 params.addBodyParameter("place", URLEncoder.encode(release_place, "utf-8"));

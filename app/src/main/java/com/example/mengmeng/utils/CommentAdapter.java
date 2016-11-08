@@ -25,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mengmeng.activity.LoginInfo;
 import com.example.mengmeng.activity.PictureActivity;
 import com.example.mengmeng.activity.R;
 import com.example.mengmeng.activity.UserInfoActivity;
@@ -78,7 +79,7 @@ public class CommentAdapter extends BaseAdapter {
     //获取user对象
     public void  getUser(){
         RequestParams requestParams1 = new RequestParams(NetUtil.url + "UserQueryServlet");
-        requestParams1.addQueryStringParameter("userId", 1+"");
+        requestParams1.addQueryStringParameter("userId", LoginInfo.userId+"");
 
         x.http().get(requestParams1, new Callback.CommonCallback<String>() {
             @Override
@@ -373,7 +374,7 @@ public class CommentAdapter extends BaseAdapter {
             public void onClick(View v) {
                 if(sharedPreferences1.contains(dynamic.dynamicId+"")){//选中状态
                     imZan.setImageResource(R.drawable.zan);
-                    int user_Id = 1;    //点赞人Id
+                    int user_Id = LoginInfo.userId;    //点赞人Id
                     int dynamic_Id = dynamic.getDynamicId();
                     removeZan(dynamic_Id, user_Id);
                     Toast.makeText(context,"取消点赞",Toast.LENGTH_SHORT).show();
@@ -391,14 +392,13 @@ public class CommentAdapter extends BaseAdapter {
                     //增加动画效果
                     imZan.startAnimation(AnimationUtils.loadAnimation(context,R.anim.shake));
 
-                    int user_Id = 1 ; //点赞人Id
+                    int user_Id = LoginInfo.userId ; //点赞人Id
                     int dynamic_Id = dynamic.getDynamicId();                                                  //动态Id
                     String zanTime = String.valueOf(System.currentTimeMillis());                             //点赞时间
                     addZan(dynamic_Id, user_Id, zanTime);
                     Toast.makeText(context,"点赞成功",Toast.LENGTH_SHORT).show();
                     editor1.putInt(dynamic.dynamicId+"",(Integer)imZan.getTag());
-
-                    tvZan.setText("萌萌");
+                    tvZan.setText(LoginInfo.name);
                     Timestamp zanTime1=new Timestamp(Long.parseLong(zanTime));
                     Zan zan=new Zan(newUser,user_Id,dynamic_Id,zanTime1);
                     dynamic.zan.add(zan);
@@ -459,7 +459,7 @@ public class CommentAdapter extends BaseAdapter {
                     ((ImageView) v).setImageResource(R.drawable.add_concern);
                     follow.remove((Integer) (((ImageView) v).getTag()));
 
-                    int followUserId = 1;    //点赞人Id
+                    int followUserId = LoginInfo.userId;    //点赞人Id
                     int beFollowUserId = dynamic.getUser().getUserId();
                     removeFollow(followUserId, beFollowUserId);
 
@@ -476,7 +476,7 @@ public class CommentAdapter extends BaseAdapter {
                     ((ImageView) v).setImageBitmap(bitmap);
                     follow.add((Integer) (((ImageView) v).getTag()));
 
-                    int followUserId = 1;    //点赞人Id
+                    int followUserId = LoginInfo.userId;    //点赞人Id
                     int beFollowUserId = dynamic.getUser().getUserId();
                     addFollow(followUserId, beFollowUserId);
                     String s = "";

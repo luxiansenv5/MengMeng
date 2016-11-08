@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import com.example.mengmeng.activity.LoginInfo;
 import com.example.mengmeng.activity.R;
 import com.example.mengmeng.pojo.Dynamic;
 import com.example.mengmeng.pojo.Remark;
@@ -175,7 +176,7 @@ public class DynamicFragment extends BaseFragment implements RefreshListView.OnR
     //获取网络数据
     public void getData() {
         RequestParams requestParams = new RequestParams(NetUtil.url + "QueryDynamicByUserIdServlet");
-        requestParams.addQueryStringParameter("userId",1+"");
+        requestParams.addQueryStringParameter("userId", LoginInfo.userId+"");
         requestParams.addQueryStringParameter("pageNo", pageNo + "");
         requestParams.addQueryStringParameter("pageSize", pageSize + "");
 
