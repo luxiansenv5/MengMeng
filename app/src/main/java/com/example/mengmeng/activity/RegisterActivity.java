@@ -112,11 +112,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             @Override
             public void onSuccess(String result) {
                 //服务端传一个大于零的值，表示用户名已经存在
-                if (result.length() > 0) {
-                    Toast.makeText(RegisterActivity.this, "用户名已存在", Toast.LENGTH_LONG).show();
-                }else{
+                if (result.equals("Error")) {
                     regist();
-
+                }else{
+                    Toast.makeText(RegisterActivity.this, "用户名已存在", Toast.LENGTH_LONG).show();
                 }
             }
 
