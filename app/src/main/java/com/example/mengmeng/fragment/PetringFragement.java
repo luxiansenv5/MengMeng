@@ -17,8 +17,11 @@ import android.widget.ImageButton;
 import android.widget.RadioButton;
 
 import com.example.mengmeng.activity.DynamicMainActivity;
+import com.example.mengmeng.activity.LoginInfo;
 import com.example.mengmeng.activity.R;
 import com.example.mengmeng.activity.ReleaseActivity;
+import com.example.mengmeng.utils.NetUtil;
+import com.example.mengmeng.utils.xUtilsImageUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +56,7 @@ public class PetringFragement extends BaseFragment implements ViewPager.OnPageCh
         ibMine=(ImageButton)v.findViewById(R.id.ib_mine);
 
         onPageSelected(0);
+        xUtilsImageUtils.display(ibMine, NetUtil.photo_url+ LoginInfo.userPhoto,true);
 
         ibMine.setOnClickListener(new View.OnClickListener() {
             @Override

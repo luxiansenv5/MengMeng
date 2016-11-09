@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.example.mengmeng.pojo.ContactsInfoBean;
 import com.example.mengmeng.pojo.User;
 import com.example.mengmeng.utils.HttpUtils;
+import com.example.mengmeng.utils.NetUtil;
 import com.example.mengmeng.utils.xUtilsImageUtils;
 
 import butterknife.ButterKnife;
@@ -87,13 +88,13 @@ public class PersonDataActivity extends AppCompatActivity {
         ContactsToken = contactsInfoBean.getUser().getToken();
 
         //获取用户的个人资料
-        xUtilsImageUtils.display(personPhoto, HttpUtils.HOST_COMMUNICATIE + contactsInfoBean.getUser().getUserPhoto(), true);
+        xUtilsImageUtils.display(personPhoto, NetUtil.photo_url+ contactsInfoBean.getUser().getUserPhoto(), true);
         personName.setText(contactsInfoBean.getUser().getUserName());
         personAddress.setText(contactsInfoBean.getUser().getAddress());
         personSex.setText(contactsInfoBean.getUser().isUserSex() == true ? "man" : "woman");
         personUnderwrite.setText(contactsInfoBean.getUser().getUserWrite());
         //获得宠物的个人资料
-        xUtilsImageUtils.display(petPhoto, HttpUtils.HOST_COMMUNICATIE + contactsInfoBean.getPetInfo().petPhoto, true);
+        xUtilsImageUtils.display(petPhoto, NetUtil.photo_url+ contactsInfoBean.getPetInfo().petPhoto, true);
         petName.setText(contactsInfoBean.getPetInfo().petName);
         petType.setText(contactsInfoBean.getPetInfo().petType);
         petSex.setText(contactsInfoBean.getPetInfo().petSex == true ? "man" : "woman");
@@ -126,8 +127,8 @@ public class PersonDataActivity extends AppCompatActivity {
                  *
                  * @param userInfo 需要更新的用户缓存数据。
                  */
-                RongIM.getInstance().refreshUserInfoCache(new UserInfo(MyId+"",MyName, Uri.parse( HttpUtils.HOST_COMMUNICATIE + user.getUserPhoto())));
-                Log.e("img", "onSuccess: "+HttpUtils.HOST_COMMUNICATIE + contactsInfoBean.getUser().getUserPhoto());
+                RongIM.getInstance().refreshUserInfoCache(new UserInfo(MyId+"",MyName, Uri.parse( NetUtil.photo_url+ user.getUserPhoto())));
+                Log.e("img", "onSuccess: "+NetUtil.photo_url + contactsInfoBean.getUser().getUserPhoto());
                 Log.e("img", "onSuccess: "+MyId );
             }
 

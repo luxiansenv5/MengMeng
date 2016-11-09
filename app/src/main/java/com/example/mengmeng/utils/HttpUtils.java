@@ -9,5 +9,5 @@ public class HttpUtils {
 
     public static final String HOST_PIC="http://10.40.5.12:8080/web/imgs/pet/";
 
-    public static final String  HOST_COMMUNICATIE = "http://10.40.5.49:8080/MMAPP/";
+//    public static final String  HOST_COMMUNICATIE = "http://10.40.5.49:8080/MMAPP/";
 }

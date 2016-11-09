@@ -20,6 +20,7 @@ import com.example.mengmeng.activity.R;
 import com.example.mengmeng.pojo.ContactsInfoBean;
 import com.example.mengmeng.pojo.User;
 import com.example.mengmeng.utils.HttpUtils;
+import com.example.mengmeng.utils.NetUtil;
 import com.example.mengmeng.utils.xUtilsImageUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -103,7 +104,7 @@ public class PetFriendsFragment extends BaseFragment {
 
 
     private void getTokenByUserId(){
-        RequestParams params = new RequestParams(HttpUtils.HOST_COMMUNICATIE + "gettokenbyuserid");
+        RequestParams params = new RequestParams(HttpUtils.HOST + "gettokenbyuserid");
         params.addBodyParameter("userId",LoginInfo.userId+"");
 
         x.http().get(params, new Callback.CommonCallback<String>() {
@@ -136,7 +137,7 @@ public class PetFriendsFragment extends BaseFragment {
 
     private void getFriInfoList() {
 
-        RequestParams params = new RequestParams(HttpUtils.HOST_COMMUNICATIE + "getcontactinfobypage");
+        RequestParams params = new RequestParams(HttpUtils.HOST + "getcontactinfobypage");
         params.addBodyParameter("userId",LoginInfo.userId+"");
         x.http().get(params, new Callback.CommonCallback<String>() {
             @Override
@@ -150,7 +151,7 @@ public class PetFriendsFragment extends BaseFragment {
                 contactsInfoBeanList.clear();
                 contactsInfoBeanList.addAll(newConList);
                 for (ContactsInfoBean contactsInfoBean : contactsInfoBeanList) {
-                    RongIM.getInstance().refreshUserInfoCache(new UserInfo(contactsInfoBean.getUser().getUserId()+"",contactsInfoBean.getUser().getUserName(), Uri.parse(HttpUtils.HOST_COMMUNICATIE +contactsInfoBean.getUser().getUserPhoto())));
+                    RongIM.getInstance().refreshUserInfoCache(new UserInfo(contactsInfoBean.getUser().getUserId()+"",contactsInfoBean.getUser().getUserName(), Uri.parse(NetUtil.photo_url+contactsInfoBean.getUser().getUserPhoto())));
                     Log.e("fimg", "onSuccess: "+contactsInfoBean.getUser().getUserPhoto());
                 }
                 adapter=new BaseAdapter() {
@@ -179,7 +180,8 @@ public class PetFriendsFragment extends BaseFragment {
                         TextView tv_petName = ((TextView) view.findViewById(R.id.tv_petName));
                         TextView tv_petkind = ((TextView) view.findViewById(R.id.tv_petkind));
 
-                        xUtilsImageUtils.display(iv_photo,HttpUtils.HOST_COMMUNICATIE+contactsInfoBeanList.get(position).getUser().getUserPhoto(),true);
+//                        xUtilsImageUtils.display(iv_photo,HttpUtils.HOST_COMMUNICATIE+contactsInfoBeanList.get(position).getUser().getUserPhoto(),true);
+                        xUtilsImageUtils.display(iv_photo, NetUtil.photo_url+contactsInfoBeanList.get(position).getUser().getUserPhoto(),true);
                         tv_petName.setText(contactsInfoBeanList.get(position).getPetInfo().petName);
                         tv_friName.setText(contactsInfoBeanList.get(position).getUser().getUserName());
                         tv_address.setText(contactsInfoBeanList.get(position).getUser().getAddress());

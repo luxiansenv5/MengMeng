@@ -34,6 +34,7 @@ public class User implements Parcelable {
 		this.address = address;
 	}
 
+
 	public User(Integer userId, String userName, String userPhoto
 			){
 		this.userId = userId;

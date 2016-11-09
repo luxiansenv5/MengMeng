@@ -41,6 +41,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mengmeng.activity.DynamicInfoActivity;
+import com.example.mengmeng.activity.LoginInfo;
 import com.example.mengmeng.activity.PictureActivity;
 import com.example.mengmeng.activity.R;
 import com.example.mengmeng.activity.UserInfoActivity;
@@ -698,7 +699,7 @@ public class PetringAllFragment extends BaseFragment implements RefreshListView.
 
         User fatheruser= dynamics.get(commentPosition).remarklist.get(replayPosition-1).user;
         Integer fatherremarkId=dynamics.get(commentPosition).remarklist.get(replayPosition-1).remarkId;
-        User user=new User(1,"萌萌");
+        User user=new User(LoginInfo.userId,LoginInfo.name);
 
         String remarkContent= mCommentEdittext.getText().toString().trim();
         long remarkTime = System.currentTimeMillis();
@@ -712,7 +713,7 @@ public class PetringAllFragment extends BaseFragment implements RefreshListView.
         RequestParams params = new RequestParams(NetUtil.url + "AddReplyCommentServlet");
 
         params.addBodyParameter("dynamicId",dynamics.get(commentPosition).dynamicId+"");
-        params.addBodyParameter("userId",1+"");
+        params.addBodyParameter("userId",LoginInfo.userId+"");
         Long time=System.currentTimeMillis();
         params.addBodyParameter("remarkTime",time+"");
         params.addBodyParameter("fatherUserId",fatheruser.getUserId()+"");
@@ -748,7 +749,7 @@ public class PetringAllFragment extends BaseFragment implements RefreshListView.
 
     public void publishComment(){
         User fatheruser= dynamics.get(commentPosition).getUser();
-        User user=new User(1,"萌萌");
+        User user=new User(LoginInfo.userId,LoginInfo.name);
         String remarkContent= mCommentEdittext.getText().toString().trim();
         long remarkTime = System.currentTimeMillis();
         Timestamp timestamp=new Timestamp(remarkTime);
@@ -765,7 +766,7 @@ public class PetringAllFragment extends BaseFragment implements RefreshListView.
         RequestParams params = new RequestParams(NetUtil.url + "AddPublishCommentServlet");
 
         params.addBodyParameter("dynamicId",dynamics.get(commentPosition).dynamicId+"");
-        params.addBodyParameter("userId",1+"");
+        params.addBodyParameter("userId",LoginInfo.userId+"");
         Long time=System.currentTimeMillis();
         params.addBodyParameter("remarkTime",time+"");
         try {

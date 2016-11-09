@@ -60,7 +60,7 @@ public class My_PetActivity extends AppCompatActivity implements View.OnClickLis
             String userId = intent.getStringExtra("userId");
             requestParams.addQueryStringParameter("userId", userId);
             int userID=Integer.parseInt(userId);
-            if(userID!=1){
+            if(userID!=LoginInfo.userId){
                 addpet.setVisibility(View.GONE);
             }
         }
@@ -125,7 +125,7 @@ public class My_PetActivity extends AppCompatActivity implements View.OnClickLis
                 break;
             case R.id.iv_addpet:
                 Intent intent=new Intent(this,AddPetActivity.class);
-                intent.putExtra("userId",1+"");
+                intent.putExtra("userId",LoginInfo.userId+"");
                 startActivity(intent);
                 break;
         }

@@ -29,6 +29,7 @@ import com.amap.api.maps2d.AMap;
 import com.amap.api.maps2d.CameraUpdateFactory;
 import com.amap.api.maps2d.LocationSource;
 import com.amap.api.maps2d.model.LatLng;
+import com.example.mengmeng.activity.LoginInfo;
 import com.example.mengmeng.activity.Mine_SetActivity;
 import com.example.mengmeng.activity.MyActivity;
 import com.example.mengmeng.activity.MyConcernActivity;
@@ -168,7 +169,7 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener ,
         switch (v.getId()){
             case R.id.userInfo:
                 Intent intent3=new Intent(getActivity(), MyActivity.class);
-                intent3.putExtra("userId",1+"");
+                intent3.putExtra("userId", LoginInfo.userId+"");
                 startActivity(intent3);
                 break;
             case R.id.background_head:
@@ -180,7 +181,7 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener ,
                 break;
             case R.id.my_pet_set:
                 Intent intent1  = new Intent(getActivity(), My_PetActivity.class);
-                intent1.putExtra("userId",1+"");
+                intent1.putExtra("userId",LoginInfo.userId+"");
                 startActivity(intent1);
                 break;
 
@@ -191,7 +192,7 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener ,
 
             case R.id.rl_myconcern:
                 Intent intent4=new Intent(getActivity(), MyConcernActivity.class);
-                intent4.putExtra("userId",1+"");
+                intent4.putExtra("userId",LoginInfo.userId+"");
                 startActivity(intent4);
                 break;
 
@@ -241,7 +242,7 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener ,
     private void modifyPhoto() {
         RequestParams params = new RequestParams(NetUtil.url + "ModifyPhotoByUserIdServlet");
         params.addBodyParameter("file",file);
-        params.addBodyParameter("userId",1+"");
+        params.addBodyParameter("userId",LoginInfo.userId+"");
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
