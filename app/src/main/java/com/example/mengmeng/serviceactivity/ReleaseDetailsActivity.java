@@ -13,16 +13,20 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mengmeng.activity.LoginInfo;
+import com.example.mengmeng.activity.PersonDataActivity;
 import com.example.mengmeng.activity.R;
+import com.example.mengmeng.pojo.ContactsInfoBean;
 import com.example.mengmeng.pojo.DetailsBean;
 import com.example.mengmeng.pojo.GetAdoptBean;
 import com.example.mengmeng.pojo.SingleComment;
-import com.example.mengmeng.utils.SingleCommentAdapter;
 import com.example.mengmeng.utils.HttpUtils;
+import com.example.mengmeng.utils.SingleCommentAdapter;
 import com.example.mengmeng.utils.viewpageAdapter;
 import com.example.mengmeng.utils.xUtilsImageUtils;
 import com.google.gson.Gson;
@@ -36,7 +40,6 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import application.MyApplication;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 
@@ -71,8 +74,11 @@ public class ReleaseDetailsActivity extends AppCompatActivity implements View.On
     private RelativeLayout rl_comment;
 
     private SingleCommentAdapter singleCommentAdapter;
-    private List<ListView> listViews;
     private List<SingleCommentAdapter> singleCommentAdapterList = new ArrayList<SingleCommentAdapter>();
+    private ProgressBar xprogressBar;
+    private Button wantadoapt;
+
+    ContactsInfoBean contactsInfoBean =null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,9 +105,11 @@ public class ReleaseDetailsActivity extends AppCompatActivity implements View.On
         hide_down = (TextView) findViewById(R.id.hide_down);
         comment_content = (EditText) findViewById(R.id.comment_content);
         comment_send = (Button) findViewById(R.id.comment_send);
+        xprogressBar = ((ProgressBar) findViewById(R.id.xprogressBar));
 
         rl_enroll = (LinearLayout) findViewById(R.id.rl_enroll);
         rl_comment = (RelativeLayout) findViewById(R.id.rl_comment);
+        wantadoapt= ((Button) findViewById(R.id.wantadopt));
     }
 
     public void initData(){
@@ -141,10 +149,12 @@ public class ReleaseDetailsActivity extends AppCompatActivity implements View.On
 
         hide_down.setOnClickListener(this);
         comment_send.setOnClickListener(this);
+        wantadoapt.setOnClickListener(this);
     }
 
     public void getAdoptDetails(){
 
+        xprogressBar.setVisibility(View.VISIBLE);
         RequestParams requestParams=null;
 
         if (flag==1){
@@ -161,6 +171,7 @@ public class ReleaseDetailsActivity extends AppCompatActivity implements View.On
             @Override
             public void onSuccess(String result) {
 
+                xprogressBar.setVisibility(View.GONE);
                 Gson gson=new Gson();
                 Type type=new TypeToken<List<DetailsBean>>(){}.getType();
                 detailList=gson.fromJson(result, type);
@@ -275,9 +286,9 @@ public class ReleaseDetailsActivity extends AppCompatActivity implements View.On
         }else{
 
             // 生成评论数据
-            SingleComment comment = new SingleComment(detailList.get(currentItem).getPublisherId(),((MyApplication)getApplication()).getUser().getUserId(),
+            SingleComment comment = new SingleComment(detailList.get(currentItem).getPublisherId(), LoginInfo.userId,
                     detailList.get(currentItem).getReleaseId(),comment_content.getText().toString(),
-                    flag);
+                    flag,LoginInfo.userPhoto);
 
             SingleCommentAdapter cp = singleCommentAdapterList.get(list_pager.getCurrentItem());
             if(cp!=null){
@@ -374,9 +385,59 @@ public class ReleaseDetailsActivity extends AppCompatActivity implements View.On
 
                 sendComment();
                 break;
+            case R.id.wantadopt:
+
+                int userId=detailList.get(currentItem).getPublisherId();
+                getContacts(userId);
+                Intent intent=new Intent(ReleaseDetailsActivity.this, PersonDataActivity.class);
+
+                Bundle bundle=new Bundle();
+                bundle.putParcelable("contactsInfoBean",contactsInfoBean);
+                System.out.println("ReleaseDetailsActivity=========="+contactsInfoBean.getUser().getUserName());
+                intent.putExtras(bundle);
+
+                startActivity(intent);
+                break;
             default:
                 break;
         }
     }
 
+    public ContactsInfoBean getContacts(Integer userId){
+
+        RequestParams requestParams=new RequestParams(HttpUtils.HOST+"querysinglecontacts");
+        requestParams.addBodyParameter("userId",userId+"");
+
+
+        x.http().get(requestParams, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+
+                System.out.println("ReleaseDetailsActivity--result===="+result);
+
+                Gson gson=new Gson();
+
+                contactsInfoBean =gson.fromJson(result,ContactsInfoBean.class);
+
+
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+
+        return contactsInfoBean;
+    }
 }

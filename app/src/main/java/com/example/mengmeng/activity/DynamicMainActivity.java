@@ -1,19 +1,15 @@
 package com.example.mengmeng.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
-
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.TextView;
-
 
 import com.example.mengmeng.fragment.CommunicateFragment;
 import com.example.mengmeng.fragment.PetringFragement;
@@ -35,6 +31,7 @@ public class DynamicMainActivity extends AppCompatActivity implements View.OnCli
 
     private DrawerLayout mDrawerLayout;
     private TextView sign;
+    int userId;
 
     //private TextView register;
 
@@ -83,8 +80,33 @@ public class DynamicMainActivity extends AppCompatActivity implements View.OnCli
         initView();
         initEvents();
 
+//        initData();
     }
 
+    private void initData() {
+
+        Intent intent=getIntent();
+        userId=intent.getIntExtra("userId",0);
+
+        if (userId!=0){
+            newIndex=1;
+            FragmentTransaction transaction=getSupportFragmentManager().beginTransaction();
+            Bundle bundle=new Bundle();
+            bundle.putInt("userId",userId);
+
+            communicateFragment.setArguments(bundle);
+
+            transaction.add(R.id.fl_content,communicateFragment,"communicateFragment");
+            transaction.commit();
+
+            tabs[oldIndex].setSelected(false);
+            //当前选择项，按钮被选中
+            tabs[newIndex].setSelected(true);
+
+            //当前选择项变为选中项
+            oldIndex=newIndex;
+        }
+    }
 
 
     //按钮的点击事件:选中不同的按钮，不同的fragment显示

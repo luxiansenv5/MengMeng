@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.example.mengmeng.activity.R;
 import com.example.mengmeng.utils.MyListAdapter;
+import com.example.mengmeng.utils.OtherListAdapter;
 import com.example.mengmeng.utils.PetEncyclopedia;
 import com.example.mengmeng.utils.ViewPagerAdapter;
 import com.example.mengmeng.utils.catListAdapter;
@@ -44,6 +45,7 @@ public class BakeiPagerActivity extends AppCompatActivity implements View.OnClic
     private TextView alsj;
     private ListView dogList;
     private ListView catList;
+    private ListView otherList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +80,9 @@ public class BakeiPagerActivity extends AppCompatActivity implements View.OnClic
 
         catList = ((ListView) catView.findViewById(R.id.cat_list));
         catList.setAdapter(new catListAdapter(BakeiPagerActivity.this));
+
+        otherList = ((ListView) otherView.findViewById(R.id.other_list));
+        otherList.setAdapter(new OtherListAdapter(BakeiPagerActivity.this));
 
         lists.add(dogView);
         lists.add(catView);
@@ -159,6 +164,13 @@ public class BakeiPagerActivity extends AppCompatActivity implements View.OnClic
             }
         });
 
+        otherList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                dialog3(position);
+            }
+        });
     }
 
     private void initData(){
@@ -306,6 +318,28 @@ public class BakeiPagerActivity extends AppCompatActivity implements View.OnClic
             case 9:
                 builder.setIcon(R.drawable.tm);//设置图标，图片id即可
                 builder.setMessage(PetEncyclopedia.tm);
+                break;
+        }
+        builder.setPositiveButton("确定",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.create().show();
+    }
+
+    private void dialog3(int position) {
+
+        //dialog参数设置
+        AlertDialog.Builder builder=new AlertDialog.Builder(this);  //先得到构造器
+        builder.setTitle("简介"); //设置标题
+
+        switch (position){
+
+            case 0:
+                builder.setIcon(R.drawable.cs);//设置图标，图片id即可
+                builder.setMessage(PetEncyclopedia.cs);
                 break;
         }
         builder.setPositiveButton("确定",new DialogInterface.OnClickListener() {

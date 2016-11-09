@@ -106,7 +106,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void checkLogin(){
-        RequestParams params = new RequestParams(HttpUtils.HOST_COMMUNICATIE+"checkLogin?name="+name+"&psd="+psd+"");
+        RequestParams params = new RequestParams(HttpUtils.HOST+"checkLogin?name="+name+"&psd="+psd+"");
 
         x.http().get(params, new Callback.CacheCallback<String>() {
             @Override
@@ -115,6 +115,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 if (result.equals("Error")) {
                     regist();
                 }else{
+
                     Toast.makeText(RegisterActivity.this, "用户名已存在", Toast.LENGTH_LONG).show();
                 }
             }
@@ -142,7 +143,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void regist(){
-        RequestParams p = new RequestParams(HttpUtils.HOST_COMMUNICATIE+"regist");
+        RequestParams p = new RequestParams(HttpUtils.HOST+"regist");
         p.addBodyParameter("name",reg_name.getText()+"");
         p.addBodyParameter("psd",reg_psd.getText()+"");
         p.addBodyParameter("sex",sex+"");
@@ -178,7 +179,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void insertToken(){
-        RequestParams p1 = new RequestParams(HttpUtils.HOST_COMMUNICATIE+"registinfoservlet");
+        RequestParams p1 = new RequestParams(HttpUtils.HOST+"registinfoservlet");
         p1.addBodyParameter("userName",reg_name.getText()+"");
         Toast.makeText(RegisterActivity.this,"register----"+reg_name.getText(),Toast.LENGTH_SHORT);
         x.http().get(p1, new Callback.CommonCallback<String>() {

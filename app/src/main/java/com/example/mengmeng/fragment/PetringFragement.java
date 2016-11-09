@@ -17,8 +17,11 @@ import android.widget.ImageButton;
 import android.widget.RadioButton;
 
 import com.example.mengmeng.activity.DynamicMainActivity;
+import com.example.mengmeng.activity.LoginInfo;
 import com.example.mengmeng.activity.R;
 import com.example.mengmeng.activity.ReleaseActivity;
+import com.example.mengmeng.utils.NetUtil;
+import com.example.mengmeng.utils.xUtilsImageUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,13 +49,14 @@ public class PetringFragement extends BaseFragment implements ViewPager.OnPageCh
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable final Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_dynamic_all, null);
         dynamic_vp = ((ViewPager) v.findViewById(R.id.dynamic_fragment_viewpager));
-        rbConcern = ((RadioButton) v.findViewById(R.id.rb_concern));
+//        rbConcern = ((RadioButton) v.findViewById(R.id.rb_concern));
         rbHot = ((RadioButton) v.findViewById(R.id.rb_hot));
         rbFriends = ((RadioButton) v.findViewById(R.id.rb_friends));
         ibPaizhao=(ImageButton)v.findViewById(R.id.ib_paizhao);
         ibMine=(ImageButton)v.findViewById(R.id.ib_mine);
 
         onPageSelected(0);
+        xUtilsImageUtils.display(ibMine, NetUtil.photo_url+ LoginInfo.userPhoto,true);
 
         ibMine.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,19 +91,19 @@ public class PetringFragement extends BaseFragment implements ViewPager.OnPageCh
                 }
             }
         });
-        rbConcern.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
-                    dynamic_vp.setCurrentItem(2);
-                }
-            }
-        });
+//        rbConcern.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if (isChecked){
+//                    dynamic_vp.setCurrentItem(2);
+//                }
+//            }
+//        });
 
 
         lists.add(new PetringAllFragment());
         lists.add(new PetringFriendFragement());
-        lists.add(new PetringFollowFragement());
+//        lists.add(new PetringFollowFragement());
 
 
 
@@ -150,18 +154,18 @@ public class PetringFragement extends BaseFragment implements ViewPager.OnPageCh
                     case 0:
                         rbHot.setTextColor(Color.WHITE);
                         rbFriends.setTextColor(Color.BLACK);
-                        rbConcern.setTextColor(Color.BLACK);
+//                        rbConcern.setTextColor(Color.BLACK);
                         break;
                     case 1:
                         rbHot.setTextColor(Color.BLACK);
                         rbFriends.setTextColor(Color.WHITE);
-                        rbConcern.setTextColor(Color.BLACK);
+//                        rbConcern.setTextColor(Color.BLACK);
                         break;
-                    case 2:
-                        rbHot.setTextColor(Color.BLACK);
-                        rbFriends.setTextColor(Color.BLACK);
-                        rbConcern.setTextColor(Color.WHITE);
-                        break;
+//                    case 2:
+//                        rbHot.setTextColor(Color.BLACK);
+//                        rbFriends.setTextColor(Color.BLACK);
+//                        rbConcern.setTextColor(Color.WHITE);
+//                        break;
                     }
     }
 

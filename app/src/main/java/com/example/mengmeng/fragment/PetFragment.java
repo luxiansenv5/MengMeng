@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.mengmeng.activity.LoginInfo;
 import com.example.mengmeng.activity.R;
 import com.example.mengmeng.pojo.AdoaptInfo;
 import com.example.mengmeng.utils.CommonAdapter;
@@ -26,8 +27,6 @@ import org.xutils.x;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-
-import application.MyApplication;
 
 /**
  * Created by 陆猛 on 2016/11/4.
@@ -66,7 +65,7 @@ public class PetFragment extends BaseFragment {
     public void initData() {
 
         RequestParams requestParams=new RequestParams(HttpUtils.HOST+"querymyreleasepet");
-        requestParams.addBodyParameter("publisherId", (((MyApplication)getActivity().getApplication())).getUser().getUserId()+"");
+        requestParams.addBodyParameter("publisherId", LoginInfo.userId+"");
 
         x.http().get(requestParams, new Callback.CommonCallback<String>() {
             @Override

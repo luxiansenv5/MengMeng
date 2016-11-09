@@ -35,7 +35,7 @@ public class ViewPagerActivity extends AppCompatActivity {
         enter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getApplicationContext(),DynamicMainActivity.class);
+                Intent intent=new Intent(getApplicationContext(),LoginActivity.class);
                 startActivity(intent);
             }
         });

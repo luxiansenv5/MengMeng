@@ -45,7 +45,7 @@ public class AdoptActivity extends AppCompatActivity implements RefreshListView.
     List<String> kindContents = new ArrayList<String>();
     private Integer queryFlag=1;
     private Integer pageNo=1;
-    private Integer pageSize=4;
+    private Integer pageSize=5;
     Handler handler = new Handler();
 
     private RefreshListView lv_petInfo;
@@ -379,6 +379,7 @@ public class AdoptActivity extends AppCompatActivity implements RefreshListView.
                     amapLocation.getAoiName();//获取当前定位点的AOI信息
 
                     city.setText(amapLocation.getCity());
+                    System.out.println("AdoaptActivity-city=="+amapLocation.getCity());
                     Toast.makeText(AdoptActivity.this,"城市为："+amapLocation.getCity(),Toast.LENGTH_SHORT).show();
                 }else {
                     //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。

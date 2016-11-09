@@ -51,7 +51,7 @@ public class MyConcernActivity extends AppCompatActivity  implements View.OnClic
     private void intData() {
 //        http://10.40.5.17:8080/MengmengWeb/QueryFollowByUserIdServlet?userId=1
         RequestParams requestParams = new RequestParams(NetUtil.url + "QueryFollowByUserIdServlet");
-        requestParams.addBodyParameter("userId",1+"");
+        requestParams.addBodyParameter("userId",LoginInfo.userId+"");
 
         x.http().get(requestParams, new Callback.CommonCallback<String>() {
             @Override

@@ -14,7 +14,7 @@
             android:orientation="horizontal"
             android:layout_height="50dp"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="80dp"
+            android:layout_marginLeft="110dp"
            >
 
             <RadioButton
@@ -34,25 +34,26 @@
                 android:gravity="center"
                 android:layout_width="80dp"
                 android:layout_height="50dp"/>
-            <RadioButton
-                android:id="@+id/rb_concern"
-                android:text="关注"
-                android:layout_marginTop="0dp"
-                android:button="@null"
-                android:gravity="center"
-                android:layout_width="80dp"
-                android:layout_height="50dp"
-                />
+            <!--<RadioButton-->
+                <!--android:id="@+id/rb_concern"-->
+                <!--android:text="关注"-->
+                <!--android:layout_marginTop="0dp"-->
+                <!--android:button="@null"-->
+                <!--android:gravity="center"-->
+                <!--android:layout_width="80dp"-->
+                <!--android:layout_height="50dp"-->
+                <!--/>-->
          </RadioGroup>
 
 
         <ImageButton
             android:id="@+id/ib_mine"
-            android:layout_width="78dp"
-            android:layout_height="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:src="@drawable/head"
             android:background="@android:color/transparent"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="15dp"
             />
         <ImageButton
             android:id="@+id/ib_paizhao"

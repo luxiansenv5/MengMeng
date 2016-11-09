@@ -16,12 +16,13 @@ public class SingleComment {
 	
 	public SingleComment(){}
 
-	public SingleComment(Integer publisherId, Integer commentatorId, Integer releaseId, String content, Integer commentType) {
+	public SingleComment(Integer publisherId, Integer commentatorId, Integer releaseId, String content, Integer commentType,String commentatorPhoto) {
 		this.publisherId = publisherId;
 		this.commentatorId = commentatorId;
 		this.releaseId = releaseId;
 		this.content = content;
 		this.commentType = commentType;
+		this.commentatorPhoto=commentatorPhoto;
 	}
 
 	public SingleComment(Integer commentId, Integer publisherId,

@@ -7,8 +7,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.mengmeng.activity.LoginInfo;
 import com.example.mengmeng.activity.R;
 import com.example.mengmeng.pojo.PetInfo;
 import com.example.mengmeng.pojo.User;
@@ -27,8 +29,6 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import application.MyApplication;
-
 public class SelectPet extends AppCompatActivity {
 
     private ListView lv_publish;
@@ -37,6 +37,7 @@ public class SelectPet extends AppCompatActivity {
     private List<PetInfo> petList=new ArrayList<PetInfo>();
     private ImageView msback;
     Integer flag;
+    private ProgressBar sprogressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,13 +85,16 @@ public class SelectPet extends AppCompatActivity {
 
         lv_publish = ((ListView) findViewById(R.id.lv_publish));
         msback = ((ImageView) findViewById(R.id.msback));
+        sprogressBar = ((ProgressBar) findViewById(R.id.sprogressBar));
+        sprogressBar.setVisibility(View.VISIBLE);
     }
 
     private void initData() {
 
         Intent intent=getIntent();
         flag=intent.getIntExtra("flag",0);
-        user=((MyApplication)getApplication()).getUser();
+        user=new User(LoginInfo.userId,LoginInfo.name,LoginInfo.userPhoto,LoginInfo.address,LoginInfo.sex,LoginInfo.underWrite,LoginInfo.token,LoginInfo.userPsd);
+
         getPersonalPet();
     }
 
@@ -102,6 +106,8 @@ public class SelectPet extends AppCompatActivity {
         x.http().get(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
+
+                sprogressBar.setVisibility(View.GONE);
 
                 Gson gson = new Gson();
                 Type type=new TypeToken<List<PetInfo>>(){}.getType();

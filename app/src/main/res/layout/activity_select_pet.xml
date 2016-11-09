@@ -9,7 +9,7 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toobar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:background="#99ff0000">
 
         <ImageView
@@ -22,41 +22,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="125dp"
-            android:textSize="26sp"
+            android:textSize="20sp"
             android:text="选择宠物"/>
 
     </android.support.v7.widget.Toolbar>
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/sprogressBar"
+        android:layout_below="@+id/toobar"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"/>
 
     <ListView
         android:id="@+id/lv_publish"
         android:layout_below="@id/toobar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
 
     </ListView>
-
-    <View
-        android:id="@+id/struct"
-        android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:layout_below="@id/lv_publish"
-        android:background="#DDDDDD"/>
-
-    <TextView
-        android:id="@+id/tv_addPet"
-        android:layout_below="@id/struct"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="170dp"
-        android:textColor="#000"
-        android:textSize="24sp"
-        android:text="添加宠物"/>
-
-    <View
-        android:id="@+id/struct2"
-        android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:layout_below="@id/tv_addPet"
-        android:background="#DDDDDD"/>
 
 </RelativeLayout>

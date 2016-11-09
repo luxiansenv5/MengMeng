@@ -29,12 +29,19 @@ import com.amap.api.maps2d.AMap;
 import com.amap.api.maps2d.CameraUpdateFactory;
 import com.amap.api.maps2d.LocationSource;
 import com.amap.api.maps2d.model.LatLng;
+import com.example.mengmeng.activity.LoginInfo;
 import com.example.mengmeng.activity.Mine_SetActivity;
 import com.example.mengmeng.activity.MyActivity;
 import com.example.mengmeng.activity.MyConcernActivity;
 import com.example.mengmeng.activity.MyReleaseActivity;
 import com.example.mengmeng.activity.My_PetActivity;
 import com.example.mengmeng.activity.R;
+import com.example.mengmeng.utils.NetUtil;
+import com.example.mengmeng.utils.xUtilsImageUtils;
+
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -42,6 +49,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -50,7 +58,8 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener ,
 
 
     //头像的存储完整路径
-    final File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)+"/"+ getPhotoFileName());
+    private File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)+"/"+
+            getPhotoFileName());
     private static final int PHOTO_REQUEST = 1;
     private static final int CAMERA_REQUEST = 2;
     private static final int PHOTO_CLIP = 3;
@@ -80,6 +89,7 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener ,
             location();
 
             background_head = ((ImageView) view.findViewById(R.id.background_head));//头像的背景图片
+            xUtilsImageUtils.display(background_head,NetUtil.photo_url+LoginInfo.userPhoto,true);
             background_head.setOnClickListener(this);
 
             mine_set = ((RelativeLayout) view.findViewById(R.id.mine_set));
@@ -89,16 +99,18 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener ,
             userInfo.setOnClickListener(this);
 
             myConcern = ((RelativeLayout) view.findViewById(R.id.rl_myconcern));
-        myConcern.setOnClickListener(this);
+            myConcern.setOnClickListener(this);
 
-        place = ((TextView) view.findViewById(R.id.tv_place));
+            place = ((TextView) view.findViewById(R.id.tv_place));
 
             //拿到显示的用户名
             count_name = ((TextView) view.findViewById(R.id.count_name));
+            count_name.setText(LoginInfo.name);
+
             SharedPreferences shared_prefs = getActivity().getSharedPreferences("userinfo_shared_prefs", Context.MODE_PRIVATE);
             String loginName = shared_prefs.getString("loginName","");
             System.out.print(loginName+"jkgsn nskdjgnjksdngjk snjkgsngjksngjksgnksgnsjkgnsjkgns");
-            count_name.setText(loginName);
+
 
             //拿到我的宠物部分点击控件
             my_pet_set = ((RelativeLayout) view.findViewById(R.id.my_pet_set));
@@ -161,7 +173,7 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener ,
         switch (v.getId()){
             case R.id.userInfo:
                 Intent intent3=new Intent(getActivity(), MyActivity.class);
-                intent3.putExtra("userId",1+"");
+                intent3.putExtra("userId", LoginInfo.userId+"");
                 startActivity(intent3);
                 break;
             case R.id.background_head:
@@ -173,7 +185,7 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener ,
                 break;
             case R.id.my_pet_set:
                 Intent intent1  = new Intent(getActivity(), My_PetActivity.class);
-                intent1.putExtra("userId",1+"");
+                intent1.putExtra("userId",LoginInfo.userId+"");
                 startActivity(intent1);
                 break;
 
@@ -184,13 +196,14 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener ,
 
             case R.id.rl_myconcern:
                 Intent intent4=new Intent(getActivity(), MyConcernActivity.class);
-                intent4.putExtra("userId",1+"");
+                intent4.putExtra("userId",LoginInfo.userId+"");
                 startActivity(intent4);
                 break;
 
         }
 
     }
+
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         // TODO Auto-generated method stub
         super.onActivityResult(requestCode, resultCode, data);
@@ -219,18 +232,42 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener ,
                         Bitmap photo = extras.getParcelable("data");
                         saveImageToGallery(getActivity(),photo);//保存bitmap到本地
                         System.out.println("3============");
-                        //if(flag==0)
                             background_head.setImageBitmap(photo);
-
-//                        if(flag==1){
-//                            backImag.setImageBitmap(photo);
-//                        }
+                            modifyPhoto();
                     }
                 }
                 break;
             default:
                 break;
         }
+    }
+
+    //上传头像
+    private void modifyPhoto() {
+        RequestParams params = new RequestParams(NetUtil.url + "ModifyPhotoByUserIdServlet");
+        params.addBodyParameter("file",file);
+        params.addBodyParameter("userId",LoginInfo.userId+"");
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Toast.makeText(getActivity(), "修改成功", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                Toast.makeText(getActivity(), "修改失败，请检查网络设置", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
     }
 
     private void photoClip(Uri uri) {
@@ -283,19 +320,6 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener ,
 
     private void popupdown2() {
         AlertDialog.Builder dialog  = new AlertDialog.Builder(getActivity());
-//        dialog.setNegativeButton("拍 照", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                getPicFromCamera();
-//            }
-//        });
-//
-//        dialog.setPositiveButton("选择照片", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                getPicFromPhoto();
-//            }
-//        });
         dialog.setItems(new String[]{"拍照", "相册"}, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -327,7 +351,7 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener ,
     private String getPhotoFileName() {
         Date date = new Date(System.currentTimeMillis());
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
-        return sdf.format(date) + ".png";
+        return sdf.format(date)+"_"+ UUID.randomUUID() + ".png";
     }
 
     @Override
