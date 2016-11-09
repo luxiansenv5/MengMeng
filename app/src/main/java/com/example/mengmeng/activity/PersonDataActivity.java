@@ -77,6 +77,7 @@ public class PersonDataActivity extends AppCompatActivity {
         contactsInfoBean = intent.getParcelableExtra("contactsInfoBean");
         //拿到用户的token和id
         user = intent.getParcelableExtra("user");
+        System.out.println("PersonData--=="+user.getUserName());
         MyToken = user.getToken();
         MyId =user.getUserId();
         MyName =user.getUserName();

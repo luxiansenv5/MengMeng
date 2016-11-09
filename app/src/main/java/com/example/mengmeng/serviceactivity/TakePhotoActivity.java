@@ -22,6 +22,7 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
+import com.example.mengmeng.activity.LoginInfo;
 import com.example.mengmeng.activity.R;
 import com.example.mengmeng.pojo.AdoaptInfo;
 import com.example.mengmeng.pojo.PetInfo;
@@ -39,8 +40,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
-
-import application.MyApplication;
 
 public class TakePhotoActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -112,7 +111,7 @@ public class TakePhotoActivity extends AppCompatActivity implements View.OnClick
                 if (sImage.getDrawable()==null){
                     Toast.makeText(this,"请为萌宠添加一张萌照",Toast.LENGTH_SHORT).show();
                 }else {
-                    Integer userId=((MyApplication)getApplication()).getUser().getUserId();
+                    Integer userId= LoginInfo.userId;
                     Integer petId=petInfo.petId;
                     String describle=et_desc.getText().toString();
 

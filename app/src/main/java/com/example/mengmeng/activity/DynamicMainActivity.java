@@ -80,7 +80,7 @@ public class DynamicMainActivity extends AppCompatActivity implements View.OnCli
         initView();
         initEvents();
 
-        initData();
+//        initData();
     }
 
     private void initData() {
@@ -89,15 +89,22 @@ public class DynamicMainActivity extends AppCompatActivity implements View.OnCli
         userId=intent.getIntExtra("userId",0);
 
         if (userId!=0){
+            newIndex=1;
             FragmentTransaction transaction=getSupportFragmentManager().beginTransaction();
             Bundle bundle=new Bundle();
             bundle.putInt("userId",userId);
 
-//            CommunicateFragment.instantiate(DynamicMainActivity.this,"CommunicateFragment",bundle);
-//            transaction.add(CommunicateFragment);
             communicateFragment.setArguments(bundle);
 
-//            transaction.add()
+            transaction.add(R.id.fl_content,communicateFragment,"communicateFragment");
+            transaction.commit();
+
+            tabs[oldIndex].setSelected(false);
+            //当前选择项，按钮被选中
+            tabs[newIndex].setSelected(true);
+
+            //当前选择项变为选中项
+            oldIndex=newIndex;
         }
     }
 

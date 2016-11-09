@@ -18,8 +18,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.mengmeng.activity.DynamicMainActivity;
+import com.example.mengmeng.activity.LoginInfo;
+import com.example.mengmeng.activity.PersonDataActivity;
 import com.example.mengmeng.activity.R;
+import com.example.mengmeng.pojo.ContactsInfoBean;
 import com.example.mengmeng.pojo.DetailsBean;
 import com.example.mengmeng.pojo.GetAdoptBean;
 import com.example.mengmeng.pojo.SingleComment;
@@ -38,7 +40,6 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import application.MyApplication;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 
@@ -76,6 +77,8 @@ public class ReleaseDetailsActivity extends AppCompatActivity implements View.On
     private List<SingleCommentAdapter> singleCommentAdapterList = new ArrayList<SingleCommentAdapter>();
     private ProgressBar xprogressBar;
     private Button wantadoapt;
+
+    ContactsInfoBean contactsInfoBean =null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -283,9 +286,9 @@ public class ReleaseDetailsActivity extends AppCompatActivity implements View.On
         }else{
 
             // 生成评论数据
-            SingleComment comment = new SingleComment(detailList.get(currentItem).getPublisherId(),((MyApplication)getApplication()).getUser().getUserId(),
+            SingleComment comment = new SingleComment(detailList.get(currentItem).getPublisherId(), LoginInfo.userId,
                     detailList.get(currentItem).getReleaseId(),comment_content.getText().toString(),
-                    flag);
+                    flag,LoginInfo.userPhoto);
 
             SingleCommentAdapter cp = singleCommentAdapterList.get(list_pager.getCurrentItem());
             if(cp!=null){
@@ -385,9 +388,13 @@ public class ReleaseDetailsActivity extends AppCompatActivity implements View.On
             case R.id.wantadopt:
 
                 int userId=detailList.get(currentItem).getPublisherId();
-                Intent intent=new Intent(ReleaseDetailsActivity.this, DynamicMainActivity.class);
+                getContacts(userId);
+                Intent intent=new Intent(ReleaseDetailsActivity.this, PersonDataActivity.class);
 
-                intent.putExtra("userId",userId);
+                Bundle bundle=new Bundle();
+                bundle.putParcelable("contactsInfoBean",contactsInfoBean);
+                System.out.println("ReleaseDetailsActivity=========="+contactsInfoBean.getUser().getUserName());
+                intent.putExtras(bundle);
 
                 startActivity(intent);
                 break;
@@ -396,4 +403,41 @@ public class ReleaseDetailsActivity extends AppCompatActivity implements View.On
         }
     }
 
+    public ContactsInfoBean getContacts(Integer userId){
+
+        RequestParams requestParams=new RequestParams(HttpUtils.HOST+"querysinglecontacts");
+        requestParams.addBodyParameter("userId",userId+"");
+
+
+        x.http().get(requestParams, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+
+                System.out.println("ReleaseDetailsActivity--result===="+result);
+
+                Gson gson=new Gson();
+
+                contactsInfoBean =gson.fromJson(result,ContactsInfoBean.class);
+
+
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+
+        return contactsInfoBean;
+    }
 }
