@@ -393,7 +393,6 @@ public class ReleaseDetailsActivity extends AppCompatActivity implements View.On
 
                 Bundle bundle=new Bundle();
                 bundle.putParcelable("contactsInfoBean",contactsInfoBean);
-                System.out.println("ReleaseDetailsActivity=========="+contactsInfoBean.getUser().getUserName());
                 intent.putExtras(bundle);
 
                 startActivity(intent);
@@ -408,7 +407,6 @@ public class ReleaseDetailsActivity extends AppCompatActivity implements View.On
         RequestParams requestParams=new RequestParams(HttpUtils.HOST+"querysinglecontacts");
         requestParams.addBodyParameter("userId",userId+"");
 
-
         x.http().get(requestParams, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
@@ -418,7 +416,6 @@ public class ReleaseDetailsActivity extends AppCompatActivity implements View.On
                 Gson gson=new Gson();
 
                 contactsInfoBean =gson.fromJson(result,ContactsInfoBean.class);
-
 
             }
 

@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.example.mengmeng.pojo.ContactsInfoBean;
 import com.example.mengmeng.pojo.User;
-import com.example.mengmeng.utils.HttpUtils;
 import com.example.mengmeng.utils.NetUtil;
 import com.example.mengmeng.utils.xUtilsImageUtils;
 
@@ -77,11 +76,10 @@ public class PersonDataActivity extends AppCompatActivity {
         Intent intent = getIntent();
         contactsInfoBean = intent.getParcelableExtra("contactsInfoBean");
         //拿到用户的token和id
-        user = intent.getParcelableExtra("user");
-        System.out.println("PersonData--=="+user.getUserName());
-        MyToken = user.getToken();
-        MyId =user.getUserId();
-        MyName =user.getUserName();
+//        user = intent.getParcelableExtra("user");
+        MyToken = LoginInfo.token;
+        MyId =LoginInfo.userId;
+        MyName =LoginInfo.name;
 
         //拿到联系人的token和id
         ContactsId = contactsInfoBean.getUser().getUserId();
