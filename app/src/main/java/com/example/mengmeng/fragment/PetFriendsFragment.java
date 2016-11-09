@@ -68,8 +68,8 @@ public class PetFriendsFragment extends BaseFragment {
     @Override
     public void initView() {
 
-
     }
+
 
     @Override
     public void initData() {
@@ -85,12 +85,6 @@ public class PetFriendsFragment extends BaseFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), PersonDataActivity.class);
-//                ContactsInfoBean contactsInfoBean = new ContactsInfoBean();
-//                contactsInfoBean = contactsInfoBeanList.get(position);
-//                Bundle bundle = new Bundle();
-//                bundle.putParcelable("contactsInfoBean",contactsInfoBean);
-//                intent.putExtras(bundle);
-//                System.out.println(contactsInfoBean.getUser().getAddress());
                 intent.putExtra("contactsInfoBean",contactsInfoBeanList.get(position));
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("user",user);
@@ -175,6 +169,8 @@ public class PetFriendsFragment extends BaseFragment {
 
                         View view = View.inflate(getActivity(), R.layout.list_view_item_activity, null);
                         ImageView iv_photo = ((ImageView) view.findViewById(R.id.iv_photo));
+
+
                         TextView tv_friName = ((TextView) view.findViewById(R.id.tv_friName));
                         TextView tv_address = ((TextView) view.findViewById(R.id.tv_address));
                         TextView tv_petName = ((TextView) view.findViewById(R.id.tv_petName));
@@ -182,6 +178,7 @@ public class PetFriendsFragment extends BaseFragment {
 
 //                        xUtilsImageUtils.display(iv_photo,HttpUtils.HOST_COMMUNICATIE+contactsInfoBeanList.get(position).getUser().getUserPhoto(),true);
                         xUtilsImageUtils.display(iv_photo, NetUtil.photo_url+contactsInfoBeanList.get(position).getUser().getUserPhoto(),true);
+
                         tv_petName.setText(contactsInfoBeanList.get(position).getPetInfo().petName);
                         tv_friName.setText(contactsInfoBeanList.get(position).getUser().getUserName());
                         tv_address.setText(contactsInfoBeanList.get(position).getUser().getAddress());

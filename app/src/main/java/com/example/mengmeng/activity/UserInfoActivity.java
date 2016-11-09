@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mengmeng.pojo.User;
 import com.example.mengmeng.utils.NetUtil;
@@ -86,6 +87,9 @@ public class UserInfoActivity extends AppCompatActivity {
         if (intent.getStringExtra("userId") != null) {
             String userId = intent.getStringExtra("userId");
             requestParams.addQueryStringParameter("userId", userId);
+            if(userId.equals(LoginInfo.userId)){
+                tvUserInfoAdduser.setVisibility(View.GONE);
+            }
         }
         if (intent.getStringExtra("userName") != null) {
             String userName = intent.getStringExtra("userName");
@@ -144,9 +148,43 @@ public class UserInfoActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.tv_userInfo_adduser:
+                addUser();
                 break;
-//
+
         }
+    }
+
+    private void addUser() {
+        RequestParams requestParams = new RequestParams(NetUtil.url + "AddFriendsServlet");
+        requestParams.addQueryStringParameter("friendId",userID+"");
+        requestParams.addQueryStringParameter("userId", LoginInfo.userId+"");
+
+        x.http().post(requestParams, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                if(result.equals("true")){
+                    Toast.makeText(UserInfoActivity.this, "添加成功", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(UserInfoActivity.this, "该好友已存在", Toast.LENGTH_SHORT).show();
+                }
+            }
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                Toast.makeText(UserInfoActivity.this, "添加失败，请检查网络设置", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+
+
     }
 
     @OnClick(R.id.rl_userInfo_pet)

@@ -31,11 +31,25 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private CheckBox cb_remeber;
     private TextView register;
     private TextView sign;
-
+    public boolean isFirstRun;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //第一次启动APP判断
+        SharedPreferences sharedPreferences = this.getSharedPreferences("share", MODE_PRIVATE);
+        isFirstRun = sharedPreferences.getBoolean("isFirstRun", true);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        if (isFirstRun)
+        {
+            Intent intent=new Intent(LoginActivity.this,ViewPagerActivity.class);
+            startActivity(intent);
+            editor.putBoolean("isFirstRun", false);
+            editor.apply();
+        }
+
+
+
         setContentView(R.layout.activity_login);
 
         ((Button) findViewById(R.id.btn_login)).setOnClickListener(this);

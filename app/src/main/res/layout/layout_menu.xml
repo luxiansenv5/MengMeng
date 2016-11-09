@@ -3,13 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
-
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
+        android:layout_marginTop="60dp"
         android:orientation="vertical" >
         <!--下面的Relativelayout是测试图片-->
         <RelativeLayout
@@ -18,10 +16,10 @@
             >
             <ImageView
                 android:id="@+id/background_head"
-                android:layout_width="110dp"
-                android:layout_height="75dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="20dp"
                 android:src="@drawable/robotdog"/>
             <TextView
                 android:id="@+id/count_name"
@@ -29,6 +27,7 @@
                 android:layout_height="wrap_content"
                 android:text="jack"
                 android:textSize="20dp"
+                android:textColor="#000"
                 android:layout_toRightOf="@+id/background_head"
                 android:layout_alignTop="@+id/background_head"
                 />
@@ -38,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/background_head"
                 android:layout_alignBottom="@+id/background_head"
-                android:visibility="visible"
+                android:visibility="gone"
                 android:text="登录"
                 android:textStyle="bold"
                 android:textSize="20dp"
