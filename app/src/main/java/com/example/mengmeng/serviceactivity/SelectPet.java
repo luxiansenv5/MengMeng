@@ -10,6 +10,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.mengmeng.activity.LoginInfo;
 import com.example.mengmeng.activity.R;
 import com.example.mengmeng.pojo.PetInfo;
 import com.example.mengmeng.pojo.User;
@@ -27,8 +28,6 @@ import org.xutils.x;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-
-import application.MyApplication;
 
 public class SelectPet extends AppCompatActivity {
 
@@ -94,7 +93,8 @@ public class SelectPet extends AppCompatActivity {
 
         Intent intent=getIntent();
         flag=intent.getIntExtra("flag",0);
-        user=((MyApplication)getApplication()).getUser();
+        user=new User(LoginInfo.userId,LoginInfo.name,LoginInfo.userPhoto,LoginInfo.address,LoginInfo.sex,LoginInfo.underWrite,LoginInfo.token,LoginInfo.userPsd);
+
         getPersonalPet();
     }
 
