@@ -127,6 +127,7 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
 
 
+
         <activity android:name="com.example.mengmeng.serviceactivity.AdoptActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name="com.example.mengmeng.serviceactivity.BakeiPagerActivity"
@@ -141,7 +142,7 @@
         //地图
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="623f47e651f3efd9538b805abded5ec5" />
+            android:value="546556c44628afa11a64b8da16ce3750" />
 
         <service android:name="com.amap.api.location.APSService" />
         //分享
