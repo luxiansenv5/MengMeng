@@ -79,8 +79,7 @@ public class PersonDataActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         contactsInfoBean = intent.getParcelableExtra("contactsInfoBean");
-//        contactsInfoBean=intent.getExtras().getParcelable("contactsInfoBean");
-        System.out.println(contactsInfoBean.getUser().getUserName());
+        System.out.println("userId"+contactsInfoBean.getUser().getUserId());
         MyToken = LoginInfo.token;
         MyId =LoginInfo.userId;
         MyName =LoginInfo.name;
@@ -103,8 +102,6 @@ public class PersonDataActivity extends AppCompatActivity {
         petAge.setText((contactsInfoBean.getPetInfo().petAge) + "岁");
         petKind.setText(contactsInfoBean.getPetInfo().petKind);
     }
-
-
 
     @OnClick(R.id.sendMessage)
     public void onClick() {

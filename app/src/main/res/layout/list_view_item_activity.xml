@@ -10,15 +10,15 @@
         android:src="@drawable/chongwu1"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
-        android:layout_width="80dp"
-        android:layout_height="80dp" />
+        android:layout_width="60dp"
+        android:layout_height="60dp" />
 
     <TextView
         android:id="@+id/tv_friName"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginTop="20dp"
-        android:textSize="20sp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:textSize="18sp"
         android:textColor="#000000"
         android:layout_marginLeft="20dp"
         android:layout_toRightOf="@id/iv_photo"
@@ -28,9 +28,9 @@
     <TextView
         android:id="@+id/tv_address"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textColor="#000000"
         android:layout_toRightOf="@id/tv_friName"
         android:layout_alignTop="@id/tv_friName"
@@ -39,7 +39,7 @@
     <TextView
         android:id="@+id/tv_petName"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:textSize="20sp"
         android:textColor="#000000"
         android:layout_marginLeft="20dp"
@@ -50,8 +50,8 @@
     <TextView
         android:id="@+id/tv_petkind"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:textSize="20sp"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
         android:textColor="#000000"
         android:layout_toRightOf="@id/tv_petName"
         android:layout_marginLeft="30dp"
