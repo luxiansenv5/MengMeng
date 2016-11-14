@@ -132,7 +132,7 @@ public class PetFriendsFragment extends BaseFragment {
 
 
         private void  deleteUserByUserId(){
-        RequestParams params=new RequestParams(HttpUtils.HOST_COMMUNICATIE+"deleteuserbyuserid");
+        RequestParams params=new RequestParams(HttpUtils.HOST+"deleteuserbyuserid");
         params.addQueryStringParameter("userId",userId+"");
         params.addQueryStringParameter("friId",friId+"");
         x.http().get(params, new Callback.CommonCallback<String>() {
@@ -214,7 +214,7 @@ public class PetFriendsFragment extends BaseFragment {
                 contactsInfoBeanList.addAll(newConList);
                 for (ContactsInfoBean contactsInfoBean : contactsInfoBeanList) {
                     RongIM.getInstance().refreshUserInfoCache(new UserInfo(contactsInfoBean.getUser().getUserId()+"",contactsInfoBean.getUser().getUserName(), Uri.parse(NetUtil.photo_url+contactsInfoBean.getUser().getUserPhoto())));
-                    Log.e("fimg", "onSuccess: "+contactsInfoBean.getUser().getUserPhoto());
+                    Log.e("fimg", "onSuccess: "+NetUtil.photo_url+contactsInfoBean.getUser().getUserPhoto());
                 }
                 adapter=new BaseAdapter() {
                     @Override
