@@ -59,28 +59,35 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".DynamicMainActivity" />
-        <activity android:name=".DynamicInfoActivity" />
-        <activity android:name=".UserInfoActivity" />
-        <activity android:name=".ReleaseActivity" />
-        <activity android:name=".PictureActivity" />
-        <activity android:name=".DingweiActivity" />
-        <activity android:name=".Count_setActivity" />
-        <activity android:name=".CommunicateGroupActivity" />
-        <activity android:name=".LoginActivity" >
+        <activity android:name=".DynamicMainActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".DynamicInfoActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".UserInfoActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".ReleaseActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".PictureActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".DingweiActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".Count_setActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".CommunicateGroupActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".LoginActivity"  android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
-
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
         </activity>
         <activity android:name=".ConversationActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize"
             >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
 
                 <data
@@ -90,32 +97,51 @@
             </intent-filter>
 
         </activity>
-        <activity android:name=".MainActivity" />
-        <activity android:name=".Mine_SetActivity" />
-        <activity android:name=".My_PetActivity" />
-        <activity android:name=".MyReleaseActivity" />
-        <activity android:name=".PersonDataActivity" />
-        <activity android:name=".Psd_setActivity" />
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".SubConversationListActivtiy" />
-        <activity android:name=".MyActivity" />
-        <activity android:name=".AddPetActivity" />
-        <activity android:name=".AboutActivity" />
-        <activity android:name=".SetAddressActivity" />
-        <activity android:name=".SetQianmingActivity" />
-        <activity android:name=".MyConcernActivity"/>
+        <activity android:name=".MainActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".Mine_SetActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".My_PetActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".MyReleaseActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".PersonDataActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".Psd_setActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".RegisterActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".SubConversationListActivtiy"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".MyActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".AddPetActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".AboutActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".SetAddressActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".SetQianmingActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".MyConcernActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
 
 
-        <activity android:name="com.example.mengmeng.serviceactivity.AdoptActivity"/>
-        <activity android:name="com.example.mengmeng.serviceactivity.BakeiPagerActivity"/>
-        <activity android:name="com.example.mengmeng.serviceactivity.ReleaseDetailsActivity"/>
-        <activity android:name="com.example.mengmeng.serviceactivity.SelectPet"/>
-        <activity android:name="com.example.mengmeng.serviceactivity.TakePhotoActivity"/>
+        <activity android:name="com.example.mengmeng.serviceactivity.AdoptActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name="com.example.mengmeng.serviceactivity.BakeiPagerActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name="com.example.mengmeng.serviceactivity.ReleaseDetailsActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name="com.example.mengmeng.serviceactivity.SelectPet"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name="com.example.mengmeng.serviceactivity.TakePhotoActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
 
         //地图
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="546556c44628afa11a64b8da16ce3750" />
+            android:value="623f47e651f3efd9538b805abded5ec5" />
 
         <service android:name="com.amap.api.location.APSService" />
         //分享

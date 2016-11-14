@@ -207,7 +207,7 @@
                 android:id="@+id/tv_place"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="夜间"
+                android:text="北京市（默认）"
                 android:layout_toRightOf="@+id/mine_night"
                 android:layout_alignBottom="@+id/mine_night"
                 android:layout_marginLeft="5dp"/>

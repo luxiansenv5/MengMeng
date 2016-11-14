@@ -75,7 +75,7 @@
         android:id="@+id/tv_release_place"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="所在位置"
+        android:text="北京市（默认）"
         android:layout_toRightOf="@id/iv_release_place"
         android:layout_alignTop="@id/iv_release_place"
         android:textSize="16dp"
