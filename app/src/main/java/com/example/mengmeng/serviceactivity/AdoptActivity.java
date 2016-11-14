@@ -233,7 +233,7 @@ public class AdoptActivity extends AppCompatActivity implements RefreshListView.
                             tv_releasetime.setText(petInfo.getReleaseTime()+"");
                             xUtilsImageUtils.display(iv_petPhoto, HttpUtils.HOST_PIC + petInfo.getPetPhoto(), true);
 
-                            System.out.println("adoptActivity-pic==="+HttpUtils.HOST_PIC + petInfo.getPetPhoto());
+                            //System.out.println("adoptActivity-pic==="+HttpUtils.HOST_PIC + petInfo.getPetPhoto());
                         }
 
                     };
