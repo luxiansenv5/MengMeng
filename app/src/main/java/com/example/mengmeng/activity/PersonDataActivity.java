@@ -79,12 +79,12 @@ public class PersonDataActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         contactsInfoBean = intent.getParcelableExtra("contactsInfoBean");
-        //拿到用户的token和id
-//        user = intent.getParcelableExtra("user");
+//        contactsInfoBean=intent.getExtras().getParcelable("contactsInfoBean");
+        System.out.println(contactsInfoBean.getUser().getUserName());
         MyToken = LoginInfo.token;
         MyId =LoginInfo.userId;
         MyName =LoginInfo.name;
-
+        System.out.println("已进入PersonDataActivity");
         //拿到联系人的token和id
         ContactsId = contactsInfoBean.getUser().getUserId();
         ContactsToken = contactsInfoBean.getUser().getToken();
@@ -129,7 +129,7 @@ public class PersonDataActivity extends AppCompatActivity {
                  *
                  * @param userInfo 需要更新的用户缓存数据。
                  */
-                RongIM.getInstance().refreshUserInfoCache(new UserInfo(MyId+"",MyName, Uri.parse( NetUtil.photo_url+ user.getUserPhoto())));
+                RongIM.getInstance().refreshUserInfoCache(new UserInfo(MyId+"",MyName, Uri.parse( NetUtil.photo_url+ LoginInfo.userPhoto)));
                 Log.e("img", "onSuccess: "+NetUtil.photo_url + contactsInfoBean.getUser().getUserPhoto());
                 Log.e("img", "onSuccess: "+MyId );
             }

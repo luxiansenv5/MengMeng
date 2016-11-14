@@ -3,188 +3,110 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-    android:id="@+id/iv_petImage"
-    android:layout_below="@id/toobar"
-    android:layout_width="match_parent"
-    android:src="@drawable/lingyang"
-    android:layout_height="200dp" />
+   <RelativeLayout
+       android:id="@+id/manyView"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content">
 
-    <ImageView
-    android:id="@+id/iv_ApetPhoto"
-    android:layout_width="70dp"
-    android:layout_height="70dp"
-    android:src="@mipmap/ic_launcher"
-    android:layout_below="@id/iv_petImage"
-    android:layout_marginLeft="12dp"
-    android:layout_marginTop="10dp"/>
+       <ImageView
+           android:id="@+id/iv_petImage"
+           android:layout_below="@id/toobar"
+           android:layout_width="match_parent"
+           android:src="@drawable/lingyang"
+           android:layout_height="200dp" />
 
-    <TextView
-    android:id="@+id/tv_ApetName"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textColor="#000"
-    android:text="二哈"
-    android:textSize="20sp"
-    android:layout_toRightOf="@id/iv_ApetPhoto"
-    android:layout_alignTop="@id/iv_ApetPhoto"
-    android:layout_marginTop="10dp"
-    android:layout_marginLeft="10dp"/>
+       <ImageView
+           android:id="@+id/iv_ApetPhoto"
+           android:layout_width="70dp"
+           android:layout_height="70dp"
+           android:src="@mipmap/ic_launcher"
+           android:layout_below="@id/iv_petImage"
+           android:layout_marginLeft="12dp"
+           android:layout_marginTop="10dp"/>
 
-    <TextView
-    android:id="@+id/tv_ApetType"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textColor="#000"
-    android:text="哈士奇"
-    android:textSize="20sp"
-    android:layout_toRightOf="@id/iv_ApetPhoto"
-    android:layout_alignBottom="@id/iv_ApetPhoto"
-    android:layout_marginTop="5dp"
-    android:layout_marginLeft="10dp"/>
+       <TextView
+           android:id="@+id/tv_ApetName"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:textColor="#000"
+           android:text="二哈"
+           android:textSize="20sp"
+           android:layout_toRightOf="@id/iv_ApetPhoto"
+           android:layout_alignTop="@id/iv_ApetPhoto"
+           android:layout_marginTop="10dp"
+           android:layout_marginLeft="10dp"/>
 
-    <TextView
-    android:id="@+id/tv_desc"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textColor="#000"
-    android:text="描述与要求："
-    android:textSize="20sp"
-    android:layout_below="@id/iv_ApetPhoto"
-    android:layout_marginLeft="12dp"
-    android:layout_marginTop="10dp"/>
+       <TextView
+           android:id="@+id/tv_ApetType"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:textColor="#000"
+           android:text="哈士奇"
+           android:textSize="20sp"
+           android:layout_toRightOf="@id/iv_ApetPhoto"
+           android:layout_alignBottom="@id/iv_ApetPhoto"
+           android:layout_marginTop="5dp"
+           android:layout_marginLeft="10dp"/>
 
-    <TextView
-    android:id="@+id/tv_realDesc"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_toRightOf="@id/tv_desc"
-    android:layout_alignTop="@id/tv_desc"
-    android:textColor="#000"
-    android:textSize="20sp"
-    android:text="狗狗很乖呦,也很可爱，只要对它好就可以领养他"/>
+       <TextView
+           android:id="@+id/tv_desc"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:textColor="#000"
+           android:text="描述与要求："
+           android:textSize="20sp"
+           android:layout_below="@id/iv_ApetPhoto"
+           android:layout_marginLeft="12dp"
+           android:layout_marginTop="10dp"/>
 
-    <TextView
-    android:id="@+id/tv_publisher"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_below="@id/tv_realDesc"
-    android:textColor="#000"
-    android:textSize="20sp"
-    android:text="发布人："
-    android:layout_marginLeft="12dp"/>
+       <TextView
+           android:id="@+id/tv_realDesc"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_toRightOf="@id/tv_desc"
+           android:layout_alignTop="@id/tv_desc"
+           android:textColor="#000"
+           android:textSize="20sp"
+           android:text="狗狗很乖呦,也很可爱，只要对它好就可以领养他"/>
 
-    <ImageView
-    android:id="@+id/iv_publisherPhoto"
-    android:layout_width="35dp"
-    android:layout_height="35dp"
-    android:layout_toRightOf="@id/tv_publisher"
-    android:layout_alignTop="@id/tv_publisher"
-    android:src="@mipmap/ic_launcher"/>
+       <TextView
+           android:id="@+id/tv_publisher"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_below="@id/tv_realDesc"
+           android:textColor="#000"
+           android:textSize="20sp"
+           android:text="发布人："
+           android:layout_marginLeft="12dp"/>
 
-    <TextView
-    android:id="@+id/tv_publisherName"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textColor="#000"
-    android:text="小强"
-    android:textSize="20sp"
-    android:layout_toRightOf="@id/tv_publisher"
-    android:layout_alignTop="@id/tv_publisher"
-    android:layout_marginLeft="45dp"/>
+       <ImageView
+           android:id="@+id/iv_publisherPhoto"
+           android:layout_width="35dp"
+           android:layout_height="35dp"
+           android:layout_toRightOf="@id/tv_publisher"
+           android:layout_alignTop="@id/tv_publisher"
+           android:src="@mipmap/ic_launcher"/>
 
+       <TextView
+           android:id="@+id/tv_publisherName"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:textColor="#000"
+           android:text="小强"
+           android:textSize="20sp"
+           android:layout_toRightOf="@id/tv_publisher"
+           android:layout_alignTop="@id/tv_publisher"
+           android:layout_marginLeft="45dp"/>
+
+
+   </RelativeLayout>
     <ListView
         android:id="@+id/comment_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="50dp"
-        android:layout_below="@id/tv_publisherName"
+        android:layout_below="@id/manyView"
         />
 
-    <!--<LinearLayout-->
-        <!--android:id="@+id/rl_enroll"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="50dp"-->
-        <!--android:orientation="horizontal"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:background="@color/white">-->
-
-        <!--<Button-->
-            <!--android:id="@+id/wantadopt"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="32dp"-->
-            <!--android:layout_alignParentBottom="true"-->
-            <!--android:background="#11000000"-->
-            <!--android:text="联系Ta"-->
-            <!--android:layout_gravity="center"-->
-            <!--android:textColor="#99ff0000"-->
-            <!--android:layout_weight="1"-->
-            <!--android:textSize="20sp"/>-->
-
-        <!--<ImageView-->
-            <!--android:id="@+id/comment"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="32dp"-->
-            <!--android:src="@drawable/comment"-->
-            <!--android:layout_weight="1"-->
-            <!--android:layout_gravity="center"-->
-            <!--android:background="#11000000" />-->
-
-    <!--</LinearLayout>-->
-
-    <!--<RelativeLayout-->
-        <!--android:id="@+id/rl_comment"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="50dp"-->
-        <!--android:background="@color/white"-->
-        <!--android:visibility="gone"-->
-        <!--android:layout_alignParentBottom="true">-->
-
-        <!--<View-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="1dp"-->
-            <!--android:background="@color/grey" />-->
-
-        <!--<TextView-->
-            <!--android:id="@+id/hide_down"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="@string/hide_down"-->
-            <!--android:textSize="13sp"-->
-            <!--android:textColor="@color/txtgrey"-->
-            <!--android:drawableBottom="@drawable/hide_dowm"-->
-            <!--android:layout_alignParentLeft="true"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:layout_marginLeft="10dp"/>-->
-        <!--<View-->
-            <!--android:layout_width="1dp"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:background="@color/grey"-->
-            <!--android:layout_toRightOf="@id/hide_down"-->
-            <!--android:layout_marginLeft="10dp"/>-->
-        <!--<EditText-->
-            <!--android:id="@+id/comment_content"-->
-            <!--android:hint="@string/comment_content"-->
-            <!--android:textSize="15sp"-->
-            <!--android:singleLine="true"-->
-            <!--android:layout_width="240dp"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:background="@null"-->
-            <!--android:layout_toRightOf="@id/hide_down"-->
-            <!--android:layout_marginLeft="20dp"/>-->
-
-        <!--<Button-->
-            <!--android:id="@+id/comment_send"-->
-            <!--android:layout_width="50dp"-->
-            <!--android:layout_height="35dp"-->
-            <!--android:layout_margin="5dp"-->
-            <!--android:text="@string/send"-->
-            <!--android:textSize="13sp"-->
-            <!--android:textColor="@color/white"-->
-            <!--android:background="@color/mainColor"-->
-            <!--android:layout_alignParentRight="true"-->
-            <!--android:layout_marginRight="10dp"-->
-            <!--android:layout_marginLeft="15dp"/>-->
-    <!--</RelativeLayout>-->
 </RelativeLayout>
