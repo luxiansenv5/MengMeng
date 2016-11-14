@@ -17,10 +17,7 @@ public class User implements Parcelable {
 	
 	public User(){}
 
-	public User(Integer userId,String userName){
-		this.userId=userId;
-		this.userName=userName;
-	}
+
 
 	public User(Integer userId){
 		this.userId=userId;
@@ -33,7 +30,11 @@ public class User implements Parcelable {
 		this.userPhoto = userPhoto;
 		this.address = address;
 	}
+	public User( Integer userId,String userName){
 
+		this.userId = userId;
+		this.userName = userName;
+	}
 
 	public User(Integer userId, String userName, String userPhoto
 			){

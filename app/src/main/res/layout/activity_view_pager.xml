@@ -46,7 +46,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
-        android:text="进入应用"
+        android:text="点此进入"
         android:gravity="center"
         android:textSize="18dp"
         android:visibility="gone"

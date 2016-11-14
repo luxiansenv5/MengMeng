@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -34,15 +35,18 @@ public class PersonDataActivity extends AppCompatActivity {
     private TextView petAge;
     private TextView petKind;
     private TextView petSex;
+    private Button deleteFri;
 
 
     ContactsInfoBean contactsInfoBean;
+    Integer userId;
     User user;
     String MyToken;
     Integer MyId;
     String MyName;
     String ContactsToken;
     Integer ContactsId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,8 +102,8 @@ public class PersonDataActivity extends AppCompatActivity {
         petSex.setText(contactsInfoBean.getPetInfo().petSex == true ? "man" : "woman");
         petAge.setText((contactsInfoBean.getPetInfo().petAge) + "岁");
         petKind.setText(contactsInfoBean.getPetInfo().petKind);
-
     }
+
 
 
     @OnClick(R.id.sendMessage)

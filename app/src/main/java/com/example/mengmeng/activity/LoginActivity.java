@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,20 +27,32 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private EditText et_userName;
     private EditText et_userPsd;
-    private CheckBox cb_remeber;
     private TextView register;
     private TextView sign;
-
+    public boolean isFirstRun;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //第一次启动APP判断
+        SharedPreferences sharedPreferences = this.getSharedPreferences("share", MODE_PRIVATE);
+        isFirstRun = sharedPreferences.getBoolean("isFirstRun", true);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        if (isFirstRun)
+        {
+            Intent intent=new Intent(LoginActivity.this,ViewPagerActivity.class);
+            startActivity(intent);
+            editor.putBoolean("isFirstRun", false);
+            editor.apply();
+        }
+
+
+
         setContentView(R.layout.activity_login);
 
         ((Button) findViewById(R.id.btn_login)).setOnClickListener(this);
         et_userName = ((EditText) findViewById(R.id.et_userName));
         et_userPsd = ((EditText) findViewById(R.id.et_userPsd));
-        cb_remeber = ((CheckBox) findViewById(R.id.cb_remeber));
         register = ((TextView) findViewById(R.id.register));
         sign = ((TextView) findViewById(R.id.sign));
 
@@ -51,7 +62,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         boolean remeberName = shared_prefs.getBoolean("remeberName",false);
 
         et_userName.setText(loginName);
-        cb_remeber.setChecked(remeberName);
 
 
         register.setOnClickListener(new View.OnClickListener() {

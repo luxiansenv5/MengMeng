@@ -37,6 +37,7 @@ import com.example.mengmeng.activity.MyReleaseActivity;
 import com.example.mengmeng.activity.My_PetActivity;
 import com.example.mengmeng.activity.R;
 import com.example.mengmeng.utils.NetUtil;
+import com.example.mengmeng.utils.xUtilsImageUtils;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
@@ -88,6 +89,7 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener ,
             location();
 
             background_head = ((ImageView) view.findViewById(R.id.background_head));//头像的背景图片
+            xUtilsImageUtils.display(background_head,NetUtil.photo_url+LoginInfo.userPhoto,true);
             background_head.setOnClickListener(this);
 
             mine_set = ((RelativeLayout) view.findViewById(R.id.mine_set));
@@ -103,10 +105,12 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener ,
 
             //拿到显示的用户名
             count_name = ((TextView) view.findViewById(R.id.count_name));
+            count_name.setText(LoginInfo.name);
+
             SharedPreferences shared_prefs = getActivity().getSharedPreferences("userinfo_shared_prefs", Context.MODE_PRIVATE);
             String loginName = shared_prefs.getString("loginName","");
             System.out.print(loginName+"jkgsn nskdjgnjksdngjk snjkgsngjksngjksgnksgnsjkgnsjkgns");
-            count_name.setText(loginName);
+
 
             //拿到我的宠物部分点击控件
             my_pet_set = ((RelativeLayout) view.findViewById(R.id.my_pet_set));
