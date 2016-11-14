@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.3"
 
     defaultConfig {
-        applicationId "com.example.mengmeng.activity"
+        applicationId "com.example.mengmeng"
         minSdkVersion 15
         targetSdkVersion 23
         versionCode 1
