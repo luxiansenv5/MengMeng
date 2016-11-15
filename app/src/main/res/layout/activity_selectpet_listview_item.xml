@@ -45,7 +45,4 @@
         android:textSize="18sp"
         android:text="1岁"/>
 
-    <View style="@style/bg_line"
-        android:layout_alignParentBottom="true"/>
-
 </RelativeLayout>

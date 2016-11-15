@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.example.mengmeng.pojo.ContactsInfoBean;
 import com.example.mengmeng.pojo.User;
-import com.example.mengmeng.utils.HttpUtils;
 import com.example.mengmeng.utils.NetUtil;
 import com.example.mengmeng.utils.xUtilsImageUtils;
 
@@ -80,13 +79,11 @@ public class PersonDataActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         contactsInfoBean = intent.getParcelableExtra("contactsInfoBean");
-        //拿到用户的token和id
-        user = intent.getParcelableExtra("user");
-        System.out.println("PersonData--=="+user.getUserName());
-        MyToken = user.getToken();
-        MyId =user.getUserId();
-        MyName =user.getUserName();
-
+        System.out.println("userId"+contactsInfoBean.getUser().getUserId());
+        MyToken = LoginInfo.token;
+        MyId =LoginInfo.userId;
+        MyName =LoginInfo.name;
+        System.out.println("已进入PersonDataActivity");
         //拿到联系人的token和id
         ContactsId = contactsInfoBean.getUser().getUserId();
         ContactsToken = contactsInfoBean.getUser().getToken();
@@ -105,8 +102,6 @@ public class PersonDataActivity extends AppCompatActivity {
         petAge.setText((contactsInfoBean.getPetInfo().petAge) + "岁");
         petKind.setText(contactsInfoBean.getPetInfo().petKind);
     }
-
-
 
     @OnClick(R.id.sendMessage)
     public void onClick() {
@@ -131,7 +126,7 @@ public class PersonDataActivity extends AppCompatActivity {
                  *
                  * @param userInfo 需要更新的用户缓存数据。
                  */
-                RongIM.getInstance().refreshUserInfoCache(new UserInfo(MyId+"",MyName, Uri.parse( NetUtil.photo_url+ user.getUserPhoto())));
+                RongIM.getInstance().refreshUserInfoCache(new UserInfo(MyId+"",MyName, Uri.parse( NetUtil.photo_url+ LoginInfo.userPhoto)));
                 Log.e("img", "onSuccess: "+NetUtil.photo_url + contactsInfoBean.getUser().getUserPhoto());
                 Log.e("img", "onSuccess: "+MyId );
             }

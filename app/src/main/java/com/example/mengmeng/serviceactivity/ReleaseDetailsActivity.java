@@ -77,8 +77,7 @@ public class ReleaseDetailsActivity extends AppCompatActivity implements View.On
     private List<SingleCommentAdapter> singleCommentAdapterList = new ArrayList<SingleCommentAdapter>();
     private ProgressBar xprogressBar;
     private Button wantadoapt;
-
-    ContactsInfoBean contactsInfoBean =null;
+    ContactsInfoBean contactsInfoBean=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -181,7 +180,7 @@ public class ReleaseDetailsActivity extends AppCompatActivity implements View.On
                 for (DetailsBean detailsBean : detailList) {
 
                     View view= LayoutInflater.from(ReleaseDetailsActivity.this).inflate(R.layout.fragment_viewpage,null);
-
+                    RelativeLayout manyView=((RelativeLayout) view.findViewById(R.id.manyView));
                     iv_petImage = ((ImageView) view.findViewById(R.id.iv_petImage));
                     iv_ApetPhoto = ((ImageView) view.findViewById(R.id.iv_ApetPhoto));
                     tv_ApetName = ((TextView) view.findViewById(R.id.tv_ApetName));
@@ -191,6 +190,7 @@ public class ReleaseDetailsActivity extends AppCompatActivity implements View.On
                     iv_publisherPhoto = ((ImageView) view.findViewById(R.id.iv_publisherPhoto));
                     // 初始化评论列表
                     ListView comment_list = (ListView) view.findViewById(R.id.comment_list);
+//                    comment_list.addHeaderView(manyView);
                     getComment(comment_list,detailsBean);
 
                     xUtilsImageUtils.display(iv_petImage,HttpUtils.HOST_PIC+detailsBean.getPetImage());
@@ -288,7 +288,7 @@ public class ReleaseDetailsActivity extends AppCompatActivity implements View.On
             // 生成评论数据
             SingleComment comment = new SingleComment(detailList.get(currentItem).getPublisherId(), LoginInfo.userId,
                     detailList.get(currentItem).getReleaseId(),comment_content.getText().toString(),
-                    flag,LoginInfo.userPhoto);
+                    flag,LoginInfo.userPhoto,LoginInfo.name);
 
             SingleCommentAdapter cp = singleCommentAdapterList.get(list_pager.getCurrentItem());
             if(cp!=null){
@@ -389,37 +389,30 @@ public class ReleaseDetailsActivity extends AppCompatActivity implements View.On
 
                 int userId=detailList.get(currentItem).getPublisherId();
                 getContacts(userId);
-                Intent intent=new Intent(ReleaseDetailsActivity.this, PersonDataActivity.class);
-
-                Bundle bundle=new Bundle();
-                bundle.putParcelable("contactsInfoBean",contactsInfoBean);
-                System.out.println("ReleaseDetailsActivity=========="+contactsInfoBean.getUser().getUserName());
-                intent.putExtras(bundle);
-
-                startActivity(intent);
                 break;
             default:
                 break;
         }
     }
 
-    public ContactsInfoBean getContacts(Integer userId){
+    public void getContacts(Integer userId){
 
         RequestParams requestParams=new RequestParams(HttpUtils.HOST+"querysinglecontacts");
         requestParams.addBodyParameter("userId",userId+"");
-
 
         x.http().get(requestParams, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
 
-                System.out.println("ReleaseDetailsActivity--result===="+result);
-
                 Gson gson=new Gson();
 
                 contactsInfoBean =gson.fromJson(result,ContactsInfoBean.class);
 
+                Intent intent=new Intent(ReleaseDetailsActivity.this, PersonDataActivity.class);
 
+                intent.putExtra("contactsInfoBean", contactsInfoBean);
+
+                startActivity(intent);
             }
 
             @Override
@@ -438,6 +431,5 @@ public class ReleaseDetailsActivity extends AppCompatActivity implements View.On
             }
         });
 
-        return contactsInfoBean;
     }
 }
