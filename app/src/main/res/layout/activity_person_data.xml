@@ -19,9 +19,10 @@
             android:layout_height="80dp" />
         <TextView
             android:text="TA"
-            android:layout_toLeftOf="@+id/person_name"
+
             android:layout_below="@+id/person_photo"
             android:layout_marginRight="20dp"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="30dp"
             android:textSize="20sp"
             android:layout_width="wrap_content"
@@ -41,7 +42,7 @@
 
         <TextView
             android:text="地址"
-            android:layout_toLeftOf="@+id/person_name"
+            android:layout_marginLeft="10dp"
             android:layout_below="@+id/person_name"
             android:layout_marginRight="20dp"
             android:layout_marginTop="30dp"
@@ -62,7 +63,7 @@
 
         <TextView
             android:text="性别"
-            android:layout_toLeftOf="@+id/person_name"
+            android:layout_marginLeft="10dp"
             android:layout_below="@+id/person_address"
             android:layout_marginRight="20dp"
             android:layout_marginTop="30dp"
@@ -83,12 +84,12 @@
 
         <TextView
             android:id="@+id/qianming"
-            android:text="个性签名"
+            android:text="个性签名:"
             android:layout_below="@+id/person_sex"
             android:textSize="20sp"
             android:layout_marginRight="60dp"
             android:layout_marginTop="30dp"
-            android:layout_toLeftOf="@+id/vLine"
+           android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
